@@ -103,8 +103,55 @@ func update_augments() -> void:
 			for augment in card.augments:
 				player_augments.append(augment)
 
-func add_card(card:Card):
+func add_card(card : Card) -> void :
 	cards.append(card)
 	update_stats()
 	update_augments()
+	resolve_augoments()
 	
+func resolve_augoments() -> void :
+	for augment in player_augments:
+		match augment:
+			'thorns':
+				#enemies takes damage as they damage you
+				pass
+			'reverse thorns':
+				#YOU take damage as you damage enemies
+				pass
+			'vamp':
+				#you heal 20% damage you deal
+				pass
+			'tainted':
+				#you cant heal or regenerate during battle
+				pass
+			'vulnerable':
+				#you take double damage
+				pass
+			'swiftness':
+				#the faster you are the more damage you deal
+				pass
+			'slow and steady':
+				#you can't gain more attack speed, but your damage is increased by your bonus attack speed
+				pass
+			'scopiest weapons':
+				#gain range
+				pass
+			'grounded':
+				#cant jump
+				pass
+			'regen':
+				#constantly heal
+				pass
+			'poisoned':
+				#constantly loose hp
+				pass
+			'nearsighted':
+				#-80%range
+				pass
+			'glass cannon':
+				#x5damage but -80% max hp
+				pass
+			'aronist':
+				#when you kill an enemy explosion appears that deals damage to other nerby enemies
+				pass
+			
