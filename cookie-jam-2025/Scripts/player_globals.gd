@@ -27,37 +27,6 @@ var damage = (BASE_DAMAGE + damage_add) * damage_mult
 var max_hp = (BASE_HP + max_hp_add) * max_hp_mult
 var max_jumps = BASE_MAX_JUMPS + max_jumps_add
 
-var cards : Array[Card]
-func update_modifiers() -> void:
-	speed_add = 0.0
-	jump_add = 0.0
-	attack_speed_add =0.0
-	damage_add =0.0
-	max_hp_add =0.0
-	max_jumps_add = 0.0
-	
-	speed_mult = 1.0
-	jump_mult = 1.0
-	attack_speed_mult =1.0
-	damage_mult =1.0
-	max_hp_mult =1.0
-	var player_modifiers : Array[Modifier]
-	for card in cards:
-		if len(card.modifiers)>0:
-			for modifier in card.modifiers:
-				player_modifiers.append(modifier)
-	for modifier in player_modifiers:
-		modify_stat(modifier.stat,modifier.type,modifier.value)
-		
-	
-func update_stats() -> void:
-	update_modifiers()
-	speed = (BASE_SPEED + speed_add) * speed_mult
-	jump = (BASE_JUMP + jump_add) * jump_mult
-	attack_speed = (BASE_ATTACK_SPEED + attack_speed_add) * attack_speed_mult
-	damage = (BASE_DAMAGE + damage_add) * damage_mult
-	max_hp = (BASE_HP + max_hp_add) * max_hp_mult
-	max_jumps = BASE_MAX_JUMPS + max_jumps_add
 #stats are: speed, jump, attack_speed, damage, max_hp, max_jumps
 #types are: a, m (for additive and multiplicative)
 #value is float value that will be added to specified modifier
@@ -93,5 +62,49 @@ func modify_stat(stat: String, type:String, value:float) -> void:
 			if type == 'a':
 				max_jumps+=value
 
+var cards : Array[Card]
+var player_modifiers : Array[Modifier]
+var player_augments : Array[String]
 
+func update_modifiers() -> void:
+	speed_add = 0.0
+	jump_add = 0.0
+	attack_speed_add =0.0
+	damage_add =0.0
+	max_hp_add =0.0
+	max_jumps_add = 0.0
+	
+	speed_mult = 1.0
+	jump_mult = 1.0
+	attack_speed_mult =1.0
+	damage_mult =1.0
+	max_hp_mult =1.0
+	player_modifiers.clear()
+	for card in cards:
+		if len(card.modifiers)>0:
+			for modifier in card.modifiers:
+				player_modifiers.append(modifier)
+	for modifier in player_modifiers:
+		modify_stat(modifier.stat,modifier.type,modifier.value)
+		
+func update_stats() -> void:
+	update_modifiers()
+	speed = (BASE_SPEED + speed_add) * speed_mult
+	jump = (BASE_JUMP + jump_add) * jump_mult
+	attack_speed = (BASE_ATTACK_SPEED + attack_speed_add) * attack_speed_mult
+	damage = (BASE_DAMAGE + damage_add) * damage_mult
+	max_hp = (BASE_HP + max_hp_add) * max_hp_mult
+	max_jumps = BASE_MAX_JUMPS + max_jumps_add
+
+func update_augments() -> void:
+	player_augments.clear()
+	for card in cards:
+		if len(card.augments)>0:
+			for augment in card.augments:
+				player_augments.append(augment)
+
+func add_card(card:Card):
+	cards.append(card)
+	update_stats()
+	update_augments()
 	
