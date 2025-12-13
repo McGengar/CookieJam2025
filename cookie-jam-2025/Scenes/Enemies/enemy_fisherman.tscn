@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://btif21jpb4ika"]
+
+[ext_resource type="Script" uid="uid://bnnborctaw2xc" path="res://Scripts/Enemies/enemy_fisherman.gd" id="1_3mqvg"]
+[ext_resource type="Texture2D" uid="uid://b1aqvmp2idbxo" path="res://Sprites/Enemies/rybuszcz.png" id="2_aradn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0egdc"]
+size = Vector2(6, 79)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3mqvg"]
+radius = 481.17563
+
+[node name="enemy_fisherman" type="CharacterBody2D" groups=["enemies"]]
+script = ExtResource("1_3mqvg")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_aradn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 8.5)
+shape = SubResource("RectangleShape2D_0egdc")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_3mqvg")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

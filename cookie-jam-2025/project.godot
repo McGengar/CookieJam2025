@@ -18,6 +18,11 @@ config/icon="res://Other/icon.svg"
 
 Player_globals="*res://Scripts/player_globals.gd"
 
+[global_group]
+
+enemies=""
+player=""
+
 [input]
 
 move_left={
@@ -38,5 +43,6 @@ jump={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=3
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

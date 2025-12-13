@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://j7cwu7ssm5ya"]
+[gd_scene load_steps=5 format=3 uid="uid://j7cwu7ssm5ya"]
 
 [ext_resource type="PackedScene" uid="uid://b28v44l23vdu4" path="res://Scenes/casino_tileset.tscn" id="1_f6slu"]
 [ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/props_tileset.tscn" id="2_fr3la"]
 [ext_resource type="PackedScene" uid="uid://djxi0b3154gc3" path="res://Scenes/Player.tscn" id="3_pkws4"]
+[ext_resource type="PackedScene" uid="uid://btif21jpb4ika" path="res://Scenes/Enemies/enemy_fisherman.tscn" id="4_s7ctl"]
 
 [node name="level_01" type="Node2D"]
 
@@ -17,3 +18,6 @@ layer_0/tile_data = PackedInt32Array(-65526, 1441792, 3, 10, 1441792, 4, 65546, 
 
 [node name="Player" parent="." instance=ExtResource("3_pkws4")]
 position = Vector2(155, -4)
+
+[node name="enemy_fisherman" parent="." instance=ExtResource("4_s7ctl")]
+position = Vector2(-784, -18)

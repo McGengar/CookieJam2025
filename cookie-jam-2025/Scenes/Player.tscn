@@ -5,8 +5,8 @@ resource_name = "player"
 script/source = "extends CharacterBody2D
 
 
-var SPEED = Player_globals.player_speed
-var JUMP_VELOCITY = Player_globals.jump_velocity
+var SPEED = Player_globals.speed
+var JUMP_VELOCITY = Player_globals.jump
 
 
 func _physics_process(delta):
