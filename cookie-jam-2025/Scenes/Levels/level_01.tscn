@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://j7cwu7ssm5ya"]
+[gd_scene load_steps=12 format=3 uid="uid://j7cwu7ssm5ya"]
 
 [ext_resource type="PackedScene" uid="uid://b28v44l23vdu4" path="res://Scenes/Tilesets/casino_tileset.tscn" id="1_wf6s8"]
 [ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/Tilesets/props_tileset.tscn" id="2_dbq10"]
@@ -9,6 +9,8 @@
 [ext_resource type="PackedScene" uid="uid://dbmcm3kltjx4f" path="res://Scenes/Enemies/enemy_dziad.tscn" id="6_taws2"]
 [ext_resource type="PackedScene" uid="uid://vsowvgmxr1up" path="res://Scenes/Enemies/enemy_fortune_wheel.tscn" id="7_mb1if"]
 [ext_resource type="PackedScene" uid="uid://d37bquf20litu" path="res://Scenes/Enemies/slots_machine.tscn" id="8_bmcj7"]
+[ext_resource type="PackedScene" uid="uid://daa38d86v1u5u" path="res://Scenes/Enemies/enemy_hag.tscn" id="10_j0t0u"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/enemy_mountain.tscn" id="11_g38v2"]
 
 [node name="level_01" type="Node2D"]
 
@@ -42,7 +44,7 @@ position = Vector2(-837, 19)
 position = Vector2(-2082, 554)
 
 [node name="WaveManager" parent="." node_paths=PackedStringArray("spawn_points_container") instance=ExtResource("5_taws2")]
-possible_enemies = Array[PackedScene]([ExtResource("6_taws2"), ExtResource("5_dbq10"), ExtResource("7_mb1if"), ExtResource("4_mb1if")])
+possible_enemies = Array[PackedScene]([ExtResource("6_taws2"), ExtResource("5_dbq10"), ExtResource("7_mb1if"), ExtResource("4_mb1if"), ExtResource("10_j0t0u"), ExtResource("11_g38v2")])
 spawn_points_container = NodePath("../SpawnPoints")
 enemies_in_first_wave = 2
 max_waves = 3

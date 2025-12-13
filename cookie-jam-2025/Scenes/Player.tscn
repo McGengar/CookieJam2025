@@ -1,11 +1,12 @@
-[gd_scene load_steps=23 format=3 uid="uid://was10nolxbaj"]
+[gd_scene load_steps=24 format=3 uid="uid://was10nolxbaj"]
 
 [ext_resource type="Texture2D" uid="uid://c4yrr3542a13n" path="res://Sprites/ani_1_ver.png" id="1_dewec"]
-[ext_resource type="Script" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
+[ext_resource type="Script" uid="uid://bdid18rcqjcb7" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
 [ext_resource type="Texture2D" uid="uid://b42vjrbdb4fbi" path="res://Sprites/slash_sprite_sheet.png" id="1_rpqav"]
 [ext_resource type="PackedScene" uid="uid://r7jl6epbow87" path="res://Scenes/phone_ui.tscn" id="2_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://ieyvrrouvh36" path="res://Sprites/scythe.png" id="2_kyqiw"]
 [ext_resource type="PackedScene" uid="uid://cqfmvrr3vyl0g" path="res://Scenes/luck_bar.tscn" id="3_nn08x"]
+[ext_resource type="Texture2D" uid="uid://dxxl7pfi1ti2u" path="res://Sprites/arrow.png" id="7_52ee3"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
 resource_name = "player"
@@ -27,6 +28,7 @@ var max_hp = Player_globals.max_hp
 var max_jumps = Player_globals.max_jumps
 var hp = max_hp
 
+
 var jumps_avail = max_jumps
 
 var ledge_progress = 0
@@ -35,6 +37,7 @@ var is_wall_jumping = false
 var is_climbing = false
 var can_atk = true
 var last_wall = 0
+var hit_enemies: Array = []
 
 func _ready() -> void:
 	SPEED = Player_globals.speed
@@ -121,6 +124,7 @@ func refresh_stats():
 
 func attack():
 	if can_atk:
+			hit_enemies.clear()
 			$slashpivot/AnimatedSprite2D/Area2D.monitoring=true
 			can_atk = false
 			animated_sprite_2d.visible=true
@@ -152,8 +156,51 @@ func take_dmg(amount):
 
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"enemies\"):
+	if body.is_in_group(\"enemies\") and not body in hit_enemies:
 		body.take_dmg(5)
+		hit_enemies.append(body)
+
+
+@onready var arrow_pivot: Marker2D = $ArrowPivot
+
+var rotation_smoothing_speed: float = 15.0
+
+func _process(delta: float) -> void:
+	update_arrow_direction(delta)
+
+func update_arrow_direction(delta: float) -> void:
+	var nearest_enemy = find_nearest_enemy()
+
+	if nearest_enemy and is_instance_valid(nearest_enemy):
+		arrow_pivot.show()
+		
+		var direction = nearest_enemy.global_position - global_position
+		
+		var target_angle = direction.angle()
+		
+		arrow_pivot.rotation = lerp_angle(arrow_pivot.rotation, target_angle, rotation_smoothing_speed * delta)
+		
+	else:
+		arrow_pivot.hide()
+
+func find_nearest_enemy() -> Node2D:
+	var all_enemies = get_tree().get_nodes_in_group(\"enemies\")
+	
+	if all_enemies.is_empty():
+		return null
+
+	var nearest: Node2D = null
+	var shortest_distance_squared = INF 
+	
+	for enemy in all_enemies:
+		if is_instance_valid(enemy):
+			var distance_sq = global_position.distance_squared_to(enemy.global_position)
+			
+			if distance_sq < shortest_distance_squared:
+				shortest_distance_squared = distance_sq
+				nearest = enemy
+				
+	return nearest
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_glx4g"]
@@ -214,6 +261,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyqiw"]
 size = Vector2(54, 80)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(256, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
 atlas = ExtResource("1_rpqav")
 region = Rect2(0, 0, 64, 64)
@@ -230,13 +281,12 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("1_rpqav")
 region = Rect2(192, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
-atlas = ExtResource("1_rpqav")
-region = Rect2(256, 0, 64, 64)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_52ee3"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn08x")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kyqiw")
 }, {
@@ -254,7 +304,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"default",
-"speed": 5.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -266,8 +316,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bhhdu"]
-radius = 24.5
-height = 49.0
+radius = 37.83251
+height = 75.66502
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_layer = 2
@@ -289,6 +339,7 @@ zoom = Vector2(1.5, 1.5)
 
 [node name="PhoneUI" parent="Camera2D" node_paths=PackedStringArray("luck_bar") instance=ExtResource("2_5ixxa")]
 position = Vector2(-343, -25)
+cooldown_time = 1.0
 luck_bar = NodePath("LuckBar")
 
 [node name="LuckBar" parent="Camera2D/PhoneUI" instance=ExtResource("3_nn08x")]
@@ -314,10 +365,9 @@ freeze = true
 script = ExtResource("1_gntrk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="slashpivot"]
-visible = false
 z_index = 1
-position = Vector2(-8, -4)
-scale = Vector2(2, 2)
+position = Vector2(0.9999962, -33)
+scale = Vector2(3.171875, 3.171875)
 sprite_frames = SubResource("SpriteFrames_52ee3")
 
 [node name="Area2D" type="Area2D" parent="slashpivot/AnimatedSprite2D"]
@@ -327,11 +377,18 @@ collision_mask = 4
 monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="slashpivot/AnimatedSprite2D/Area2D"]
-position = Vector2(-13.500002, -34.5)
+position = Vector2(-14.68473, -36.325123)
 shape = SubResource("CapsuleShape2D_bhhdu")
 
 [node name="atkcd" type="Timer" parent="slashpivot"]
 wait_time = 0.75
+
+[node name="ArrowPivot" type="Marker2D" parent="."]
+
+[node name="ArrowSprite" type="Sprite2D" parent="ArrowPivot"]
+position = Vector2(130, 0)
+rotation = 1.5707964
+texture = ExtResource("7_52ee3")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="slashpivot/AnimatedSprite2D/Area2D" to="." method="_on_area_2d_area_entered"]

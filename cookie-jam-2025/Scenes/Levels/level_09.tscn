@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c6t0gcplqd0b3"]
+[gd_scene load_steps=11 format=3 uid="uid://c6t0gcplqd0b3"]
 
 [ext_resource type="PackedScene" uid="uid://b28v44l23vdu4" path="res://Scenes/Tilesets/casino_tileset.tscn" id="1_62s6x"]
 [ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/Tilesets/props_tileset.tscn" id="2_fkqkf"]
 [ext_resource type="PackedScene" uid="uid://was10nolxbaj" path="res://Scenes/Player.tscn" id="3_2ftyu"]
+[ext_resource type="PackedScene" uid="uid://dnikaml82ktuy" path="res://Scenes/wave_manager.tscn" id="4_q1mf4"]
+[ext_resource type="PackedScene" uid="uid://dbmcm3kltjx4f" path="res://Scenes/Enemies/enemy_dziad.tscn" id="5_fra0t"]
+[ext_resource type="PackedScene" uid="uid://bdewmcy28axy4" path="res://Scenes/Enemies/enemy_blackjack.tscn" id="6_oyy83"]
+[ext_resource type="PackedScene" uid="uid://vsowvgmxr1up" path="res://Scenes/Enemies/enemy_fortune_wheel.tscn" id="7_yev58"]
+[ext_resource type="PackedScene" uid="uid://cj53wbd8o61ea" path="res://Scenes/Enemies/enemy_rybuszcz.tscn" id="8_b7bjv"]
+[ext_resource type="PackedScene" uid="uid://daa38d86v1u5u" path="res://Scenes/Enemies/enemy_hag.tscn" id="9_lru2t"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/enemy_mountain.tscn" id="10_534wo"]
 
 [node name="level_09" type="Node2D"]
 
@@ -17,3 +24,23 @@ layer_0/tile_data = PackedInt32Array(393197, 1441792, 3, 458733, 1441792, 4, 524
 
 [node name="Player" parent="." instance=ExtResource("3_2ftyu")]
 position = Vector2(-32, 58)
+
+[node name="SpawnPoints" type="Node2D" parent="."]
+
+[node name="Marker2D" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(1817, -468)
+
+[node name="Marker2D2" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(247, -468)
+
+[node name="Marker2D3" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(-604, -375)
+
+[node name="Marker2D4" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(682, 56)
+
+[node name="WaveManager" parent="." node_paths=PackedStringArray("spawn_points_container") instance=ExtResource("4_q1mf4")]
+possible_enemies = Array[PackedScene]([ExtResource("5_fra0t"), ExtResource("6_oyy83"), ExtResource("7_yev58"), ExtResource("8_b7bjv"), ExtResource("9_lru2t"), ExtResource("10_534wo")])
+spawn_points_container = NodePath("../SpawnPoints")
+enemies_in_first_wave = 8
+max_waves = 3

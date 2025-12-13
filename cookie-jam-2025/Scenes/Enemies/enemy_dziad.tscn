@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://nginrdw3cpn6" path="res://Sprites/Enemies/samurai.png" id="2_ey54h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ey54h"]
-size = Vector2(7, 48)
+size = Vector2(32, 60)
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_he3k7"]
 a = Vector2(25, -17)
@@ -15,7 +15,7 @@ collision_layer = 4
 script = ExtResource("1_tsqlu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(1.5, 4)
+position = Vector2(-1, -1)
 shape = SubResource("RectangleShape2D_ey54h")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

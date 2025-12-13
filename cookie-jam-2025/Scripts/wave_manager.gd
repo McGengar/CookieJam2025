@@ -59,7 +59,7 @@ func _spawn_enemies_from_queue(queue: Array[PackedScene]):
 		
 		get_parent().call_deferred("add_child", enemy)
 		
-		await get_tree().create_timer(randf_range(0.8, 1.5)).timeout
+		#await get_tree().create_timer(randf_range(0.8, 1.5)).timeout
 
 func _on_enemy_killed():
 	enemies_alive -= 1
