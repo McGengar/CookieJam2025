@@ -4,8 +4,10 @@ const BASE_SPEED = 400.0
 const BASE_JUMP = -500.0
 const BASE_ATTACK_SPEED = 1.0
 const BASE_DAMAGE = 10.0
-const BASE_HP = 100.0
+const BASE_HP = 250.0
 const BASE_MAX_JUMPS = 1.0
+
+var level_counter = 1
 
 var speed_add := 0.0
 var jump_add := 0.0

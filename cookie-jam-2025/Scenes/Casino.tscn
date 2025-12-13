@@ -19,4 +19,15 @@ theme_override_fonts/font = ExtResource("2_eg3rn")
 theme_override_font_sizes/font_size = 23
 text = "Jeszcze Jeden"
 
+[node name="NextLevel" type="Button" parent="."]
+offset_left = 952.0
+offset_top = 34.0
+offset_right = 1135.0
+offset_bottom = 112.0
+pivot_offset = Vector2(95, 46)
+theme_override_fonts/font = ExtResource("2_eg3rn")
+theme_override_font_sizes/font_size = 23
+text = "Lecimy Dalej"
+
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="NextLevel" to="." method="_on_next_level_pressed"]
