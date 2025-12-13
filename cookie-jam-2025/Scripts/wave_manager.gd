@@ -65,7 +65,7 @@ func _on_enemy_killed():
 	enemies_alive -= 1
 	var player = get_tree().get_first_node_in_group("player")
 	if player:
-		player.heal(50)
+		if !Player_globals.tainted: player.heal(20)
 	
 	if enemies_alive == 0:
 		_on_wave_cleared()

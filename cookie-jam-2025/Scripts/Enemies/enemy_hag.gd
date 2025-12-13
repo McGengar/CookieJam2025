@@ -81,4 +81,6 @@ func _on_sword_hitbox_body_entered(body):
 	if body.is_in_group("player"):
 		#print("Gracz dostał z miecza!")
 		body.take_dmg(damage)
+		if Player_globals.thorns:
+			take_dmg(5)
 		print(body.hp)

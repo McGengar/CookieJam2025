@@ -62,7 +62,7 @@ func modify_stat(stat: String, type:String, value:float) -> void:
 				max_hp_mult+=value
 		'max_jumps':
 			if type == 'a':
-				max_jumps+=value
+				max_jumps_add+=value
 
 var cards : Array[Card]
 var player_modifiers : Array[Modifier]
@@ -98,17 +98,17 @@ func remove_card(i:int) -> void:
 func update_stats() -> void:
 	update_modifiers()
 	speed = (BASE_SPEED + speed_add) * speed_mult
-	clamp(speed, 40, 9999)
+	speed =clamp(speed, 40, 9999)
 	jump = (BASE_JUMP + jump_add) * jump_mult
-	clamp(jump, -9999, -50)
+	jump = clamp(jump, -9999, -50)
 	attack_speed = (BASE_ATTACK_SPEED + attack_speed_add) * attack_speed_mult
-	clamp(attack_speed, 10, 9999)
+	attack_speed = clamp(attack_speed, 10, 9999)
 	damage = (BASE_DAMAGE + damage_add) * damage_mult
-	clamp(damage, 1, 9999)
+	damage = clamp(damage, 1, 9999)
 	max_hp = (BASE_HP + max_hp_add) * max_hp_mult
-	clamp(max_hp, 30, 9999)
+	max_hp = clamp(max_hp, 30, 9999)
 	max_jumps = BASE_MAX_JUMPS + max_jumps_add
-	clamp(max_jumps, 1, 5)
+	max_jumps = clamp(max_jumps, 1, 5)
 
 func update_augments() -> void:
 	player_augments.clear()
@@ -154,6 +154,7 @@ func debug_gen_card(card_tier:int=1) -> void:
 					if positive_modifier.stat=='max_jumps':
 						positive_modifier.type = 'a'
 						positive_modifier.value = 1
+						new_card.modifiers.append(positive_modifier)
 					else:
 						positive_modifier.type = ['a','m'].pick_random()
 						if positive_modifier.type =='a':
@@ -282,42 +283,74 @@ func debug_gen_card(card_tier:int=1) -> void:
 					player_augments.append(negative_augment)
 	add_card(new_card)
 
+#variable flags for augments
+var thorns=false
+var r_thorns = false
+var vamp = false
+var tainted = false
+var vulnerable = false
+var scopiest_weapons = false
+var nearsighted = false
+var regen = false
+var poisoned = false
+
 func resolve_augoments() -> void :
+	thorns=false
+	r_thorns = false
+	vamp = false
+	tainted = false
+	vulnerable = false
+	scopiest_weapons = false
+	nearsighted = false
+	regen = false
+	poisoned = false
 	for augment in player_augments:
 		match augment:
 			'thorns':
+				thorns=true
 				#enemies takes damage as they damage you
 				pass
 			'reverse thorns':
+				r_thorns = true
 				#YOU take damage as you damage enemies
 				pass
 			'vamp':
+				vamp=true
 				#you heal 20% damage you deal
 				pass
 			'tainted':
+				tainted=true
 				#you cant heal or regenerate during battle
 				pass
 			'vulnerable':
+				vulnerable=true
 				#you take double damage
 				pass
 			'swiftness':
-				#the faster you are the more damage you deal
+				damage*=(speed/300)
 				pass
 			'scopiest weapons':
+				scopiest_weapons=true
 				#gain range
 				pass
 			'regen':
+				regen=true
 				#constantly heal
 				pass
 			'poisoned':
+				poisoned=true
 				#constantly loose hp
 				pass
 			'nearsighted':
+				nearsighted=true
 				#-80%range
 				pass
 			'glass cannon':
 				#x5damage but -80% max hp
+				damage*= 5
+				max_hp*=0.2
 				pass
 			'grounded':
 				#can't jump
+				max_jumps=0
 				pass

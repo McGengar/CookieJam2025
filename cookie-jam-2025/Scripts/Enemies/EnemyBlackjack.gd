@@ -50,4 +50,6 @@ func die():
 func _on_hitbox_body_entered(body):
 	if body.is_in_group("player"):
 		body.take_dmg(damage)
+		if Player_globals.thorns:
+			take_dmg(5)
 		#print(body.hp)

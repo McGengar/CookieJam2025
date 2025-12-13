@@ -9,9 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://dnikaml82ktuy" path="res://Scenes/wave_manager.tscn" id="5_taws2"]
 [ext_resource type="PackedScene" uid="uid://dbmcm3kltjx4f" path="res://Scenes/Enemies/enemy_dziad.tscn" id="6_taws2"]
 [ext_resource type="PackedScene" uid="uid://vsowvgmxr1up" path="res://Scenes/Enemies/enemy_fortune_wheel.tscn" id="7_mb1if"]
-[ext_resource type="PackedScene" uid="uid://d37bquf20litu" path="res://Scenes/Enemies/slots_machine.tscn" id="8_bmcj7"]
+[ext_resource type="PackedScene" uid="uid://dajqt6sy4we0l" path="res://Scenes/Enemies/slots_machine.tscn" id="8_bmcj7"]
 [ext_resource type="PackedScene" uid="uid://daa38d86v1u5u" path="res://Scenes/Enemies/enemy_hag.tscn" id="10_j0t0u"]
-[ext_resource type="PackedScene" path="res://Scenes/Enemies/enemy_mountain.tscn" id="11_g38v2"]
+[ext_resource type="PackedScene" uid="uid://dsqrdkjjs2biu" path="res://Scenes/Enemies/enemy_mountain.tscn" id="11_g38v2"]
 
 [node name="level_01" type="Node2D"]
 

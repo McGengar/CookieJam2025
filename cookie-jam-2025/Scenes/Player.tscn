@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://r7jl6epbow87" path="res://Scenes/phone_ui.tscn" id="2_5ixxa"]
 [ext_resource type="PackedScene" uid="uid://cqfmvrr3vyl0g" path="res://Scenes/luck_bar.tscn" id="3_nn08x"]
 [ext_resource type="Texture2D" uid="uid://dxxl7pfi1ti2u" path="res://Sprites/arrow.png" id="7_52ee3"]
-[ext_resource type="Script" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
+[ext_resource type="Script" uid="uid://cg6k5yqtfjt3l" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
 [ext_resource type="Texture2D" uid="uid://cebn7bjyg8dcp" path="res://Sprites/sword_animation.png" id="8_ksbbd"]
 [ext_resource type="Texture2D" uid="uid://0rj2n8ywm8vt" path="res://Sprites/backgrounds/background1.png" id="9_glx4g"]
 
@@ -54,13 +54,18 @@ func _ready() -> void:
 	animated_sprite_2d.frame = 0
 	hp = max_hp
 func _physics_process(delta):
+	$attack_cooldown.wait_time = 100.0/attack_speed
+	if animated_sprite_2d.frame== 6:
+		$slashpivot/AnimatedSprite2D/Area2D.monitoring = false
+		animated_sprite_2d.visible = false
+	
 	if not is_on_floor() and not is_on_wall() and is_climbing == false:
 			velocity += get_gravity() * delta
 			if dead:
 				move_and_slide()
 	if not dead:
 		if Input.is_action_just_pressed(\"debug_1\"):
-			Player_globals.debug_gen_card()
+			Player_globals.debug_gen_card(2)
 			refresh_stats()
 		
 		$Sprite2D.speed_scale = SPEED/400
@@ -98,7 +103,7 @@ func _physics_process(delta):
 		if Input.is_action_just_pressed(\"interact\"):
 			attack()
 		# Handle jump.
-		if Input.is_action_just_pressed(\"jump\") and jumps_avail > 0 and is_on_floor():
+		if Input.is_action_just_pressed(\"jump\") and jumps_avail > 0:
 			jumps_avail -= 1
 			velocity.y = JUMP_VELOCITY
 		if platformchecker.is_colliding() and not nothingchecker.is_colliding() and is_on_wall():
@@ -134,6 +139,15 @@ func refresh_stats():
 
 func attack():
 	if can_atk:
+		if Player_globals.scopiest_weapons:
+			animated_sprite_2d.scale.x=5
+			animated_sprite_2d.scale.y=5
+		if Player_globals.nearsighted:
+			animated_sprite_2d.scale.x=1
+			animated_sprite_2d.scale.y=1
+		if Player_globals.scopiest_weapons ==  Player_globals.nearsighted:
+			animated_sprite_2d.scale.x=3
+			animated_sprite_2d.scale.y=3
 		var mouse_pos = get_global_mouse_position()
 		if mouse_pos.x < global_position.x:
 			last_dir = -1
@@ -157,15 +171,10 @@ func attack():
 		animated_sprite_2d.visible = true
 		animated_sprite_2d.frame = 0
 		animated_sprite_2d.play(\"attack\")
-		
-		await get_tree().create_timer(0.75).timeout
-		
-		$slashpivot/AnimatedSprite2D/Area2D.monitoring = false
-		animated_sprite_2d.visible = false
-		can_atk = true
+		$attack_cooldown.start()
 			
 func jump_refresh():
-	jumps_avail = max_jumps
+	jumps_avail = Player_globals.max_jumps
 
 func jump_timer():
 	timer.start()
@@ -185,6 +194,8 @@ func _on_timer_timeout() -> void:
 
 func take_dmg(amount):
 	hp -= amount
+	if Player_globals.vulnerable:
+		hp -= amount
 	if hp <= 0:
 		die()
 func die():
@@ -193,6 +204,10 @@ func die():
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"enemies\") and not body in hit_enemies:
 		body.take_dmg(damage)
+		if Player_globals.vamp and !Player_globals.tainted:
+			heal(0.25*damage)
+		if Player_globals.r_thorns:
+			take_dmg(5)
 		hit_enemies.append(body)
 	elif body.is_in_group(\"slotsmachine\"):
 		body.take_dmg(5)
@@ -242,6 +257,17 @@ func heal(amount: int):
 	hp += amount
 	if hp > max_hp:
 		hp = max_hp
+
+
+func _on_attack_cooldown_timeout():
+	can_atk = true
+
+
+func _on_hp_timer_timeout():
+	if Player_globals.regen and !Player_globals.tainted:
+		heal(1)
+	if Player_globals.poisoned:
+		take_dmg(1)
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_miouo"]
@@ -465,9 +491,11 @@ script = ExtResource("1_gntrk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="slashpivot"]
 z_index = 1
-scale = Vector2(3.171875, 3.171875)
+position = Vector2(1.9999886, -1.0000002)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_52ee3")
 animation = &"attack"
+frame = 5
 
 [node name="Area2D" type="Area2D" parent="slashpivot/AnimatedSprite2D"]
 position = Vector2(15.000002, 42)
@@ -516,7 +544,14 @@ offset_bottom = -122.0
 show_percentage = false
 script = ExtResource("8_bhhdu")
 
+[node name="attack_cooldown" type="Timer" parent="."]
+
+[node name="hp_timer" type="Timer" parent="."]
+autostart = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="slashpivot/AnimatedSprite2D/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="slashpivot/AnimatedSprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="slashpivot/atkcd" to="slashpivot" method="_on_atkcd_timeout"]
+[connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
+[connection signal="timeout" from="hp_timer" to="." method="_on_hp_timer_timeout"]
