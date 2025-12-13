@@ -22,6 +22,7 @@ var attack_speed = Player_globals.attack_speed
 var damage = Player_globals.damage
 var max_hp = Player_globals.max_hp
 var max_jumps = Player_globals.max_jumps
+var health
 
 var jumps_avail = max_jumps
 
@@ -39,7 +40,7 @@ func _ready() -> void:
 	damage = Player_globals.damage
 	max_hp = Player_globals.max_hp
 	max_jumps = Player_globals.max_jumps
-
+	health = max_hp
 func _physics_process(delta):
 	var direction = Input.get_axis(\"move_left\", \"move_right\")
 	if is_on_floor():
@@ -123,11 +124,13 @@ func move_to_path(how_much,dir):
 func _on_timer_timeout() -> void:
 	is_wall_jumping = false
 
-
+func take_dmg(amount):
+	health -= amount
+	
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"enemy\"):
-		body.take_dmg()
+		body.take_dmg(5)
 "
 
 [sub_resource type="Gradient" id="Gradient_qbkls"]
