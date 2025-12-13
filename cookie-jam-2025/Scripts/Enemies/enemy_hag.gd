@@ -12,7 +12,7 @@ var player = null
 @onready var sprite = $Sprite2D
 @onready var attack_timer = $AttackTimer
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
-@onready var handslam: Sprite2D = $SwordHitbox/handslam
+@onready var handslam: AnimatedSprite2D = $SwordHitbox/handslam
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 var is_attacking = false
@@ -69,17 +69,23 @@ func perform_attack():
 		#print("Dziad: Cios mieczem!")
 		is_attacking = true
 		attack_timer.start()
-		handslam.visible = true
+		handslam.play("default")
+		handslam.scale = Vector2(1,1)
 		await get_tree().create_timer(0.3).timeout
+		
 		sword_hitbox.monitoring = true
 		var original_color = animated_sprite_2d.modulate
+		var original_color_hand = handslam.modulate
 		animated_sprite_2d.modulate = Color.YELLOW
-		
+		handslam.modulate = Color.YELLOW
+		handslam.play("new_animation_1")
 		await get_tree().create_timer(0.3).timeout
-		handslam.visible = false
+		handslam.scale = Vector2(0.5,0.5)
+		handslam.play("new_animation")
 		animated_sprite_2d.play("default")
 		sword_hitbox.monitoring = false
 		animated_sprite_2d.modulate = original_color
+		handslam.modulate = original_color_hand
 		is_attacking = false
 func take_dmg(amount):
 	hp -= amount

@@ -5,12 +5,14 @@ extends StaticBody2D
 
 var is_used: bool = false
 var buff_duration: float = 10.0
-
+var use_count = 3
 func take_dmg(amount):
-	if is_used:
+	use_count -=1
+	if use_count <= 0:
+		show_text("WYCZERPANA", Color.RED)
 		return
-		
-	activate_machine()
+	else:	
+		activate_machine()
 
 func activate_machine():
 	is_used = true
