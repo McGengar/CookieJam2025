@@ -1,0 +1,129 @@
+[gd_scene load_steps=16 format=3 uid="uid://daa38d86v1u5u"]
+
+[ext_resource type="Script" uid="uid://d31n07n80gqh2" path="res://Scripts/Enemies/enemy_hag.gd" id="1_5uqro"]
+[ext_resource type="Texture2D" uid="uid://cn6d42inb7fpb" path="res://Sprites/Enemies/fist_ani.png" id="2_cok1j"]
+[ext_resource type="Texture2D" uid="uid://d0piu1eq4lh5m" path="res://Sprites/Enemies/fist_ani-export.png" id="3_71620"]
+[ext_resource type="Texture2D" uid="uid://desxmestd6nbm" path="res://Sprites/Enemies/baba_jaaga_v2.png" id="4_mgbrt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ey54h"]
+size = Vector2(15, 26.5)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgbrt"]
+radius = 9.013878
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2n3i5"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqci2"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(128, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f88i"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(192, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2tyo0"]
+atlas = ExtResource("3_71620")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cok1j"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(256, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71620"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(320, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mgbrt"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(384, 0, 64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cta78"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2n3i5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fqci2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f88i")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2tyo0")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cok1j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71620")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mgbrt")
+}],
+"loop": true,
+"name": &"new_animation_1",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cok1j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_mgbrt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyDziad" type="CharacterBody2D" groups=["enemies"]]
+scale = Vector2(2, 2)
+collision_layer = 4
+script = ExtResource("1_5uqro")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.25)
+shape = SubResource("RectangleShape2D_ey54h")
+
+[node name="SwordHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
+position = Vector2(18, 3)
+shape = SubResource("CircleShape2D_mgbrt")
+
+[node name="handslam" type="AnimatedSprite2D" parent="SwordHitbox"]
+z_index = 1
+position = Vector2(8, -5)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_cta78")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4.2632564e-14, -1)
+scale = Vector2(0.35619798, 0.38666666)
+sprite_frames = SubResource("SpriteFrames_cok1j")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(1.9073486e-06, 1.1368684e-13)
+scale = Vector2(0.5, 0.556)
+target_position = Vector2(70, 0)
+
+[connection signal="body_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]

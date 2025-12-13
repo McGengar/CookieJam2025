@@ -15,11 +15,11 @@ func _on_body_entered(body):
 		return
 
 	if body.is_in_group("player"):
-		print("Gracz oberwał!")
+		#print("Gracz oberwał!")
 		body.take_dmg(damage)
 		print(body.hp)
 		queue_free()
 		return
 
-	print("Trafiono w ścianę: ", body.name)
+	#print("Trafiono w ścianę: ", body.name)
 	queue_free()

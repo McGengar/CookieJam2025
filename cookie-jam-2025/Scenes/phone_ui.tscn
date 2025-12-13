@@ -1,0 +1,29 @@
+[gd_scene load_steps=16 format=3 uid="uid://r7jl6epbow87"]
+
+[ext_resource type="Script" uid="uid://b4pqqddjsngfn" path="res://Scripts/phone_ui.gd" id="1_m6bxq"]
+[ext_resource type="Texture2D" uid="uid://b22yqd6chexeb" path="res://Sprites/phone/phone1.png" id="2_l5cb7"]
+[ext_resource type="Texture2D" uid="uid://c6ry866gjjuoh" path="res://Sprites/phone/phone2.png" id="3_a8qtb"]
+[ext_resource type="Texture2D" uid="uid://oyygwdlanfug" path="res://Sprites/phone/phone3.png" id="4_7vva7"]
+[ext_resource type="Texture2D" uid="uid://c1l4te25f7ofl" path="res://Sprites/phone/phone4.png" id="5_3i61a"]
+[ext_resource type="Texture2D" uid="uid://dtya4ilrvt5ij" path="res://Sprites/phone/phone5.png" id="6_kmbln"]
+[ext_resource type="Texture2D" uid="uid://v66g17gbbjdj" path="res://Sprites/phone/phone6.png" id="7_r2eng"]
+[ext_resource type="Texture2D" uid="uid://bcqy2x7cok70a" path="res://Sprites/phone/phone7.png" id="8_7wfxh"]
+[ext_resource type="Texture2D" uid="uid://4vert3f5idv1" path="res://Sprites/phone/phone8.png" id="9_l2s3e"]
+[ext_resource type="Texture2D" uid="uid://wctktmi1lgcp" path="res://Sprites/phone/phone9.png" id="10_mxckt"]
+[ext_resource type="Texture2D" uid="uid://b6xr5ssrpm8ri" path="res://Sprites/phone/phone10.png" id="11_ehxqx"]
+[ext_resource type="Texture2D" uid="uid://do5x4ppxxj31d" path="res://Sprites/phone/phone11.png" id="12_3lc3a"]
+[ext_resource type="Texture2D" uid="uid://c22pv72mfjit1" path="res://Sprites/phone/phone12.png" id="13_8ogpk"]
+[ext_resource type="Texture2D" uid="uid://bjswf3ao6erbn" path="res://Sprites/phone/phone13.png" id="14_4i04o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nu7mn"]
+size = Vector2(62, 96)
+
+[node name="PhoneUI" type="Area2D"]
+script = ExtResource("1_m6bxq")
+screens = Array[Texture2D]([ExtResource("2_l5cb7"), ExtResource("3_a8qtb"), ExtResource("4_7vva7"), ExtResource("5_3i61a"), ExtResource("6_kmbln"), ExtResource("7_r2eng"), ExtResource("8_7wfxh"), ExtResource("9_l2s3e"), ExtResource("10_mxckt"), ExtResource("11_ehxqx"), ExtResource("12_3lc3a"), ExtResource("13_8ogpk"), ExtResource("14_4i04o")])
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_nu7mn")
