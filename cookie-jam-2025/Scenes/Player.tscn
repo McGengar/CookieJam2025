@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://ieyvrrouvh36" path="res://Sprites/scythe.png" id="2_kyqiw"]
 [ext_resource type="PackedScene" uid="uid://cqfmvrr3vyl0g" path="res://Scenes/luck_bar.tscn" id="3_nn08x"]
 [ext_resource type="Texture2D" uid="uid://dxxl7pfi1ti2u" path="res://Sprites/arrow.png" id="7_52ee3"]
-[ext_resource type="Script" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
+[ext_resource type="Script" uid="uid://cg6k5yqtfjt3l" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
 resource_name = "player"
@@ -54,6 +54,8 @@ func _ready() -> void:
 func _physics_process(delta):
 	if not is_on_floor() and not is_on_wall() and is_climbing == false:
 			velocity += get_gravity() * delta
+			if dead:
+				move_and_slide()
 	if not dead:
 		if Input.is_action_just_pressed(\"debug_1\"):
 			Player_globals.debug_gen_card()
@@ -163,7 +165,6 @@ func take_dmg(amount):
 		die()
 func die():
 	dead = true
-	rotation = deg_to_rad(90)
 	sprite_2d.play(\"dead\")
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"enemies\") and not body in hit_enemies:
@@ -216,7 +217,7 @@ func find_nearest_enemy() -> Node2D:
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_miouo"]
 atlas = ExtResource("1_yoq75")
-region = Rect2(0, 0, 80, 96)
+region = Rect2(0, 0, 106, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_glx4g"]
 atlas = ExtResource("1_dewec")
