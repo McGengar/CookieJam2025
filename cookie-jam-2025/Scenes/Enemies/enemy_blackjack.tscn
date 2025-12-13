@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bdewmcy28axy4"]
+
+[ext_resource type="Script" uid="uid://cw57200oa58e4" path="res://Scripts/Enemies/EnemyBlackjack.gd" id="1_7gpk5"]
+[ext_resource type="Texture2D" uid="uid://dk5fkq5wey6hl" path="res://Sprites/Enemies/blackjack.png" id="2_gsor2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gsor2"]
+size = Vector2(37, 49)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2d6se"]
+size = Vector2(24, 35)
+
+[node name="EnemyBlackjack" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_7gpk5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." groups=["enemies"]]
+texture = ExtResource("2_gsor2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.5, -0.5)
+scale = Vector2(1.0040742, 1)
+shape = SubResource("RectangleShape2D_gsor2")
+
+[node name="Hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_2d6se")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

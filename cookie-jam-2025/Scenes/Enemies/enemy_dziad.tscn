@@ -1,0 +1,35 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbmcm3kltjx4f"]
+
+[ext_resource type="Script" uid="uid://dn5qb0qv7gsrl" path="res://Scripts/Enemies/EnemyDziad.gd" id="1_tsqlu"]
+[ext_resource type="Texture2D" uid="uid://nginrdw3cpn6" path="res://Sprites/Enemies/samurai.png" id="2_ey54h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ey54h"]
+size = Vector2(7, 48)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_he3k7"]
+a = Vector2(25, -17)
+b = Vector2(2, 4)
+
+[node name="EnemyDziad" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+script = ExtResource("1_tsqlu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, 4)
+shape = SubResource("RectangleShape2D_ey54h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_ey54h")
+
+[node name="SwordHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
+shape = SubResource("SegmentShape2D_he3k7")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[connection signal="body_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://bke46jgbai1a3"]
 
-[ext_resource type="PackedScene" uid="uid://b28v44l23vdu4" path="res://Scenes/casino_tileset.tscn" id="1_27vfd"]
-[ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/props_tileset.tscn" id="2_amyuu"]
-[ext_resource type="PackedScene" uid="uid://djxi0b3154gc3" path="res://Scenes/Player.tscn" id="3_n2msi"]
+[ext_resource type="PackedScene" uid="uid://b28v44l23vdu4" path="res://Scenes/Tilesets/casino_tileset.tscn" id="1_27vfd"]
+[ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/Tilesets/props_tileset.tscn" id="2_amyuu"]
+[ext_resource type="PackedScene" uid="uid://was10nolxbaj" path="res://Scenes/Player.tscn" id="3_n2msi"]
 
 [node name="level_06" type="Node2D"]
 
