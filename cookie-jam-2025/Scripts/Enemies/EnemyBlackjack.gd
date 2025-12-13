@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var max_speed = 350.0
 @export var acceleration = 250.0
-@export var hp = 15
+@export var hp = 2
 var damage = 35
 
 var player = null
@@ -38,4 +38,4 @@ func _on_hitbox_body_entered(body):
 	if body.is_in_group("player"):
 		print("Gracz dostał kartą!")
 		body.take_dmg(damage)
-		print(body.health)
+		print(body.hp)

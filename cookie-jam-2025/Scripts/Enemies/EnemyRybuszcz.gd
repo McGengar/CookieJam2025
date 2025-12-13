@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 const GRAVITY = 980.0
-var hp = 30
+var hp = 2
 
 @export var projectile_scene: PackedScene 
 

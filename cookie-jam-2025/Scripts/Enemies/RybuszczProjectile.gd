@@ -17,7 +17,7 @@ func _on_body_entered(body):
 	if body.is_in_group("player"):
 		print("Gracz oberwał!")
 		body.take_dmg(damage)
-		print(body.health)
+		print(body.hp)
 		queue_free()
 		return
 
