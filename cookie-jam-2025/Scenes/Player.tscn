@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://was10nolxbaj"]
 
-[ext_resource type="Script" uid="uid://bdid18rcqjcb7" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
+[ext_resource type="Script" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
 [ext_resource type="Texture2D" uid="uid://b42vjrbdb4fbi" path="res://Sprites/slash_sprite_sheet.png" id="1_rpqav"]
 [ext_resource type="Texture2D" uid="uid://ieyvrrouvh36" path="res://Sprites/scythe.png" id="2_kyqiw"]
 
@@ -198,7 +198,8 @@ animations = [{
 radius = 24.5
 height = 49.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
 script = SubResource("GDScript_qbkls")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
