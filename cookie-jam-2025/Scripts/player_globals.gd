@@ -115,20 +115,20 @@ func debug_gen_card() -> void:
 	new_card.card_name = "random_card"+str(len(cards))
 	var positive_modifier = Modifier.new()
 	var negative_modifier = Modifier.new()
-	positive_modifier.stat = ['speed', 'jump'].pick_random()
+	positive_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp'].pick_random()
 	positive_modifier.type = ['a','m'].pick_random()
 	if positive_modifier.type =='a':
 		positive_modifier.value = snapped(randf_range(10,25),0.01)
 	else:
 		positive_modifier.value = snapped(randf_range(0.10,0.25),0.01)
-	negative_modifier.stat = ['speed', 'jump'].pick_random()
+	negative_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp'].pick_random()
 	negative_modifier.type = ['a','m'].pick_random()
 	if negative_modifier.type =='a':
 		negative_modifier.value = snapped(randf_range(-15,-5),0.01)
 	else:
 		negative_modifier.value = snapped(randf_range(-0.15,-0.5),0.01)
 	new_card.modifiers.append(positive_modifier)
-	#new_card.modifiers.append(negative_modifier)
+	new_card.modifiers.append(negative_modifier)
 	print("P_MOD: ", positive_modifier.stat, " ",positive_modifier.type," ",positive_modifier.value)
 	print("N_MOD: ", negative_modifier.stat," ",negative_modifier.type," ",negative_modifier.value)
 	add_card(new_card)
