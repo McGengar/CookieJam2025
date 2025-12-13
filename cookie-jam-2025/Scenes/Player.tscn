@@ -237,6 +237,11 @@ func find_nearest_enemy() -> Node2D:
 				nearest = enemy
 				
 	return nearest
+
+func heal(amount: int):
+	hp += amount
+	if hp > max_hp:
+		hp = max_hp
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_miouo"]
@@ -441,7 +446,7 @@ offset_left = -23.0
 offset_top = -183.0
 offset_right = 243.0
 offset_bottom = -156.0
-decay_speed = 10.0
+decay_speed = 5.0
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2

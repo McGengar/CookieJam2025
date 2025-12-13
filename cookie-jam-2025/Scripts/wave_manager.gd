@@ -63,6 +63,9 @@ func _spawn_enemies_from_queue(queue: Array[PackedScene]):
 
 func _on_enemy_killed():
 	enemies_alive -= 1
+	var player = get_tree().get_first_node_in_group("player")
+	if player:
+		player.heal(50)
 	
 	if enemies_alive == 0:
 		_on_wave_cleared()
