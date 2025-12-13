@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 			can_atk = false
 			atkcd.start()
 			anim_sprite.frame = 0
-			anim_sprite.play("default")
+			anim_sprite.play("attack")
 
 
 func _on_atkcd_timeout() -> void:
