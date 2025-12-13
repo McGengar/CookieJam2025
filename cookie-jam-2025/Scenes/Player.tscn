@@ -1,5 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://was10nolxbaj"]
+[gd_scene load_steps=21 format=3 uid="uid://was10nolxbaj"]
 
+[ext_resource type="Texture2D" uid="uid://c4yrr3542a13n" path="res://Sprites/ani_1_ver.png" id="1_dewec"]
 [ext_resource type="Script" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
 [ext_resource type="Texture2D" uid="uid://b42vjrbdb4fbi" path="res://Sprites/slash_sprite_sheet.png" id="1_rpqav"]
 [ext_resource type="Texture2D" uid="uid://ieyvrrouvh36" path="res://Sprites/scythe.png" id="2_kyqiw"]
@@ -10,7 +11,7 @@ script/source = "extends CharacterBody2D
 @onready var timer: Timer = $Timer
 @onready var platformchecker: RayCast2D = $platformchecker
 @onready var nothingchecker: RayCast2D = $nothingchecker
-@onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 @onready var slashpivot: Node2D = $slashpivot
 @onready var animated_sprite_2d: AnimatedSprite2D = $slashpivot/AnimatedSprite2D
 
@@ -22,7 +23,7 @@ var attack_speed = Player_globals.attack_speed
 var damage = Player_globals.damage
 var max_hp = Player_globals.max_hp
 var max_jumps = Player_globals.max_jumps
-var health
+var hp = max_hp
 
 var jumps_avail = max_jumps
 
@@ -40,9 +41,18 @@ func _ready() -> void:
 	damage = Player_globals.damage
 	max_hp = Player_globals.max_hp
 	max_jumps = Player_globals.max_jumps
-	health = max_hp
+	hp = max_hp
 func _physics_process(delta):
+	if Input.is_action_just_pressed(\"debug_1\"):
+		Player_globals.debug_gen_card()
+		refresh_stats()
+	
+	$Sprite2D.speed_scale = SPEED/400
 	var direction = Input.get_axis(\"move_left\", \"move_right\")
+	if direction!=0:
+		$Sprite2D.play(\"walk\")
+	else:
+		$Sprite2D.play(\"stand\")
 	if is_on_floor():
 		jump_refresh()
 		last_wall = 0
@@ -98,11 +108,22 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+func refresh_stats():
+	SPEED = Player_globals.speed
+	JUMP_VELOCITY = Player_globals.jump
+	attack_speed = Player_globals.attack_speed
+	damage = Player_globals.damage
+	max_hp = Player_globals.max_hp
+	max_jumps = Player_globals.max_jumps
+
 func attack():
 	if can_atk:
+			$slashpivot/AnimatedSprite2D/Area2D.monitoring=true
 			can_atk = false
 			animated_sprite_2d.visible=true
 			await get_tree().create_timer(0.75).timeout
+			$slashpivot/AnimatedSprite2D/Area2D.monitoring=false
 			animated_sprite_2d.visible=false
 			can_atk = true
 func jump_refresh():
@@ -125,23 +146,71 @@ func _on_timer_timeout() -> void:
 	is_wall_jumping = false
 
 func take_dmg(amount):
-	health -= amount
-	
+	hp -= amount
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group(\"enemy\"):
+	if body.is_in_group(\"enemies\"):
 		body.take_dmg(5)
 "
 
-[sub_resource type="Gradient" id="Gradient_qbkls"]
-offsets = PackedFloat32Array(0, 0.01999998, 1)
-colors = PackedColorArray(0.9612339, 0.1914348, 0.9999998, 1, 0.9612339, 0.1914348, 0.9999998, 1, 0.19382793, 0.73633075, 0.36385354, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_glx4g"]
+atlas = ExtResource("1_dewec")
+region = Rect2(0, 0, 64, 96)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_rpqav"]
-gradient = SubResource("Gradient_qbkls")
+[sub_resource type="AtlasTexture" id="AtlasTexture_52ee3"]
+atlas = ExtResource("1_dewec")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bhhdu"]
+atlas = ExtResource("1_dewec")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_megsn"]
+atlas = ExtResource("1_dewec")
+region = Rect2(128, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yoq75"]
+atlas = ExtResource("1_dewec")
+region = Rect2(192, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ksbbd"]
+atlas = ExtResource("1_dewec")
+region = Rect2(256, 0, 64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_glx4g"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_glx4g")
+}],
+"loop": true,
+"name": &"stand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_52ee3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bhhdu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_megsn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yoq75")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ksbbd")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 12.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyqiw"]
-size = Vector2(54, 54)
+size = Vector2(54, 80)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
 atlas = ExtResource("1_rpqav")
@@ -202,15 +271,19 @@ height = 49.0
 collision_layer = 2
 script = SubResource("GDScript_qbkls")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(1.19209176e-07, 1.1920929e-06)
-scale = Vector2(0.2421875, 62)
-texture = SubResource("GradientTexture1D_rpqav")
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -14)
+sprite_frames = SubResource("SpriteFrames_glx4g")
+animation = &"walk"
+autoplay = "stand"
+frame_progress = 0.33628955
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
 shape = SubResource("RectangleShape2D_kyqiw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(1.5, 1.5)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.2
@@ -229,12 +302,16 @@ script = ExtResource("1_gntrk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="slashpivot"]
 visible = false
+z_index = 1
 position = Vector2(-8, -4)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_52ee3")
 
 [node name="Area2D" type="Area2D" parent="slashpivot/AnimatedSprite2D"]
 position = Vector2(15.000002, 42)
+collision_layer = 0
+collision_mask = 4
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="slashpivot/AnimatedSprite2D/Area2D"]
 position = Vector2(-13.500002, -34.5)

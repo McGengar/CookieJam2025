@@ -1,7 +1,7 @@
 extends Card
 #BASE STATS
 const BASE_SPEED = 400.0
-const BASE_JUMP = -400.0
+const BASE_JUMP = -500.0
 const BASE_ATTACK_SPEED = 1.0
 const BASE_DAMAGE = 10.0
 const BASE_HP = 100.0
