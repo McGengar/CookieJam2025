@@ -1,12 +1,14 @@
-[gd_scene load_steps=24 format=3 uid="uid://was10nolxbaj"]
+[gd_scene load_steps=26 format=3 uid="uid://was10nolxbaj"]
 
 [ext_resource type="Texture2D" uid="uid://c4yrr3542a13n" path="res://Sprites/ani_1_ver.png" id="1_dewec"]
 [ext_resource type="Script" uid="uid://bdid18rcqjcb7" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
+[ext_resource type="Texture2D" uid="uid://cmy2ovhqsi5oo" path="res://Sprites/dupkaa.png" id="1_megsn"]
 [ext_resource type="Texture2D" uid="uid://b42vjrbdb4fbi" path="res://Sprites/slash_sprite_sheet.png" id="1_rpqav"]
 [ext_resource type="PackedScene" uid="uid://r7jl6epbow87" path="res://Scenes/phone_ui.tscn" id="2_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://ieyvrrouvh36" path="res://Sprites/scythe.png" id="2_kyqiw"]
 [ext_resource type="PackedScene" uid="uid://cqfmvrr3vyl0g" path="res://Scenes/luck_bar.tscn" id="3_nn08x"]
 [ext_resource type="Texture2D" uid="uid://dxxl7pfi1ti2u" path="res://Sprites/arrow.png" id="7_52ee3"]
+[ext_resource type="Script" uid="uid://cg6k5yqtfjt3l" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
 resource_name = "player"
@@ -54,9 +56,9 @@ func _physics_process(delta):
 	
 	$Sprite2D.speed_scale = SPEED/400
 	var direction = Input.get_axis(\"move_left\", \"move_right\")
-	if direction!=0:
+	if direction!=0 and not is_on_wall():
 		$Sprite2D.play(\"walk\")
-	else:
+	elif direction ==0:
 		$Sprite2D.play(\"stand\")
 	if is_on_floor():
 		jump_refresh()
@@ -64,6 +66,8 @@ func _physics_process(delta):
 	if not is_on_floor() and not is_on_wall() and is_climbing == false:
 		velocity += get_gravity() * delta
 	if is_on_wall():
+		print(\"im on the damn wall\")
+		sprite_2d.play(\"slide\")
 		if velocity.y < 0:
 			pass
 			velocity.y *= 0.9
@@ -231,6 +235,14 @@ region = Rect2(256, 0, 64, 96)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("1_megsn")
+}],
+"loop": true,
+"name": &"slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_glx4g")
 }],
 "loop": true,
@@ -320,15 +332,15 @@ radius = 37.83251
 height = 75.66502
 
 [node name="Player" type="CharacterBody2D" groups=["player"]]
+top_level = true
 collision_layer = 2
 script = SubResource("GDScript_qbkls")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_glx4g")
-animation = &"walk"
+animation = &"slide"
 autoplay = "stand"
-frame_progress = 0.33628955
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -13)
@@ -389,6 +401,14 @@ wait_time = 0.75
 position = Vector2(130, 0)
 rotation = 1.5707964
 texture = ExtResource("7_52ee3")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -366.0
+offset_top = -177.0
+offset_right = -183.0
+offset_bottom = -122.0
+show_percentage = false
+script = ExtResource("8_bhhdu")
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="slashpivot/AnimatedSprite2D/Area2D" to="." method="_on_area_2d_area_entered"]

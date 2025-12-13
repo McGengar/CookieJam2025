@@ -8,7 +8,7 @@ var buff_duration: float = 10.0
 var use_count = 3
 func take_dmg(amount):
 	use_count -=1
-	if use_count <= 0:
+	if use_count < 0:
 		show_text("WYCZERPANA", Color.RED)
 		return
 	else:	

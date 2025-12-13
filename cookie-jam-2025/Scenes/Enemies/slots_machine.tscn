@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://d37bquf20litu"]
+[gd_scene load_steps=4 format=3 uid="uid://dajqt6sy4we0l"]
 
 [ext_resource type="Script" uid="uid://cmlkl66tqlews" path="res://Scripts/Enemies/SlotsMachine.gd" id="1_fhdr1"]
 [ext_resource type="Texture2D" uid="uid://dxp0vtf12pwtu" path="res://Sprites/Enemies/slots_machine.png" id="2_fkqg3"]
@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6n8h3"]
 size = Vector2(16, 34)
 
-[node name="SlotsMachine" type="StaticBody2D"]
+[node name="SlotsMachine" type="StaticBody2D" groups=["slotsmachine"]]
 script = ExtResource("1_fhdr1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

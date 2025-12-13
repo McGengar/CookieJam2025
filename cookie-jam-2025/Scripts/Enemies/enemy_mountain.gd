@@ -32,7 +32,7 @@ func _physics_process(delta):
 			update_facing_direction(direction_vector.x)
 		else:
 			velocity.x = move_toward(velocity.x, 0, SPEED)
-			shoot_at_player()
+		shoot_at_player()
 			
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
