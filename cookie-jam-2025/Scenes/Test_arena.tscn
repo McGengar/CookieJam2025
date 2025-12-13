@@ -1,12 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://1g0sy204jiil"]
+[gd_scene load_steps=3 format=3 uid="uid://d0kswlaf3ho81"]
 
-[ext_resource type="PackedScene" uid="uid://djxi0b3154gc3" path="res://Scenes/Player.tscn" id="1_snl7e"]
-[ext_resource type="PackedScene" uid="uid://cny3dgn0a6eh1" path="res://Scenes/Platform.tscn" id="2_wruji"]
+[ext_resource type="PackedScene" uid="uid://was10nolxbaj" path="res://Scenes/Player.tscn" id="1_snl7e"]
+[ext_resource type="PackedScene" uid="uid://eri844qn0u82" path="res://Scenes/Platform.tscn" id="2_wruji"]
 
 [node name="TestArena" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_snl7e")]
-position = Vector2(0, -20)
+position = Vector2(49, -274)
 
 [node name="Platform" parent="." instance=ExtResource("2_wruji")]
 position = Vector2(-77, 46)
+
+[node name="Platform2" parent="." instance=ExtResource("2_wruji")]
+position = Vector2(298, -414)
+rotation = 1.5707964
