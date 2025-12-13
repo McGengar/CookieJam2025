@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://daa38d86v1u5u"]
+[gd_scene load_steps=22 format=3 uid="uid://daa38d86v1u5u"]
 
 [ext_resource type="Script" uid="uid://d31n07n80gqh2" path="res://Scripts/Enemies/enemy_hag.gd" id="1_5uqro"]
 [ext_resource type="Texture2D" uid="uid://cn6d42inb7fpb" path="res://Sprites/Enemies/fist_ani.png" id="2_cok1j"]
@@ -9,7 +9,7 @@
 size = Vector2(15, 26.5)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mgbrt"]
-radius = 9.013878
+radius = 23.521267
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2n3i5"]
 atlas = ExtResource("2_cok1j")
@@ -36,6 +36,30 @@ atlas = ExtResource("2_cok1j")
 region = Rect2(320, 0, 64, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mgbrt"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(384, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6mmuk"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(64, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b1b0e"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(128, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8e1xt"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(192, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cta78"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(256, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtbc1"]
+atlas = ExtResource("2_cok1j")
+region = Rect2(320, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dmhh1"]
 atlas = ExtResource("2_cok1j")
 region = Rect2(384, 0, 64, 96)
 
@@ -76,6 +100,29 @@ animations = [{
 "loop": true,
 "name": &"new_animation_1",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6mmuk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b1b0e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8e1xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cta78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gtbc1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dmhh1")
+}],
+"loop": true,
+"name": &"smash",
+"speed": 10.0
 }]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_cok1j"]
@@ -109,8 +156,9 @@ shape = SubResource("CircleShape2D_mgbrt")
 [node name="handslam" type="AnimatedSprite2D" parent="SwordHitbox"]
 z_index = 1
 position = Vector2(8, -5)
-scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_cta78")
+animation = &"smash"
+frame_progress = 0.4385813
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 1.5

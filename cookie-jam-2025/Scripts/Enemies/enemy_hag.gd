@@ -19,8 +19,9 @@ var is_attacking = false
 
 func _ready():
 	add_to_group("enemies")
-	sword_hitbox.monitoring = false
+	sword_hitbox.monitoring = true
 	player = get_tree().get_first_node_in_group("player")
+	handslam.play("smash")
 
 func _physics_process(delta):
 	if ray_cast_2d.is_colliding() and is_on_floor():
@@ -28,8 +29,7 @@ func _physics_process(delta):
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if player and not is_attacking:
-		animated_sprite_2d.play("default")
+	if player:
 		ray_cast_2d.look_at(player.global_position)
 		var distance = global_position.distance_to(player.global_position)
 		var direction_x = sign(player.global_position.x - global_position.x)
@@ -39,7 +39,7 @@ func _physics_process(delta):
 			update_facing(direction_x)
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
-			perform_attack()
+			
 
 		if is_on_floor() and player.velocity.y < -100: 
 			jump_towards_player()
@@ -64,29 +64,7 @@ func jump_towards_player():
 	var dir = sign(player.global_position.x - global_position.x)
 	velocity.x = dir * speed * 1.5 
 
-func perform_attack():
-	if attack_timer.is_stopped():
-		#print("Dziad: Cios mieczem!")
-		is_attacking = true
-		attack_timer.start()
-		handslam.play("default")
-		handslam.scale = Vector2(1,1)
-		await get_tree().create_timer(0.3).timeout
-		
-		sword_hitbox.monitoring = true
-		var original_color = animated_sprite_2d.modulate
-		var original_color_hand = handslam.modulate
-		animated_sprite_2d.modulate = Color.YELLOW
-		handslam.modulate = Color.YELLOW
-		handslam.play("new_animation_1")
-		await get_tree().create_timer(0.3).timeout
-		handslam.scale = Vector2(0.5,0.5)
-		handslam.play("new_animation")
-		animated_sprite_2d.play("default")
-		sword_hitbox.monitoring = false
-		animated_sprite_2d.modulate = original_color
-		handslam.modulate = original_color_hand
-		is_attacking = false
+
 func take_dmg(amount):
 	hp -= amount
 	modulate = Color.RED
