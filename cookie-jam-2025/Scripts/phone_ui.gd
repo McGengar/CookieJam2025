@@ -2,10 +2,7 @@ extends Area2D
 
 @export var screens: Array[Texture2D] 
 @export var cooldown_time: float = 2.0
-
-# --- NOWE: Odniesienie do paska ---
 @export var luck_bar: ProgressBar 
-# ----------------------------------
 
 @onready var sprite = $Sprite2D
 
@@ -14,42 +11,43 @@ var is_mouse_over: bool = false
 var can_scroll: bool = true 
 
 func _ready():
+	randomize()
+	
 	if screens.size() > 0:
-		sprite.texture = screens[0]
+		current_index = randi() % screens.size()
+		sprite.texture = screens[current_index]
 	
 	mouse_entered.connect(_on_mouse_entered)
 	mouse_exited.connect(_on_mouse_exited)
 
-	# Automatyczne szukanie paska, jeśli zapomnisz przypisać w Inspektorze
 	if not luck_bar:
-		# Szuka węzła o nazwie LuckBar w CanvasLayer (dostosuj ścieżkę jeśli masz inną strukturę)
-		# Najbezpieczniej jednak przypisać to ręcznie w Inspektorze!
 		pass
 
 func _input(event):
+	if screens.size() == 0:
+		return
+
 	if not is_mouse_over or not can_scroll:
 		return
 	
 	if event is InputEventMouseButton and event.pressed:
 		var changed = false 
-		
-		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
-			current_index = (current_index + 1) % screens.size()
-			changed = true
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP or event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			
-		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
-			current_index -= 1
-			if current_index < 0:
-				current_index = screens.size() - 1
+			var new_index = randi() % screens.size()
+			
+			if screens.size() > 1:
+				while new_index == current_index:
+					new_index = randi() % screens.size()
+			
+			current_index = new_index
 			changed = true
 			
 		if changed:
 			sprite.texture = screens[current_index]
 			
-			# --- NOWE: Odnawiamy pasek przy scrollowaniu ---
 			if luck_bar:
 				luck_bar.add_luck()
-			# -----------------------------------------------
 			
 			start_cooldown()
 
