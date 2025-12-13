@@ -23,6 +23,10 @@ Player_globals="*res://Scripts/player_globals.gd"
 player=""
 enemies=""
 
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+
 [input]
 
 move_left={
