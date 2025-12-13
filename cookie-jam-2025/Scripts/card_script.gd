@@ -9,7 +9,6 @@ var negative_modifier : Modifier
 	
 
 func _ready():
-	Player_globals.debug_gen_card(tier)
 	await get_tree().create_timer(0.1).timeout
 	var mod_n =len(Player_globals.cards[card_id].modifiers)
 	var aug_n =len(Player_globals.cards[card_id].augments)

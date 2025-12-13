@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bju4sj7khjsdu"]
+
+[ext_resource type="Script" uid="uid://rp7khf168wa1" path="res://Scripts/casino.gd" id="1_7pnxo"]
+[ext_resource type="PackedScene" uid="uid://dn0pk1ehvbdjx" path="res://Scenes/Hand.tscn" id="1_yc6b3"]
+[ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="2_eg3rn"]
+
+[node name="Casino" type="Node2D"]
+script = ExtResource("1_7pnxo")
+
+[node name="Hand" parent="." instance=ExtResource("1_yc6b3")]
+
+[node name="Button" type="Button" parent="."]
+offset_left = 493.0
+offset_top = 263.0
+offset_right = 676.0
+offset_bottom = 341.0
+pivot_offset = Vector2(95, 46)
+theme_override_fonts/font = ExtResource("2_eg3rn")
+theme_override_font_sizes/font_size = 23
+text = "Jeszcze Jeden"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]

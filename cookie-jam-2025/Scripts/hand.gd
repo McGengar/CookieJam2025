@@ -2,11 +2,18 @@ extends Node2D
 
 @export var New_card : PackedScene
 
+
 func _ready():
+	reload()
+
+func reload():
+	for child in get_children():
+		child.queue_free()
 	for i in range(len(Player_globals.cards)):
 		var card = New_card.instantiate()
-		card.tier = randi_range(1,3)
+		card.tier = Player_globals.cards[i].tier
 		card.card_id=i	
+		card.scale = Vector2(3,3)
 		add_child(card)
 
 func _physics_process(delta):
@@ -16,6 +23,7 @@ func _physics_process(delta):
 		card.tier= new_card_tier
 		card.card_id = len(Player_globals.cards) -1
 		add_child(card)
+		reload()
 	var array = get_children()
 	var count = get_child_count()
 	var mid
@@ -24,6 +32,8 @@ func _physics_process(delta):
 	else:
 		mid = floor(count/2.0)+1
 	for i in range(count):
+		array[i].scale.x = lerpf(array[i].scale.x, 1, delta*5)
+		array[i].scale.y = lerpf(array[i].scale.y, 1, delta*5)
 		if array[i].selected:
 			array[i].position.y = lerp(array[i].position.y,-cos((i+1-mid)/(2+(count/10.0)))*64,delta*10)
 		else:
