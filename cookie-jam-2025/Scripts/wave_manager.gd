@@ -72,6 +72,9 @@ func _on_wave_cleared():
 	print("Fala ", current_wave, " wyczyszczona!")
 	
 	if current_wave >= max_waves:
+		await get_tree().create_timer(3).timeout
+		Player_globals.level_counter += 1
+		get_tree().change_scene_to_file("res://Scenes/Casino.tscn")
 		print("GRATULACJE! Wszystkie fale pokonane.")
 		emit_signal("level_cleared")
 		return

@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var jump_force = -450.0
 @export var gravity = 980.0
 @export var attack_range = 80.0 
-@export var damage = 40
+@export var damage = 20
 var hp = 15;
 
 var player = null
