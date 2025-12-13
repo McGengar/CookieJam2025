@@ -61,7 +61,7 @@ func jump_towards_player():
 
 func perform_attack():
 	if attack_timer.is_stopped():
-		print("Dziad: Cios mieczem!")
+		#print("Dziad: Cios mieczem!")
 		is_attacking = true
 		attack_timer.start()
 		
@@ -89,6 +89,6 @@ func die():
 	
 func _on_sword_hitbox_body_entered(body):
 	if body.is_in_group("player"):
-		print("Gracz dostał z miecza!")
+		#print("Gracz dostał z miecza!")
 		body.take_dmg(damage)
 		print(body.hp)

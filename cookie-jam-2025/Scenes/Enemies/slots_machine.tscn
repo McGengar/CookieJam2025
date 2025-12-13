@@ -1,0 +1,25 @@
+[gd_scene load_steps=4 format=3 uid="uid://d37bquf20litu"]
+
+[ext_resource type="Script" uid="uid://cmlkl66tqlews" path="res://Scripts/Enemies/SlotsMachine.gd" id="1_fhdr1"]
+[ext_resource type="Texture2D" uid="uid://dxp0vtf12pwtu" path="res://Sprites/Enemies/slots_machine.png" id="2_fkqg3"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6n8h3"]
+size = Vector2(16, 34)
+
+[node name="SlotsMachine" type="StaticBody2D" groups=["enemies"]]
+script = ExtResource("1_fhdr1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fkqg3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 3)
+shape = SubResource("RectangleShape2D_6n8h3")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -20.0
+offset_top = -41.0
+offset_right = 20.0
+offset_bottom = -18.0
+horizontal_alignment = 1
+vertical_alignment = 1
