@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6n8h3"]
 size = Vector2(16, 34)
 
-[node name="SlotsMachine" type="StaticBody2D" groups=["enemies"]]
+[node name="SlotsMachine" type="StaticBody2D"]
 script = ExtResource("1_fhdr1")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
