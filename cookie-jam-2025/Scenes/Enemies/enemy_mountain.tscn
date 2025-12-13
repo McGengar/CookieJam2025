@@ -39,6 +39,9 @@ one_shot = true
 position = Vector2(1, -2)
 texture = ExtResource("3_u5pub")
 
+[node name="RayCast2D" type="RayCast2D" parent="."]
+target_position = Vector2(42.5, 0)
+
 [connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

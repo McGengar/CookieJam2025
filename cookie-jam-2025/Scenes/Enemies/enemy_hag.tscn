@@ -1,0 +1,61 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnx11ubryo4ih"]
+
+[ext_resource type="Script" uid="uid://d31n07n80gqh2" path="res://Scripts/Enemies/enemy_hag.gd" id="1_5uqro"]
+[ext_resource type="Texture2D" uid="uid://mvtblnwak607" path="res://Sprites/Enemies/The_Happy_Merchant.jpg" id="2_cok1j"]
+[ext_resource type="Texture2D" uid="uid://dtyfxbi6vnejl" path="res://Sprites/Enemies/blm.png" id="3_71620"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ey54h"]
+size = Vector2(44, 53)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_mgbrt"]
+radius = 17.262676
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cok1j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cok1j")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyDziad" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+script = ExtResource("1_5uqro")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ey54h")
+
+[node name="SwordHitbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
+position = Vector2(62, 0)
+shape = SubResource("CircleShape2D_mgbrt")
+
+[node name="handslam" type="Sprite2D" parent="SwordHitbox"]
+visible = false
+position = Vector2(48.000004, 1)
+rotation = 1.5707964
+scale = Vector2(0.5, 0.556)
+texture = ExtResource("3_71620")
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0.9999962, -1.0000005)
+scale = Vector2(0.35619798, 0.38666666)
+sprite_frames = SubResource("SpriteFrames_cok1j")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(1.9073486e-06, 1.1368684e-13)
+scale = Vector2(0.5, 0.556)
+target_position = Vector2(70, 0)
+
+[connection signal="body_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]

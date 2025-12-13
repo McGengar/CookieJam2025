@@ -13,17 +13,20 @@ var is_shooting = false
 var rng = RandomNumberGenerator.new()
 @onready var muzzle = $Muzzle
 @onready var shoot_timer = $Timer
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 func _ready():
 	add_to_group("enemies")
 	shoot_timer.timeout.connect(_on_timer_timeout)
 
 func _physics_process(delta):
+	if ray_cast_2d.is_colliding():
+		velocity.y += -50
 	if not is_on_floor():
 		velocity.y += GRAVITY * delta
-
 	if player:
 		var direction_vector = global_position.direction_to(player.global_position)
+		ray_cast_2d.look_at(player.global_position)
 		if abs(global_position.x - player.global_position.x) > 70:
 			velocity.x = sign(direction_vector.x) * SPEED
 			update_facing_direction(direction_vector.x)
