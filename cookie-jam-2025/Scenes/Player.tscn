@@ -45,8 +45,7 @@ func _ready() -> void:
 func _physics_process(delta):
 	if Input.is_action_just_pressed(\"debug_1\"):
 		Player_globals.debug_gen_card()
-		SPEED = Player_globals.speed
-		JUMP_VELOCITY = Player_globals.jump
+		refresh_stats()
 	
 	$Sprite2D.speed_scale = SPEED/400
 	var direction = Input.get_axis(\"move_left\", \"move_right\")
@@ -109,11 +108,22 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+func refresh_stats():
+	SPEED = Player_globals.speed
+	JUMP_VELOCITY = Player_globals.jump
+	attack_speed = Player_globals.attack_speed
+	damage = Player_globals.damage
+	max_hp = Player_globals.max_hp
+	max_jumps = Player_globals.max_jumps
+
 func attack():
 	if can_atk:
+			$slashpivot/AnimatedSprite2D/Area2D.monitoring=true
 			can_atk = false
 			animated_sprite_2d.visible=true
 			await get_tree().create_timer(0.75).timeout
+			$slashpivot/AnimatedSprite2D/Area2D.monitoring=false
 			animated_sprite_2d.visible=false
 			can_atk = true
 func jump_refresh():
@@ -137,7 +147,7 @@ func _on_timer_timeout() -> void:
 
 func take_dmg(amount):
 	hp -= amount
-	
+
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"enemies\"):
@@ -299,6 +309,9 @@ sprite_frames = SubResource("SpriteFrames_52ee3")
 
 [node name="Area2D" type="Area2D" parent="slashpivot/AnimatedSprite2D"]
 position = Vector2(15.000002, 42)
+collision_layer = 0
+collision_mask = 4
+monitoring = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="slashpivot/AnimatedSprite2D/Area2D"]
 position = Vector2(-13.500002, -34.5)
