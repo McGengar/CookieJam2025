@@ -246,7 +246,7 @@ func debug_gen_card(card_tier:int=1) -> void:
 					var positive_augment = options.pick_random()
 					new_card.augments.append(positive_augment)
 					player_augments.append(positive_augment)
-			var negative_choice = ['modifier','augment'].pick_random()
+			var negative_choice = ['modifier','augment','augment','augment'].pick_random()
 			match negative_choice:
 				'modifier':
 					var negative_modifier = Modifier.new()
