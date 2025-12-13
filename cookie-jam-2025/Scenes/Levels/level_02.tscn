@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c317hikl2yw45"]
+[gd_scene load_steps=5 format=3 uid="uid://c317hikl2yw45"]
 
 [ext_resource type="PackedScene" uid="uid://b28v44l23vdu4" path="res://Scenes/Tilesets/casino_tileset.tscn" id="1_ivlrf"]
 [ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/Tilesets/props_tileset.tscn" id="2_cejks"]
 [ext_resource type="PackedScene" uid="uid://was10nolxbaj" path="res://Scenes/Player.tscn" id="3_wfe4l"]
+[ext_resource type="PackedScene" uid="uid://dsqrdkjjs2biu" path="res://Scenes/Enemies/enemy_mountain.tscn" id="4_mnnsc"]
 
 [node name="level_02" type="Node2D"]
 
@@ -17,3 +18,6 @@ layer_0/tile_data = PackedInt32Array(-1245138, 1441792, 3, -1179602, 1441792, 4,
 
 [node name="Player" parent="." instance=ExtResource("3_wfe4l")]
 position = Vector2(-51, 539)
+
+[node name="EnemyMountain" parent="." instance=ExtResource("4_mnnsc")]
+position = Vector2(317, 509)

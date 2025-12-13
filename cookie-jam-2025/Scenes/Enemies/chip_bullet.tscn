@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dex4wh2efx6le"]
+
+[ext_resource type="Script" uid="uid://ffri2bia3gwh" path="res://Scripts/Enemies/chip_bullet.gd" id="1_iledx"]
+[ext_resource type="Texture2D" uid="uid://6i26akckxi4c" path="res://Sprites/Enemies/chipball2.png" id="2_8gcra"]
+[ext_resource type="Texture2D" uid="uid://c28s80ve1iluo" path="res://Sprites/Enemies/chipball.png" id="2_iledx"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5vh6c"]
+radius = 5.0990195
+
+[node name="FortuneBullet" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_iledx")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+texture = ExtResource("2_8gcra")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_iledx")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_5vh6c")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

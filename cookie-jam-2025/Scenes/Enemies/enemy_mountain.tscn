@@ -1,0 +1,44 @@
+[gd_scene load_steps=6 format=3 uid="uid://dsqrdkjjs2biu"]
+
+[ext_resource type="Script" uid="uid://n54ws750tojl" path="res://Scripts/Enemies/enemy_mountain.gd" id="1_5c840"]
+[ext_resource type="PackedScene" uid="uid://dex4wh2efx6le" path="res://Scenes/Enemies/chip_bullet.tscn" id="2_k5bim"]
+[ext_resource type="Texture2D" uid="uid://dwgjnxaccrpl7" path="res://Sprites/Enemies/chips1.png" id="3_u5pub"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ao2"]
+size = Vector2(41, 37)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7i8oe"]
+radius = 1021.306
+
+[node name="EnemyMountain" type="CharacterBody2D" groups=["enemies"]]
+scale = Vector2(2, 2)
+collision_layer = 4
+script = ExtResource("1_5c840")
+bullet_scene = ExtResource("2_k5bim")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -2.5)
+shape = SubResource("RectangleShape2D_b3ao2")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(25, 2)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+visible = false
+shape = SubResource("CircleShape2D_7i8oe")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1, -2)
+texture = ExtResource("3_u5pub")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
