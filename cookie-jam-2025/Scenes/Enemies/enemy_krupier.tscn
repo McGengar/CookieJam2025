@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxqwi4vvv8anx"]
+
+[ext_resource type="Script" uid="uid://cxjfb4k5k7m1o" path="res://Scripts/Enemies/enemy_krupier.gd" id="1_jivsv"]
+[ext_resource type="Texture2D" uid="uid://b1aqvmp2idbxo" path="res://Sprites/Enemies/rybuszcz.png" id="3_e2ota"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b3ao2"]
+size = Vector2(55, 90)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7i8oe"]
+radius = 1021.306
+
+[node name="EnemyKrupier" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+script = ExtResource("1_jivsv")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_e2ota")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1.5, 3)
+shape = SubResource("RectangleShape2D_b3ao2")
+
+[node name="Muzzle" type="Marker2D" parent="."]
+position = Vector2(25, 2)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+visible = false
+shape = SubResource("CircleShape2D_7i8oe")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
