@@ -109,27 +109,117 @@ func add_card(card : Card) -> void :
 	update_augments()
 	resolve_augoments()
 
-func debug_gen_card() -> void:
+func debug_gen_card(card_tier:int=1) -> void:
 	var new_card = Card.new()
-	new_card.card_name = "random_card"+str(len(cards))
-	var positive_modifier = Modifier.new()
-	var negative_modifier = Modifier.new()
-	positive_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp'].pick_random()
-	positive_modifier.type = ['a','m'].pick_random()
-	if positive_modifier.type =='a':
-		positive_modifier.value = snapped(randf_range(10,25),0.01)
-	else:
-		positive_modifier.value = snapped(randf_range(0.10,0.25),0.01)
-	negative_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp'].pick_random()
-	negative_modifier.type = ['a','m'].pick_random()
-	if negative_modifier.type =='a':
-		negative_modifier.value = snapped(randf_range(-15,-5),0.01)
-	else:
-		negative_modifier.value = snapped(randf_range(-0.15,-0.5),0.01)
-	new_card.modifiers.append(positive_modifier)
-	new_card.modifiers.append(negative_modifier)
-	print("P_MOD: ", positive_modifier.stat, " ",positive_modifier.type," ",positive_modifier.value)
-	print("N_MOD: ", negative_modifier.stat," ",negative_modifier.type," ",negative_modifier.value)
+	new_card.card_name = "card "+str(len(cards))+" tier "+str(card_tier)
+	match card_tier:
+		1:
+			var positive_modifier = Modifier.new()
+			positive_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp'].pick_random()
+			positive_modifier.type = ['a','m'].pick_random()
+			if positive_modifier.type =='a':
+				positive_modifier.value = float(randi_range(10,25))
+			else:
+				positive_modifier.value = snapped(randf_range(0.10,0.20),0.01)
+			new_card.modifiers.append(positive_modifier)
+			var negative_modifier = Modifier.new()
+			negative_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp'].pick_random()
+			negative_modifier.type = ['a','m'].pick_random()
+			if negative_modifier.type =='a':
+				negative_modifier.value = float(randi_range(-15,-5))
+			else:
+				negative_modifier.value = snapped(randf_range(-0.10,-0.05),0.01)
+			new_card.modifiers.append(negative_modifier)
+		2:	
+			var positive_choice = ['modifier','modifier','modifier','augment'].pick_random()
+			match positive_choice:
+				'modifier':
+					var positive_modifier = Modifier.new()
+					positive_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp','max_jumps'].pick_random()
+					if positive_modifier.stat=='max_jumps':
+						positive_modifier.type = 'a'
+						positive_modifier.value = 1
+					else:
+						positive_modifier.type = ['a','m'].pick_random()
+						if positive_modifier.type =='a':
+							positive_modifier.value = float(randi_range(10,30))
+						else:
+							positive_modifier.value = snapped(randf_range(0.15,0.25),0.01)
+						new_card.modifiers.append(positive_modifier)
+					#print("P_MOD: ", positive_modifier.stat, " ",positive_modifier.type," ",positive_modifier.value)
+				'augment':
+					var options = ['thorns','swiftness','regen']
+					#for i in range(len(options)):
+						#if options[i] in player_augments:
+							#options.remove_at(i)
+					var positive_augment = options.pick_random()
+					new_card.augments.append(positive_augment)
+					player_augments.append(positive_augment)
+			var negative_choice = ['modifier','modifier','modifier','augment'].pick_random()
+			match negative_choice:
+				'modifier':
+					var negative_modifier = Modifier.new()
+					negative_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp'].pick_random()
+					negative_modifier.type = ['a','m'].pick_random()
+					if negative_modifier.type =='a':
+						negative_modifier.value = float(randi_range(-40,-5))
+					else:
+						negative_modifier.value = snapped(randf_range(-0.35,-0.05),0.01)
+					new_card.modifiers.append(negative_modifier)
+					#print("N_MOD: ", negative_modifier.stat," ",negative_modifier.type," ",negative_modifier.value)
+				'augment':
+					var options = ['reverse thorns','poisoned','nearsighted']
+					#for i in range(len(options)):
+						#if options[i] in player_augments:
+							#options.remove_at(i)
+					var negative_augment = options.pick_random()
+					new_card.augments.append(negative_augment)
+					player_augments.append(negative_augment)
+		3:
+			var positive_choice = ['modifier','augment'].pick_random()
+			match positive_choice:
+				'modifier':
+					var positive_modifier = Modifier.new()
+					positive_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp','max_jumps'].pick_random()
+					if positive_modifier.stat=='max_jumps':
+						positive_modifier.type = 'a'
+						positive_modifier.value = randi_range(1,2)
+					else:
+						positive_modifier.type = ['a','m'].pick_random()
+						if positive_modifier.type =='a':
+							positive_modifier.value = float(randi_range(20,60))
+						else:
+							positive_modifier.value = snapped(randf_range(0.2,0.4),0.01)
+						new_card.modifiers.append(positive_modifier)
+					#print("P_MOD: ", positive_modifier.stat, " ",positive_modifier.type," ",positive_modifier.value)
+				'augment':
+					var options = ['vamp','swiftness','scopiest weapons']
+					#for i in range(len(options)):
+						#if options[i] in player_augments:
+							#options.remove_at(i)
+					var positive_augment = options.pick_random()
+					new_card.augments.append(positive_augment)
+					player_augments.append(positive_augment)
+			var negative_choice = ['modifier','augment'].pick_random()
+			match negative_choice:
+				'modifier':
+					var negative_modifier = Modifier.new()
+					negative_modifier.stat = ['speed', 'jump', 'attack_speed', 'damage', 'max_hp'].pick_random()
+					negative_modifier.type = ['a','m'].pick_random()
+					if negative_modifier.type =='a':
+						negative_modifier.value = float(randi_range(-120,-5))
+					else:
+						negative_modifier.value = snapped(randf_range(-0.80,-0.05),0.01)
+					new_card.modifiers.append(negative_modifier)
+					#print("N_MOD: ", negative_modifier.stat," ",negative_modifier.type," ",negative_modifier.value)
+				'augment':
+					var options = ['tainted','vulnerable']
+					#for i in range(len(options)):
+						#if options[i] in player_augments:
+							#options.remove_at(i)
+					var negative_augment = options.pick_random()
+					new_card.augments.append(negative_augment)
+					player_augments.append(negative_augment)
 	add_card(new_card)
 
 func resolve_augoments() -> void :
@@ -153,14 +243,8 @@ func resolve_augoments() -> void :
 			'swiftness':
 				#the faster you are the more damage you deal
 				pass
-			'slow and steady':
-				#you can't gain more attack speed, but your damage is increased by your bonus attack speed
-				pass
 			'scopiest weapons':
 				#gain range
-				pass
-			'grounded':
-				#cant jump
 				pass
 			'regen':
 				#constantly heal
@@ -173,8 +257,5 @@ func resolve_augoments() -> void :
 				pass
 			'glass cannon':
 				#x5damage but -80% max hp
-				pass
-			'aronist':
-				#when you kill an enemy explosion appears that deals damage to other nerby enemies
 				pass
 			
