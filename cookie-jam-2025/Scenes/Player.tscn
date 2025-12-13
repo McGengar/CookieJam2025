@@ -1,14 +1,15 @@
-[gd_scene load_steps=26 format=3 uid="uid://was10nolxbaj"]
+[gd_scene load_steps=28 format=3 uid="uid://was10nolxbaj"]
 
 [ext_resource type="Texture2D" uid="uid://c4yrr3542a13n" path="res://Sprites/ani_1_ver.png" id="1_dewec"]
 [ext_resource type="Script" uid="uid://bdid18rcqjcb7" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
 [ext_resource type="Texture2D" uid="uid://cmy2ovhqsi5oo" path="res://Sprites/dupkaa.png" id="1_megsn"]
 [ext_resource type="Texture2D" uid="uid://b42vjrbdb4fbi" path="res://Sprites/slash_sprite_sheet.png" id="1_rpqav"]
+[ext_resource type="Texture2D" uid="uid://deks0o0mr64d4" path="res://Sprites/ani_1_ver-export.png" id="1_yoq75"]
 [ext_resource type="PackedScene" uid="uid://r7jl6epbow87" path="res://Scenes/phone_ui.tscn" id="2_5ixxa"]
 [ext_resource type="Texture2D" uid="uid://ieyvrrouvh36" path="res://Sprites/scythe.png" id="2_kyqiw"]
 [ext_resource type="PackedScene" uid="uid://cqfmvrr3vyl0g" path="res://Scenes/luck_bar.tscn" id="3_nn08x"]
 [ext_resource type="Texture2D" uid="uid://dxxl7pfi1ti2u" path="res://Sprites/arrow.png" id="7_52ee3"]
-[ext_resource type="Script" uid="uid://cg6k5yqtfjt3l" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
+[ext_resource type="Script" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
 resource_name = "player"
@@ -40,6 +41,7 @@ var is_climbing = false
 var can_atk = true
 var last_wall = 0
 var hit_enemies: Array = []
+var dead = false
 
 func _ready() -> void:
 	SPEED = Player_globals.speed
@@ -50,73 +52,73 @@ func _ready() -> void:
 	max_jumps = Player_globals.max_jumps
 	hp = max_hp
 func _physics_process(delta):
-	if Input.is_action_just_pressed(\"debug_1\"):
-		Player_globals.debug_gen_card()
-		refresh_stats()
-	
-	$Sprite2D.speed_scale = SPEED/400
-	var direction = Input.get_axis(\"move_left\", \"move_right\")
-	if direction!=0 and not is_on_wall():
-		$Sprite2D.play(\"walk\")
-	elif direction ==0:
-		$Sprite2D.play(\"stand\")
-	if is_on_floor():
-		jump_refresh()
-		last_wall = 0
 	if not is_on_floor() and not is_on_wall() and is_climbing == false:
-		velocity += get_gravity() * delta
-	if is_on_wall():
-		print(\"im on the damn wall\")
-		sprite_2d.play(\"slide\")
-		if velocity.y < 0:
-			pass
-			velocity.y *= 0.9
-		velocity += get_gravity() * delta /4
-	if is_on_wall() and is_climbing == false:
-		jump_refresh()
-		if Input.is_action_just_pressed(\"jump\"):
-			if Input.is_action_pressed(\"move_right\"):
-				last_wall = 1
-				if jumps_avail > 0:
-					jump_timer()
-					velocity.y = JUMP_VELOCITY
-					velocity.x += -direction * SPEED
-					jumps_avail -= 1
-			elif Input.is_action_pressed(\"move_left\"):
-				last_wall = -1
-				if jumps_avail > 0:
-					jump_timer()
-					velocity.y = JUMP_VELOCITY
-					velocity.x += -direction * SPEED
-					jumps_avail -= 1
-	if Input.is_action_just_pressed(\"interact\"):
-		attack()
-	# Handle jump.
-	if Input.is_action_just_pressed(\"jump\") and jumps_avail > 0 and is_on_floor():
-		jumps_avail -= 1
-		velocity.y = JUMP_VELOCITY
-	if platformchecker.is_colliding() and not nothingchecker.is_colliding() and is_on_wall():
-		is_climbing = true
-	if is_climbing == true:
-			move_to_path(delta,last_dir)
-	else:
-		ledge_progress = 0
-	if direction == -1:
-		last_dir = direction
-		sprite_2d.flip_h = true
-		platformchecker.rotation = deg_to_rad(180)
-		nothingchecker.rotation = deg_to_rad(180)
-	elif direction == 1:
-		last_dir = direction
-		sprite_2d.flip_h = false
-		platformchecker.rotation = deg_to_rad(0)
-		nothingchecker.rotation = deg_to_rad(0)
-	if direction and is_wall_jumping == false and is_climbing == false:
-		velocity.x = direction * SPEED
-	elif is_wall_jumping == false and is_climbing == false:
-			velocity.x = move_toward(velocity.x, 0, SPEED)
+			velocity += get_gravity() * delta
+	if not dead:
+		if Input.is_action_just_pressed(\"debug_1\"):
+			Player_globals.debug_gen_card()
+			refresh_stats()
+		
+		$Sprite2D.speed_scale = SPEED/400
+		var direction = Input.get_axis(\"move_left\", \"move_right\")
+		if direction!=0 and not is_on_wall():
+			$Sprite2D.play(\"walk\")
+		elif direction ==0:
+			$Sprite2D.play(\"stand\")
+		if is_on_floor():
+			jump_refresh()
+			last_wall = 0
+		if is_on_wall():
+			sprite_2d.play(\"slide\")
+			if velocity.y < 0:
+				pass
+				velocity.y *= 0.9
+			velocity += get_gravity() * delta /4
+		if is_on_wall() and is_climbing == false:
+			jump_refresh()
+			if Input.is_action_just_pressed(\"jump\"):
+				if Input.is_action_pressed(\"move_right\"):
+					last_wall = 1
+					if jumps_avail > 0:
+						jump_timer()
+						velocity.y = JUMP_VELOCITY
+						velocity.x += -direction * SPEED
+						jumps_avail -= 1
+				elif Input.is_action_pressed(\"move_left\"):
+					last_wall = -1
+					if jumps_avail > 0:
+						jump_timer()
+						velocity.y = JUMP_VELOCITY
+						velocity.x += -direction * SPEED
+						jumps_avail -= 1
+		if Input.is_action_just_pressed(\"interact\"):
+			attack()
+		# Handle jump.
+		if Input.is_action_just_pressed(\"jump\") and jumps_avail > 0 and is_on_floor():
+			jumps_avail -= 1
+			velocity.y = JUMP_VELOCITY
+		if platformchecker.is_colliding() and not nothingchecker.is_colliding() and is_on_wall():
+			is_climbing = true
+		if is_climbing == true:
+				move_to_path(delta,last_dir)
+		else:
+			ledge_progress = 0
+		if direction == -1:
+			last_dir = direction
+			sprite_2d.flip_h = true
+			platformchecker.rotation = deg_to_rad(180)
+			nothingchecker.rotation = deg_to_rad(180)
+		elif direction == 1:
+			last_dir = direction
+			sprite_2d.flip_h = false
+			platformchecker.rotation = deg_to_rad(0)
+			nothingchecker.rotation = deg_to_rad(0)
+		if direction and is_wall_jumping == false and is_climbing == false:
+			velocity.x = direction * SPEED
+		elif is_wall_jumping == false and is_climbing == false:
+				velocity.x = move_toward(velocity.x, 0, SPEED)
 
-	move_and_slide()
+		move_and_slide()
 
 func refresh_stats():
 	SPEED = Player_globals.speed
@@ -157,13 +159,18 @@ func _on_timer_timeout() -> void:
 
 func take_dmg(amount):
 	hp -= amount
-
-
+	if hp <= 0:
+		die()
+func die():
+	dead = true
+	rotation = deg_to_rad(90)
+	sprite_2d.play(\"dead\")
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"enemies\") and not body in hit_enemies:
-		body.take_dmg(5)
+		body.take_dmg(damage)
 		hit_enemies.append(body)
-
+	elif body.is_in_group(\"slotsmachine\"):
+		body.take_dmg(5)
 
 @onready var arrow_pivot: Marker2D = $ArrowPivot
 
@@ -207,6 +214,10 @@ func find_nearest_enemy() -> Node2D:
 	return nearest
 "
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_miouo"]
+atlas = ExtResource("1_yoq75")
+region = Rect2(0, 0, 80, 96)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_glx4g"]
 atlas = ExtResource("1_dewec")
 region = Rect2(0, 0, 64, 96)
@@ -233,6 +244,14 @@ region = Rect2(256, 0, 64, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_glx4g"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_miouo")
+}],
+"loop": true,
+"name": &"dead",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_megsn")
@@ -339,7 +358,7 @@ script = SubResource("GDScript_qbkls")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_glx4g")
-animation = &"slide"
+animation = &"dead"
 autoplay = "stand"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
