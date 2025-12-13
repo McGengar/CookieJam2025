@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cv88jjubajmyy"]
+[gd_scene load_steps=14 format=3 uid="uid://cv88jjubajmyy"]
 
 [ext_resource type="Script" uid="uid://cwwg64v6l3sbj" path="res://Scripts/card_script.gd" id="1_3m7nw"]
 [ext_resource type="Shader" uid="uid://dex8oc3se28ln" path="res://Shaders/outline.gdshader" id="2_kphy1"]
@@ -17,10 +17,6 @@ shader_parameter/add_margins = true
 [sub_resource type="AtlasTexture" id="AtlasTexture_13sua"]
 atlas = ExtResource("4_c6tr3")
 region = Rect2(0, 0, 64, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_pbuqb"]
-atlas = ExtResource("4_c6tr3")
-region = Rect2(576, 0, 64, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f3ywt"]
 atlas = ExtResource("4_c6tr3")
@@ -45,9 +41,6 @@ animations = [{
 "texture": SubResource("AtlasTexture_13sua")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pbuqb")
-}, {
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_f3ywt")
 }, {
 "duration": 1.0,
@@ -65,10 +58,9 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tayg5"]
-size = Vector2(92, 142)
+size = Vector2(62, 98)
 
 [node name="Card" type="Node2D"]
-position = Vector2(104, 122)
 script = ExtResource("1_3m7nw")
 tier = 1
 
@@ -81,7 +73,7 @@ texture = ExtResource("3_wejov")
 material = SubResource("ShaderMaterial_1geux")
 scale = Vector2(1.5625, 1.5625)
 sprite_frames = SubResource("SpriteFrames_co2vc")
-frame = 5
+frame = 4
 
 [node name="Hitbox" type="Area2D" parent="."]
 
@@ -97,12 +89,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Positive" type="RichTextLabel" parent="PContainer"]
+visible = false
 clip_contents = false
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_colors/default_color = Color(2.117753e-06, 0.88675255, 0.42748612, 1)
+theme_override_colors/default_color = Color(0.2747107, 0.41816917, 0.9006165, 1)
 theme_override_fonts/normal_font = ExtResource("5_kphy1")
 text = "+20 Speed"
 fit_content = true
@@ -119,12 +112,13 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 
 [node name="Negative" type="RichTextLabel" parent="NContainer"]
+visible = false
 clip_contents = false
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_colors/default_color = Color(0.979804, 0, 0.14045864, 1)
+theme_override_colors/default_color = Color(0.98039216, 0.7019608, 0.14117648, 1)
 theme_override_fonts/normal_font = ExtResource("5_kphy1")
 text = "x0.8 Jump"
 fit_content = true
