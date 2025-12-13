@@ -2,7 +2,7 @@ extends Card
 #BASE STATS
 const BASE_SPEED = 400.0
 const BASE_JUMP = -500.0
-const BASE_ATTACK_SPEED = 1.0
+const BASE_ATTACK_SPEED = 100.0
 const BASE_DAMAGE = 10.0
 const BASE_HP = 250.0
 const BASE_MAX_JUMPS = 1.0
@@ -88,15 +88,27 @@ func update_modifiers() -> void:
 				player_modifiers.append(modifier)
 	for modifier in player_modifiers:
 		modify_stat(modifier.stat,modifier.type,modifier.value)
-		
+
+func remove_card(i:int) -> void:
+	cards.remove_at(i)
+	update_stats()
+	update_augments()
+	resolve_augoments()
+
 func update_stats() -> void:
 	update_modifiers()
 	speed = (BASE_SPEED + speed_add) * speed_mult
+	clamp(speed, 40, 9999)
 	jump = (BASE_JUMP + jump_add) * jump_mult
+	clamp(jump, -9999, -50)
 	attack_speed = (BASE_ATTACK_SPEED + attack_speed_add) * attack_speed_mult
+	clamp(attack_speed, 10, 9999)
 	damage = (BASE_DAMAGE + damage_add) * damage_mult
+	clamp(damage, 1, 9999)
 	max_hp = (BASE_HP + max_hp_add) * max_hp_mult
+	clamp(max_hp, 30, 9999)
 	max_jumps = BASE_MAX_JUMPS + max_jumps_add
+	clamp(max_jumps, 1, 5)
 
 func update_augments() -> void:
 	player_augments.clear()
