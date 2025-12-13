@@ -15,7 +15,7 @@ func _physics_process(delta):
 func _on_body_entered(body):
 	if body.is_in_group("player"):
 		#print("Trafiono gracza kołem!")
-		damage = randf_range(0.1*body.max_hp, 0.5*body.max_hp)
+		damage = randf_range(0.1*body.max_hp, 0.25*body.max_hp)
 		print(body.hp)
 		body.take_dmg(damage)
 		queue_free()
