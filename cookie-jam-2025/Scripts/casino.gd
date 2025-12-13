@@ -29,6 +29,9 @@ func shake(amount: float = 10.0, duration: float = 0.5):
 	_shaking = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_just_pressed("deubg_2"):
+		Player_globals.remove_card(hand.selected_card)
+		hand.reload()
 	if _shaking and button:
 		_shake_timer -= delta
 		if _shake_timer <= 0:
@@ -62,7 +65,6 @@ func _on_button_pressed():
 		if counter==5:
 			disappearing = true
 	
-
 
 func _on_next_level_pressed():
 	if Player_globals.level_counter<10:

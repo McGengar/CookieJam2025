@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://vsowvgmxr1up" path="res://Scenes/Enemies/enemy_fortune_wheel.tscn" id="7_s6vch"]
 [ext_resource type="PackedScene" uid="uid://cj53wbd8o61ea" path="res://Scenes/Enemies/enemy_rybuszcz.tscn" id="8_16n5f"]
 [ext_resource type="PackedScene" uid="uid://daa38d86v1u5u" path="res://Scenes/Enemies/enemy_hag.tscn" id="9_oyhq0"]
-[ext_resource type="PackedScene" path="res://Scenes/Enemies/enemy_mountain.tscn" id="10_5n0mu"]
+[ext_resource type="PackedScene" uid="uid://dsqrdkjjs2biu" path="res://Scenes/Enemies/enemy_mountain.tscn" id="10_5n0mu"]
 
 [node name="level_04" type="Node2D"]
 
