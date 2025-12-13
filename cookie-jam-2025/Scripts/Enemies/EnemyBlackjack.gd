@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 @export var max_speed = 350.0
 @export var acceleration = 250.0
-@export var hp = 2
+@export var hp = 8
 var damage = 35
 
 var player = null

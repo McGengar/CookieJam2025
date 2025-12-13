@@ -60,3 +60,15 @@ func shoot_radial():
 		var current_angle = i * angle_step
 		bullet.rotation_degrees = current_angle
 		get_parent().add_child(bullet)
+		
+func take_dmg(amount):
+	hp -= amount
+	modulate = Color.RED
+	var tween = create_tween()
+	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
+	
+	if hp <= 0:
+		die()
+
+func die():
+	queue_free()

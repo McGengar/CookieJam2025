@@ -5,7 +5,7 @@ extends CharacterBody2D
 @export var gravity = 980.0
 @export var attack_range = 60.0 
 @export var damage = 40
-var hp = 2;
+var hp = 15;
 
 var player = null
 @onready var sword_hitbox = $SwordHitbox
