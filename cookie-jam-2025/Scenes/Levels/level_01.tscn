@@ -23,15 +23,15 @@ layer_0/tile_data = PackedInt32Array(-65526, 1441792, 3, 10, 1441792, 4, 65546, 
 position = Vector2(155, -4)
 
 [node name="enemy_rybuszcz" parent="." instance=ExtResource("4_mb1if")]
-position = Vector2(-2159, 492)
+position = Vector2(-2216, -465)
 scale = Vector2(1.3807777, 1.3807777)
 
 [node name="EnemyBlackjack" parent="." instance=ExtResource("5_dbq10")]
-position = Vector2(-2260, 516)
+position = Vector2(-2174, -638)
 
 [node name="EnemyDziad" parent="." instance=ExtResource("6_taws2")]
-position = Vector2(-2034, 514)
+position = Vector2(-278, -67)
 scale = Vector2(1.5504825, 1.5504825)
 
 [node name="EnemyFortuneWheel" parent="." instance=ExtResource("7_mb1if")]
-position = Vector2(-550, -91)
+position = Vector2(-2101, -765)

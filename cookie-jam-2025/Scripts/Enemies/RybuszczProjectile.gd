@@ -2,6 +2,7 @@ extends Area2D
 
 var speed = 400
 var direction = Vector2.ZERO
+var damage = 25
 
 func _ready():
 	$VisibleOnScreenNotifier2D.screen_exited.connect(queue_free)
@@ -15,6 +16,8 @@ func _on_body_entered(body):
 
 	if body.is_in_group("player"):
 		print("Gracz oberwał!")
+		body.take_dmg(damage)
+		print(body.health)
 		queue_free()
 		return
 

@@ -5,8 +5,8 @@ extends CharacterBody2D
 @export var jump_force = -450.0 # Siła skoku (ujemna to góra)
 @export var gravity = 980.0
 @export var attack_range = 60.0 # Jak blisko musi być, żeby ciąć mieczem
-@export var damage = 1
-var hp = 40;
+@export var damage = 40
+var hp = 10;
 
 # Referencje
 var player = null
@@ -114,5 +114,5 @@ func die():
 func _on_sword_hitbox_body_entered(body):
 	if body.is_in_group("player"):
 		print("Gracz dostał z miecza!")
-		#if body.has_method("take_dmg"):
-		#	body.take_dmg(damage)
+		body.take_dmg(damage)
+		print(body.health)

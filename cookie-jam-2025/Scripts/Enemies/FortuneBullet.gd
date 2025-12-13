@@ -19,6 +19,9 @@ func _on_body_entered(body):
 		# Tutaj wywołaj funkcję zadawania obrażeń u gracza, np.:
 		# body.take_damage(damage)
 		print("Trafiono gracza kołem!")
+		damage = randf_range(0.1*body.max_hp, 0.5*body.max_hp)
+		print(body.health)
+		body.take_dmg(damage)
 		queue_free()
 	elif body.name != "EnemyFortuneWheel": # Żeby nie niszczył się na samym przeciwniku przy starcie
 		queue_free() # Zniszcz na ścianach
