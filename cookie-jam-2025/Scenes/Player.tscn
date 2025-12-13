@@ -1,37 +1,94 @@
-[gd_scene load_steps=5 format=3 uid="uid://djxi0b3154gc3"]
+[gd_scene load_steps=5 format=3 uid="uid://was10nolxbaj"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
 resource_name = "player"
 script/source = "extends CharacterBody2D
+@onready var timer: Timer = $Timer
+@onready var platformchecker: RayCast2D = $platformchecker
+@onready var nothingchecker: RayCast2D = $nothingchecker
+@onready var sprite_2d: Sprite2D = $Sprite2D
 
 
-var SPEED = Player_globals.player_speed
-var JUMP_VELOCITY = Player_globals.jump_velocity
+
+
+#do zmiany ten speed
+var SPEED = Player_globals.speed
+#do zmiany jump
+var JUMP_VELOCITY = Player_globals.jump
+var ledge_progress = 0
+var last_dir
+var is_wall_jumping = false
+var is_climbing = false
 
 
 func _physics_process(delta):
-	# Add the gravity.
-	if not is_on_floor():
+	var direction = Input.get_axis(\"move_left\", \"move_right\")
+	if not is_on_floor() and not is_on_wall() and is_climbing == false:
 		velocity += get_gravity() * delta
-
+	if is_on_wall():
+		velocity += get_gravity() * delta /4
+	if is_on_wall() and is_climbing == false:
+		if Input.is_action_just_pressed(\"jump\"):
+			if Input.is_action_pressed(\"move_right\"):
+				jump_timer()
+				velocity.y = JUMP_VELOCITY
+				velocity.x += -direction * SPEED 
+			elif Input.is_action_pressed(\"move_left\"):
+				jump_timer()
+				velocity.y = JUMP_VELOCITY
+				velocity.x += -direction * SPEED
 	# Handle jump.
 	if Input.is_action_just_pressed(\"jump\") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction = Input.get_axis(\"move_left\", \"move_right\")
-	if direction:
-		velocity.x = direction * SPEED
+	if platformchecker.is_colliding() and not nothingchecker.is_colliding() and not is_on_floor():
+		is_climbing = true
+	if is_climbing == true:
+			move_to_path(delta,last_dir)
 	else:
-		velocity.x = move_toward(velocity.x, 0, SPEED)
+		ledge_progress = 0
+	if Input.is_action_just_pressed(\"interact\"):
+		velocity.x = 0
+		if is_climbing == true:
+			is_climbing = false
+		else:
+			is_climbing = true
+	if direction == -1:
+		last_dir = direction
+		sprite_2d.flip_h = true
+		platformchecker.rotation = deg_to_rad(180)
+		nothingchecker.rotation = deg_to_rad(180)
+	elif direction == 1:
+		last_dir = direction
+		sprite_2d.flip_h = false
+		platformchecker.rotation = deg_to_rad(0)
+		nothingchecker.rotation = deg_to_rad(0)
+	if direction and is_wall_jumping == false and is_climbing == false:
+		velocity.x = direction * SPEED
+	elif is_wall_jumping == false and is_climbing == false:
+			velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+
+func jump_timer():
+	timer.start()
+	is_wall_jumping = true
+func move_to_path(how_much,dir):
+	if is_climbing:
+		var save_dir = dir
+		ledge_progress += how_much*2
+		velocity.y = -180 * ledge_progress
+		await get_tree().create_timer(0.35).timeout
+		if ledge_progress + how_much > 1:
+			velocity.x = save_dir * 1000 * ledge_progress
+			is_climbing = false
+		
+func _on_timer_timeout() -> void:
+	is_wall_jumping = false
 "
 
 [sub_resource type="Gradient" id="Gradient_qbkls"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.9612339, 0.1914348, 0.9999998, 1)
+offsets = PackedFloat32Array(0, 0.01999998, 1)
+colors = PackedColorArray(0.9612339, 0.1914348, 0.9999998, 1, 0.9612339, 0.1914348, 0.9999998, 1, 0.19382793, 0.73633075, 0.36385354, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_rpqav"]
 gradient = SubResource("Gradient_qbkls")
@@ -51,3 +108,16 @@ texture = SubResource("GradientTexture1D_rpqav")
 shape = SubResource("RectangleShape2D_kyqiw")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="platformchecker" type="RayCast2D" parent="."]
+position = Vector2(0, 9)
+target_position = Vector2(36, 0)
+
+[node name="nothingchecker" type="RayCast2D" parent="."]
+position = Vector2(1, -25)
+target_position = Vector2(35, 1)
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
