@@ -40,7 +40,7 @@ func modify_stat(stat: String, type:String, value:float) -> void:
 				speed_mult+=value
 		'jump':
 			if type == 'a':
-				jump_add-=value
+				jump_add+=value
 			elif type == 'm':
 				jump_mult+=value
 		'attack_speed':
@@ -84,7 +84,6 @@ func update_modifiers() -> void:
 		if len(card.modifiers)>0:
 			for modifier in card.modifiers:
 				player_modifiers.append(modifier)
-				#print(modifier.stat,modifier.type,modifier.value)
 	for modifier in player_modifiers:
 		modify_stat(modifier.stat,modifier.type,modifier.value)
 		

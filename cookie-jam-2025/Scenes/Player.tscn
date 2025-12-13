@@ -1,4 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://was10nolxbaj"]
+[gd_scene load_steps=15 format=3 uid="uid://was10nolxbaj"]
+
+[ext_resource type="Script" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
+[ext_resource type="Texture2D" uid="uid://b42vjrbdb4fbi" path="res://Sprites/slash_sprite_sheet.png" id="1_rpqav"]
+[ext_resource type="Texture2D" uid="uid://ieyvrrouvh36" path="res://Sprites/scythe.png" id="2_kyqiw"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
 resource_name = "player"
@@ -7,51 +11,77 @@ script/source = "extends CharacterBody2D
 @onready var platformchecker: RayCast2D = $platformchecker
 @onready var nothingchecker: RayCast2D = $nothingchecker
 @onready var sprite_2d: Sprite2D = $Sprite2D
+@onready var slashpivot: Node2D = $slashpivot
+@onready var animated_sprite_2d: AnimatedSprite2D = $slashpivot/AnimatedSprite2D
 
 
 
-
-#do zmiany ten speed
 var SPEED = Player_globals.speed
-#do zmiany jump
 var JUMP_VELOCITY = Player_globals.jump
+var attack_speed = Player_globals.attack_speed
+var damage = Player_globals.damage
+var max_hp = Player_globals.max_hp
+var max_jumps = Player_globals.max_jumps
+var health
+
+var jumps_avail = max_jumps
+
 var ledge_progress = 0
 var last_dir
 var is_wall_jumping = false
 var is_climbing = false
+var can_atk = true
+var last_wall = 0
 
-
+func _ready() -> void:
+	SPEED = Player_globals.speed
+	JUMP_VELOCITY = Player_globals.jump
+	attack_speed = Player_globals.attack_speed
+	damage = Player_globals.damage
+	max_hp = Player_globals.max_hp
+	max_jumps = Player_globals.max_jumps
+	health = max_hp
 func _physics_process(delta):
 	var direction = Input.get_axis(\"move_left\", \"move_right\")
+	if is_on_floor():
+		jump_refresh()
+		last_wall = 0
 	if not is_on_floor() and not is_on_wall() and is_climbing == false:
 		velocity += get_gravity() * delta
 	if is_on_wall():
+		if velocity.y < 0:
+			pass
+			velocity.y *= 0.9
 		velocity += get_gravity() * delta /4
 	if is_on_wall() and is_climbing == false:
+		jump_refresh()
 		if Input.is_action_just_pressed(\"jump\"):
 			if Input.is_action_pressed(\"move_right\"):
-				jump_timer()
-				velocity.y = JUMP_VELOCITY
-				velocity.x += -direction * SPEED 
+				last_wall = 1
+				if jumps_avail > 0:
+					jump_timer()
+					velocity.y = JUMP_VELOCITY
+					velocity.x += -direction * SPEED
+					jumps_avail -= 1
 			elif Input.is_action_pressed(\"move_left\"):
-				jump_timer()
-				velocity.y = JUMP_VELOCITY
-				velocity.x += -direction * SPEED
+				last_wall = -1
+				if jumps_avail > 0:
+					jump_timer()
+					velocity.y = JUMP_VELOCITY
+					velocity.x += -direction * SPEED
+					jumps_avail -= 1
+	if Input.is_action_just_pressed(\"interact\"):
+		attack()
 	# Handle jump.
-	if Input.is_action_just_pressed(\"jump\") and is_on_floor():
+	if Input.is_action_just_pressed(\"jump\") and jumps_avail > 0 and is_on_floor():
+		jumps_avail -= 1
 		velocity.y = JUMP_VELOCITY
-	if platformchecker.is_colliding() and not nothingchecker.is_colliding() and not is_on_floor():
+	if platformchecker.is_colliding() and not nothingchecker.is_colliding() and is_on_wall():
 		is_climbing = true
 	if is_climbing == true:
 			move_to_path(delta,last_dir)
 	else:
 		ledge_progress = 0
-	if Input.is_action_just_pressed(\"interact\"):
-		velocity.x = 0
-		if is_climbing == true:
-			is_climbing = false
-		else:
-			is_climbing = true
 	if direction == -1:
 		last_dir = direction
 		sprite_2d.flip_h = true
@@ -68,12 +98,21 @@ func _physics_process(delta):
 			velocity.x = move_toward(velocity.x, 0, SPEED)
 
 	move_and_slide()
+func attack():
+	if can_atk:
+			can_atk = false
+			animated_sprite_2d.visible=true
+			await get_tree().create_timer(0.75).timeout
+			animated_sprite_2d.visible=false
+			can_atk = true
+func jump_refresh():
+	jumps_avail = max_jumps
 
 func jump_timer():
 	timer.start()
 	is_wall_jumping = true
 func move_to_path(how_much,dir):
-	if is_climbing:
+	if is_climbing and not is_wall_jumping:
 		var save_dir = dir
 		ledge_progress += how_much*2
 		velocity.y = -180 * ledge_progress
@@ -84,6 +123,14 @@ func move_to_path(how_much,dir):
 		
 func _on_timer_timeout() -> void:
 	is_wall_jumping = false
+
+func take_dmg(amount):
+	health -= amount
+	
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group(\"enemy\"):
+		body.take_dmg(5)
 "
 
 [sub_resource type="Gradient" id="Gradient_qbkls"]
@@ -96,7 +143,63 @@ gradient = SubResource("Gradient_qbkls")
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyqiw"]
 size = Vector2(54, 54)
 
-[node name="Player" type="CharacterBody2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_kyqiw"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gntrk"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(64, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dewec"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(128, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ixxa"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(192, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nn08x"]
+atlas = ExtResource("1_rpqav")
+region = Rect2(256, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_52ee3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kyqiw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gntrk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dewec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ixxa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nn08x")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_kyqiw")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bhhdu"]
+radius = 24.5
+height = 49.0
+
+[node name="Player" type="CharacterBody2D" groups=["player"]]
+collision_layer = 2
 script = SubResource("GDScript_qbkls")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -118,6 +221,29 @@ target_position = Vector2(36, 0)
 
 [node name="nothingchecker" type="RayCast2D" parent="."]
 position = Vector2(1, -25)
-target_position = Vector2(35, 1)
+target_position = Vector2(36, 0)
+
+[node name="slashpivot" type="RigidBody2D" parent="."]
+freeze = true
+script = ExtResource("1_gntrk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="slashpivot"]
+visible = false
+position = Vector2(-8, -4)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_52ee3")
+
+[node name="Area2D" type="Area2D" parent="slashpivot/AnimatedSprite2D"]
+position = Vector2(15.000002, 42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="slashpivot/AnimatedSprite2D/Area2D"]
+position = Vector2(-13.500002, -34.5)
+shape = SubResource("CapsuleShape2D_bhhdu")
+
+[node name="atkcd" type="Timer" parent="slashpivot"]
+wait_time = 0.75
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="area_entered" from="slashpivot/AnimatedSprite2D/Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="slashpivot/AnimatedSprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="timeout" from="slashpivot/atkcd" to="slashpivot" method="_on_atkcd_timeout"]

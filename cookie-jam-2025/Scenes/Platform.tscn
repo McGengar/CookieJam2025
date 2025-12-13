@@ -1,6 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://eri844qn0u82"]
-
-[ext_resource type="Script" uid="uid://dury7qyt3bwob" path="res://Scripts/platform.gd" id="1_pquxj"]
+[gd_scene load_steps=4 format=3 uid="uid://cny3dgn0a6eh1"]
 
 [sub_resource type="Gradient" id="Gradient_qbkls"]
 offsets = PackedFloat32Array(0)
@@ -10,11 +8,10 @@ colors = PackedColorArray(0.9612339, 0.1914348, 0.9999998, 1)
 gradient = SubResource("Gradient_qbkls")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pquxj"]
-size = Vector2(614, 50)
+size = Vector2(611, 48)
 
 [node name="Platform" type="StaticBody2D"]
 position = Vector2(-79, 0)
-script = ExtResource("1_pquxj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(78.49999, 1.1920929e-06)
@@ -22,5 +19,5 @@ scale = Vector2(2.4023438, 49.999996)
 texture = SubResource("GradientTexture1D_7fcwl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(78, 0)
+position = Vector2(78.5, 0)
 shape = SubResource("RectangleShape2D_pquxj")

@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://vsowvgmxr1up"]
+
+[ext_resource type="Script" uid="uid://b3pnrin5wsruh" path="res://Scripts/Enemies/EnemyFortuneWheel.gd" id="1_a3t6k"]
+[ext_resource type="Texture2D" uid="uid://ccrxrwh18egky" path="res://Sprites/Enemies/fortunewheel.png" id="2_hsoj7"]
+[ext_resource type="PackedScene" uid="uid://bp3n6veqm4i5j" path="res://Scenes/Enemies/fortune_bullet.tscn" id="2_io0jg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a3t6k"]
+radius = 36.687874
+
+[node name="EnemyFortuneWheel" type="CharacterBody2D" groups=["enemies"]]
+collision_layer = 4
+collision_mask = 0
+script = ExtResource("1_a3t6k")
+bullet_scene = ExtResource("2_io0jg")
+
+[node name="ShootTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_hsoj7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_a3t6k")

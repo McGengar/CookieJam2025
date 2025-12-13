@@ -12,5 +12,9 @@ position = Vector2(49, -274)
 position = Vector2(-77, 46)
 
 [node name="Platform2" parent="." instance=ExtResource("2_wruji")]
-position = Vector2(298, -414)
+position = Vector2(318, -410)
+rotation = 1.5707964
+
+[node name="Platform3" parent="." instance=ExtResource("2_wruji")]
+position = Vector2(145, -482)
 rotation = 1.5707964

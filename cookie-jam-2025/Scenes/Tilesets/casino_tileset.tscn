@@ -1869,8 +1869,7 @@ texture_region_size = Vector2i(48, 48)
 [sub_resource type="TileSet" id="TileSet_kxpfk"]
 tile_size = Vector2i(48, 48)
 physics_layer_0/collision_layer = 1
-physics_layer_1/collision_layer = 2
-physics_layer_1/collision_mask = 2
+physics_layer_1/collision_layer = 1
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "inside_bricks"
 terrain_set_0/terrain_0/color = Color(0.61963534, 0.3424125, 0.45461673, 1)
