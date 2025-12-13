@@ -1,0 +1,136 @@
+[gd_scene load_steps=15 format=3 uid="uid://cv88jjubajmyy"]
+
+[ext_resource type="Script" uid="uid://cwwg64v6l3sbj" path="res://Scripts/card_script.gd" id="1_3m7nw"]
+[ext_resource type="Shader" uid="uid://dex8oc3se28ln" path="res://Shaders/outline.gdshader" id="2_kphy1"]
+[ext_resource type="Texture2D" uid="uid://cjcnd6jes6hys" path="res://Sprites/bg.png" id="3_wejov"]
+[ext_resource type="Texture2D" uid="uid://bo5qy3mftuwye" path="res://Sprites/values.png" id="4_c6tr3"]
+[ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="5_kphy1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1geux"]
+shader = ExtResource("2_kphy1")
+shader_parameter/color = Color(0.6745098, 0.6745098, 0.6745098, 0.44705883)
+shader_parameter/width = 1.0
+shader_parameter/pattern = 0
+shader_parameter/inside = false
+shader_parameter/add_margins = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13sua"]
+atlas = ExtResource("4_c6tr3")
+region = Rect2(0, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pbuqb"]
+atlas = ExtResource("4_c6tr3")
+region = Rect2(576, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3ywt"]
+atlas = ExtResource("4_c6tr3")
+region = Rect2(640, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6elyo"]
+atlas = ExtResource("4_c6tr3")
+region = Rect2(704, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnfes"]
+atlas = ExtResource("4_c6tr3")
+region = Rect2(768, 0, 64, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swj2d"]
+atlas = ExtResource("4_c6tr3")
+region = Rect2(832, 0, 64, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_co2vc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13sua")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pbuqb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3ywt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6elyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnfes")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swj2d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tayg5"]
+size = Vector2(92, 142)
+
+[node name="Card" type="Node2D"]
+position = Vector2(104, 122)
+script = ExtResource("1_3m7nw")
+tier = 1
+
+[node name="Cardback" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_1geux")
+scale = Vector2(1.625, 1.625)
+texture = ExtResource("3_wejov")
+
+[node name="Figure" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_1geux")
+scale = Vector2(1.5625, 1.5625)
+sprite_frames = SubResource("SpriteFrames_co2vc")
+frame = 5
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_tayg5")
+
+[node name="PContainer" type="MarginContainer" parent="."]
+offset_left = -46.0
+offset_top = -35.0
+offset_right = 46.0
+offset_bottom = -2.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Positive" type="RichTextLabel" parent="PContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(2.117753e-06, 0.88675255, 0.42748612, 1)
+theme_override_fonts/normal_font = ExtResource("5_kphy1")
+text = "+20 Speed"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[node name="NContainer" type="MarginContainer" parent="."]
+offset_left = -44.0
+offset_top = -1.0
+offset_right = 46.0
+offset_bottom = 30.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Negative" type="RichTextLabel" parent="NContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_colors/default_color = Color(0.979804, 0, 0.14045864, 1)
+theme_override_fonts/normal_font = ExtResource("5_kphy1")
+text = "x0.8 Jump"
+fit_content = true
+scroll_active = false
+autowrap_mode = 2
+horizontal_alignment = 1
+
+[connection signal="mouse_shape_entered" from="Hitbox" to="." method="_on_hitbox_mouse_shape_entered"]
+[connection signal="mouse_shape_exited" from="Hitbox" to="." method="_on_hitbox_mouse_shape_exited"]
