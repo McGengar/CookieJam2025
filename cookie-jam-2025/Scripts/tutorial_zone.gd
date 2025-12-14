@@ -2,13 +2,14 @@ extends Area2D
 
 @export_multiline var text_to_show: String = "Tutaj wpisz treść porady..."
 @export var display_time: float = 5.0
+@onready var player: CharacterBody2D = $"../Player"
 
 @onready var canvas_layer: CanvasLayer = $CanvasLayer
 @onready var label: Label = $CanvasLayer/Label
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
-	
+	player.hp = 1000
 	canvas_layer.hide()
 	
 	body_entered.connect(_on_body_entered)

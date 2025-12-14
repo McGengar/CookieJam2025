@@ -1,14 +1,14 @@
 [gd_scene load_steps=15 format=3 uid="uid://5ad58duv0s3c"]
 
-[ext_resource type="PackedScene" path="res://Scenes/casino_tileset.tscn" id="1_tneg8"]
+[ext_resource type="PackedScene" uid="uid://cbdffilifuycy" path="res://Scenes/casino_tileset.tscn" id="1_tneg8"]
 [ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/Tilesets/props_tileset.tscn" id="2_e8622"]
 [ext_resource type="PackedScene" uid="uid://was10nolxbaj" path="res://Scenes/Player.tscn" id="4_4u7yc"]
 [ext_resource type="PackedScene" uid="uid://dfgartphb7auy" path="res://Scenes/tutorial_zone.tscn" id="5_e8622"]
 [ext_resource type="Texture2D" uid="uid://duywi5kr5rjrq" path="res://Sprites/backgrounds/background3.png" id="5_qg8gv"]
 [ext_resource type="PackedScene" uid="uid://ddsqairxw4wba" path="res://Scenes/enemy_spawner.tscn" id="6_qrrlt"]
 [ext_resource type="PackedScene" uid="uid://bdewmcy28axy4" path="res://Scenes/Enemies/enemy_blackjack.tscn" id="8_hhdb7"]
-[ext_resource type="Script" uid="uid://cuo3pwe3lq32f" path="res://Scripts/tutorial_to_menu.gd" id="9_bit7b"]
-[ext_resource type="Script" uid="uid://by3xd75wspn3q" path="res://Scripts/tutorial_cards.gd" id="10_eyedh"]
+[ext_resource type="Script" path="res://Scripts/tutorial_to_menu.gd" id="9_bit7b"]
+[ext_resource type="Script" path="res://Scripts/tutorial_cards.gd" id="10_eyedh"]
 [ext_resource type="Texture2D" uid="uid://b1gng6wadv8d2" path="res://Sprites/one_more_tutorial.png" id="11_gmg42"]
 [ext_resource type="PackedScene" uid="uid://cjqfybdrgow8i" path="res://Scenes/Enemies/enemy_mountain.tscn" id="12_gmg42"]
 [ext_resource type="AudioStream" uid="uid://5m5ikg6vlhr5" path="res://Sounds/soundtracks/lunar_abyss.mp3" id="12_qg8gv"]
@@ -61,7 +61,8 @@ texture = ExtResource("5_qg8gv")
 
 [node name="T_scroll" parent="." instance=ExtResource("5_e8622")]
 position = Vector2(-122, -27)
-text_to_show = "[Uzupełniaj pasek szczęścia scrollując scrollem, 
+text_to_show = "[Czasami walka jest stresując scrolluj scrollem,
+aby uzupełnić pasek życia 
 zginiesz jeśli spadnie do zera]"
 display_time = 2.0
 
@@ -83,7 +84,7 @@ display_time = 2.0
 position = Vector2(3642.0002, -11)
 rotation = 3.1415927
 scale = Vector2(1.1508456, 113.128204)
-text_to_show = "[Nowy wróg: BlackJack]"
+text_to_show = "Nadchodzi przeciwnik - BlackJack. Nakieruj myszkę w jego stronę i go zabij!"
 display_time = 3.0
 
 [node name="S_bj" parent="." instance=ExtResource("6_qrrlt")]
@@ -94,7 +95,8 @@ enemy_to_spawn = ExtResource("8_hhdb7")
 [node name="T_mountain" parent="." instance=ExtResource("5_e8622")]
 position = Vector2(4806.9995, 15)
 scale = Vector2(0.5758698, 38.331554)
-text_to_show = "[Nowy wróg: Góra żetonów]"
+text_to_show = "Nadchodzi opętana góra żetonów, jest bardziej wytdwwadadrzymała od karty. 
+Uważaj na jej wybuchy pełne żetonów!"
 
 [node name="S_mountain" parent="." instance=ExtResource("6_qrrlt")]
 position = Vector2(4818, -134)
@@ -132,3 +134,8 @@ shape = SubResource("RectangleShape2D_qg8gv")
 position = Vector2(424, 23)
 scale = Vector2(0.7787498, 0.7787498)
 texture = ExtResource("11_gmg42")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="Timer" to="T_scroll" method="_on_timer_timeout"]
