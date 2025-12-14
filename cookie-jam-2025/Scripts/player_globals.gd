@@ -184,7 +184,7 @@ func debug_gen_card(card_tier:int=1) -> void:
 					new_card.modifiers.append(negative_modifier)
 					#print("N_MOD: ", negative_modifier.stat," ",negative_modifier.type," ",negative_modifier.value)
 				'augment':
-					var options = ['reverse thorns','poisoned','nearsighted']
+					var options = ['reverse thorns','poisoned']
 					#for i in range(len(options)):
 						#if options[i] in player_augments:
 							#options.remove_at(i)
@@ -209,7 +209,7 @@ func debug_gen_card(card_tier:int=1) -> void:
 						new_card.modifiers.append(positive_modifier)
 					#print("P_MOD: ", positive_modifier.stat, " ",positive_modifier.type," ",positive_modifier.value)
 				'augment':
-					var options = ['vamp','swiftness','scopiest weapons']
+					var options = ['vamp','healer']
 					#for i in range(len(options)):
 						#if options[i] in player_augments:
 							#options.remove_at(i)
@@ -229,7 +229,7 @@ func debug_gen_card(card_tier:int=1) -> void:
 					new_card.modifiers.append(negative_modifier)
 					#print("N_MOD: ", negative_modifier.stat," ",negative_modifier.type," ",negative_modifier.value)
 				'augment':
-					var options = ['tainted','vulnerable']
+					var options = ['tainted','nearsighted','hot walls']
 					#for i in range(len(options)):
 						#if options[i] in player_augments:
 							#options.remove_at(i)
@@ -254,7 +254,7 @@ func debug_gen_card(card_tier:int=1) -> void:
 						new_card.modifiers.append(positive_modifier)
 					#print("P_MOD: ", positive_modifier.stat, " ",positive_modifier.type," ",positive_modifier.value)
 				'augment':
-					var options = ['vamp','glass cannon','scopiest weapons']
+					var options = ['glass cannon','scopiest weapons', 'recovery']
 					#for i in range(len(options)):
 						#if options[i] in player_augments:
 							#options.remove_at(i)
@@ -274,7 +274,7 @@ func debug_gen_card(card_tier:int=1) -> void:
 					new_card.modifiers.append(negative_modifier)
 					#print("N_MOD: ", negative_modifier.stat," ",negative_modifier.type," ",negative_modifier.value)
 				'augment':
-					var options = ['grounded','vulnerable']
+					var options = ['grounded','vulnerable','floor is lava','addicted']
 					#for i in range(len(options)):
 						#if options[i] in player_augments:
 							#options.remove_at(i)
@@ -293,6 +293,11 @@ var scopiest_weapons = false
 var nearsighted = false
 var regen = false
 var poisoned = false
+var healer = false
+var floor_lava = false
+var hot_walls = false
+var recovery = false
+var	addicted = false
 
 func resolve_augoments() -> void :
 	thorns=false
@@ -304,6 +309,12 @@ func resolve_augoments() -> void :
 	nearsighted = false
 	regen = false
 	poisoned = false
+	healer = false
+	floor_lava = false
+	hot_walls = false
+	recovery = false
+	addicted = false
+	
 	for augment in player_augments:
 		match augment:
 			'thorns':
@@ -354,3 +365,13 @@ func resolve_augoments() -> void :
 				#can't jump
 				max_jumps=0
 				pass
+			'healer':
+				healer = true
+			'floor is lava':
+				floor_lava = true
+			'hot walls':
+				hot_walls = true
+			'recovery':
+				recovery= true
+			'addicted':
+				addicted =true
