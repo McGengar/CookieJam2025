@@ -1,15 +1,19 @@
 extends CharacterBody2D
 
-@export var speed = 120.0
+@export var speed = 170.0
 @export var jump_force = -450.0
 @export var gravity = 980.0
-@export var attack_range = 60.0 
-@export var damage = 40
+@export var attack_range = 30.0 
+@export var damage = 30
 var hp = 15;
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var dziadsword: Node2D = $dziadsword
+@onready var sword_hitbox: Area2D = $dziadsword/swordsprite/SwordHitbox
+@onready var swordsprite: Sprite2D = $dziadsword/swordsprite
 
 var player = null
-@onready var sword_hitbox = $SwordHitbox
-@onready var sprite = $Sprite2D
+
+
 @onready var attack_timer = $AttackTimer
 
 var is_attacking = false
@@ -21,20 +25,20 @@ func _ready():
 	player = get_tree().get_first_node_in_group("player")
 
 func _physics_process(delta):
-
+	dziadsword.look_at(player.global_position)
 	if not is_on_floor():
 		velocity.y += gravity * delta
 
-	if player and not is_attacking:
+	if player:
 		var distance = global_position.distance_to(player.global_position)
 		var direction_x = sign(player.global_position.x - global_position.x)
-		
+		if distance < 4*attack_range:
+			perform_attack()
 		if distance > attack_range:
 			velocity.x = direction_x * speed
 			update_facing(direction_x)
 		else:
 			velocity.x = move_toward(velocity.x, 0, speed)
-			perform_attack()
 
 		if is_on_floor() and player.velocity.y < -100: 
 			jump_towards_player()
@@ -63,17 +67,20 @@ func perform_attack():
 	if attack_timer.is_stopped():
 		#print("Dziad: Cios mieczem!")
 		is_attacking = true
-		attack_timer.start()
-		
+		swordsprite.visible = true
+		sprite.play("new_animation")
 		sword_hitbox.monitoring = true
-		
-		var original_color = sprite.modulate
+		var original_speed = 170
+		await get_tree().create_timer(0.5).timeout
 		sprite.modulate = Color.YELLOW
-		
-		await get_tree().create_timer(0.3).timeout
-		
+		speed *= 1.2
+		speed = clamp(speed,170,600)
+		await get_tree().create_timer(0.5).timeout
+		speed = original_speed
+		swordsprite.visible = false
+		sprite.play("default")
 		sword_hitbox.monitoring = false
-		sprite.modulate = original_color
+		sprite.modulate = Color.WHITE
 		is_attacking = false
 func take_dmg(amount):
 	hp -= amount
