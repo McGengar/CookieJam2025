@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://dt025faa580rx"]
+
+[ext_resource type="Script" uid="uid://djgjrpfduw0o5" path="res://Scripts/VictoryText.gd" id="1_w158h"]
+
+[node name="Victory" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 329.0
+offset_right = 973.0
+offset_bottom = 204.0
+theme_override_font_sizes/normal_font_size = 128
+text = "VICTORY"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 126.0
+offset_top = 167.0
+offset_right = 1155.0
+offset_bottom = 639.0
+theme_override_font_sizes/normal_font_size = 64
+text = "You might be the only person ever to have beaten this game"
+script = ExtResource("1_w158h")
