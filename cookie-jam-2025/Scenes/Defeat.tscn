@@ -1,8 +1,6 @@
-<<<<<<< HEAD
-[gd_scene load_steps=6 format=3 uid="uid://bgpqn8kdsf1k8"]
-=======
+
 [gd_scene load_steps=5 format=3 uid="uid://d06lnd1ggnxd4"]
->>>>>>> main
+
 
 [ext_resource type="Script" uid="uid://bqogr1y3oxyuw" path="res://Scripts/defeat.gd" id="1_4r382"]
 [ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="1_ncg46"]
