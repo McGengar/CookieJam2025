@@ -1,11 +1,21 @@
-[gd_scene load_steps=4 format=3 uid="uid://d06lnd1ggnxd4"]
+[gd_scene load_steps=5 format=3 uid="uid://bgpqn8kdsf1k8"]
 
 [ext_resource type="Script" uid="uid://bqogr1y3oxyuw" path="res://Scripts/defeat.gd" id="1_4r382"]
 [ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="1_ncg46"]
 [ext_resource type="Script" uid="uid://bpaxf4mwx5lbu" path="res://Scripts/DefeatText.gd" id="2_4r382"]
+[ext_resource type="Texture2D" uid="uid://cckljmmd2e12t" path="res://Sprites/stol.png" id="2_g1tgs"]
 
 [node name="Defeat" type="Node2D"]
 script = ExtResource("1_4r382")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+modulate = Color(0.68006635, 0.68006635, 0.72787553, 1)
+self_modulate = Color(0.81796426, 0.8876558, 0.8562945, 1)
+offset_left = -7.0
+offset_top = -11.0
+offset_right = 1161.0
+offset_bottom = 655.0
+texture = ExtResource("2_g1tgs")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 modulate = Color(0.4627451, 0, 0, 1)
