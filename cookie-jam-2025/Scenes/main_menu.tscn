@@ -1,12 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://c4ydtsnj3uugl"]
+[gd_scene load_steps=4 format=3 uid="uid://c4ydtsnj3uugl"]
 
 [ext_resource type="Script" uid="uid://bhj6w8q75gaqx" path="res://Scripts/main_menu.gd" id="1_28flt"]
-[ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="2_48xlc"]
+[ext_resource type="Texture2D" uid="uid://bhnh3xsx7eevp" path="res://Sprites/menu_2.png" id="2_1ehe0"]
 [ext_resource type="AudioStream" uid="uid://dhp4lfxj5qefv" path="res://Sounds/soundtracks/segregated.mp3" id="3_1ehe0"]
-
-[sub_resource type="LabelSettings" id="LabelSettings_1ehe0"]
-font = ExtResource("2_48xlc")
-font_size = 50
 
 [node name="MainMenu" type="Control"]
 layout_mode = 3
@@ -19,37 +15,33 @@ script = ExtResource("1_28flt")
 layout_mode = 0
 offset_right = 1152.0
 offset_bottom = 648.0
+texture = ExtResource("2_1ehe0")
 
-[node name="Title" type="Label" parent="."]
+[node name="PlayButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 0
-offset_left = 53.0
-offset_top = 20.0
-offset_right = 1085.0
-offset_bottom = 277.0
-text = "TEN NIGHT'S AT ASIA'S"
-label_settings = SubResource("LabelSettings_1ehe0")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
-offset_left = 235.0
-offset_top = 155.99998
-offset_right = 532.0
-offset_bottom = 393.0
-scale = Vector2(2.342247, 2.342247)
-alignment = 1
-
-[node name="PlayButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+offset_left = 345.0
+offset_top = 217.0
+offset_right = 805.0
+offset_bottom = 340.0
 text = "START"
 
-[node name="TutorialButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="TutorialButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 336.0
+offset_top = 515.0
+offset_right = 809.0
+offset_bottom = 635.0
 text = "TUTORIAL"
 
-[node name="QuitButton" type="Button" parent="VBoxContainer"]
-layout_mode = 2
+[node name="QuitButton" type="Button" parent="."]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 345.0
+offset_top = 367.0
+offset_right = 812.0
+offset_bottom = 490.0
 text = "QUIT"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
