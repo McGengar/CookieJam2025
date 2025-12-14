@@ -3,6 +3,9 @@ extends Area2D
 @export var screens: Array[Texture2D] 
 @export var cooldown_time: float = 2.0
 @export var luck_bar: ProgressBar 
+@export var sound_volume_db: float = -15.0
+
+@export var scroll_sounds: Array[AudioStream]
 
 @onready var sprite = $Sprite2D
 
@@ -12,6 +15,7 @@ var can_scroll: bool = true
 
 func _ready():
 	randomize()
+
 	
 	if screens.size() > 0:
 		current_index = randi() % screens.size()
@@ -46,10 +50,31 @@ func _input(event):
 		if changed:
 			sprite.texture = screens[current_index]
 			
+			play_scroll_sound()
+			
 			if luck_bar:
 				luck_bar.add_luck()
 			
 			start_cooldown()
+
+func play_scroll_sound():
+	if scroll_sounds.is_empty():
+		return 
+
+	var random_sound = scroll_sounds.pick_random()
+	
+	var temp_player = AudioStreamPlayer.new()
+	add_child(temp_player)
+	temp_player.stream = random_sound
+	
+	temp_player.volume_db = sound_volume_db 
+	
+	temp_player.play()
+	
+	var timer = get_tree().create_timer(5.0)
+	timer.timeout.connect(temp_player.queue_free)
+	
+	temp_player.finished.connect(temp_player.queue_free)
 
 func start_cooldown():
 	can_scroll = false 

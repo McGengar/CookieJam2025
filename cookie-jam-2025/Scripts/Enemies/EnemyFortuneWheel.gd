@@ -8,6 +8,8 @@ extends CharacterBody2D
 @export var keep_distance: float = 250.0 
 @export var min_distance: float = 150.0
 @export var projectiles_count: int = 8 
+
+@onready var explosion_attack: AudioStreamPlayer2D = $AudioStreamPlayer2D
 var hp=2;
 
 var player: Node2D = null
@@ -51,6 +53,7 @@ func shoot_radial():
 	if not bullet_scene: return
 	
 	var angle_step = 360.0 / projectiles_count
+	explosion_attack.play()
 	
 	for i in range(projectiles_count):
 		var bullet = bullet_scene.instantiate()

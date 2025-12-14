@@ -14,6 +14,7 @@ var player = null
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var handslam: AnimatedSprite2D = $SwordHitbox/handslam
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
+@onready var baba_attack: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var is_attacking = false
 
@@ -80,6 +81,7 @@ func die():
 func _on_sword_hitbox_body_entered(body):
 	if body.is_in_group("player"):
 		#print("Gracz dostał z miecza!")
+		baba_attack.play()
 		body.take_dmg(damage)
 		if Player_globals.thorns:
 			take_dmg(5)

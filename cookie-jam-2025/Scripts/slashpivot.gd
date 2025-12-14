@@ -3,6 +3,8 @@ extends RigidBody2D
 @onready var atkcd: Timer = $atkcd
 var can_atk = true
 @onready var anim_sprite: AnimatedSprite2D = $AnimatedSprite2D
+@onready var slash_sfx: AudioStreamPlayer2D = $AudioStreamPlayer2D
+@export var sound_effects: Array[AudioStream]
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -19,8 +21,15 @@ func _process(delta: float) -> void:
 			atkcd.start()
 			anim_sprite.frame = 0
 			anim_sprite.play("attack")
+			play_random_sound()
 
 
 func _on_atkcd_timeout() -> void:
 	if can_atk == false:
 		can_atk = true
+
+func play_random_sound() -> void:
+	if sound_effects.size() > 0:
+		slash_sfx.stream = sound_effects.pick_random()
+		slash_sfx.pitch_scale = randf_range(0.9, 1.1) 
+		slash_sfx.play()
