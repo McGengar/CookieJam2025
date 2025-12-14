@@ -2,7 +2,7 @@ extends RigidBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 @export var speed: float = 450.0  # Wolna prędkość
-@export var damage: int = 10
+@export var damage: int = 10+5*Player_globals.level_counter
 @export var lifetime: float = 5.0
 var rng = RandomNumberGenerator.new()
 func _ready():
@@ -22,7 +22,7 @@ func _physics_process(delta):
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group("player"):
-		body.take_dmg(10)
+		body.take_dmg(damage)
 		print("Trafiono gracza chipem!")
 		queue_free()
 	elif body.name != "EnemyFortuneWheel": 

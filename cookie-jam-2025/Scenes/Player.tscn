@@ -287,6 +287,8 @@ func take_dmg(amount):
 func die():
 	dead = true
 	sprite_2d.play(\"dead\")
+	await get_tree().create_timer(1.5).timeout
+	get_tree().change_scene_to_file(\"res://Scenes/Defeat.tscn\")
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_in_group(\"enemies\") and not body in hit_enemies:
 		body.take_dmg(damage)

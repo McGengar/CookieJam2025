@@ -10,7 +10,7 @@ signal level_cleared
 @export var spawn_points_container: Node2D
 @export var initial_wait_time: float = 2.0
 @export var time_between_waves: float = 3.0
-
+var player
 # Ustalamy tylko ogólną ilość wrogów
 @export var enemies_in_first_wave: int = 5
 @export var max_waves: int = 5
@@ -19,6 +19,7 @@ var current_wave: int = 0
 var enemies_alive: int = 0
 
 func _ready():
+	player = get_tree().get_first_node_in_group("player")
 	await get_tree().create_timer(initial_wait_time).timeout
 	start_next_wave()
 
@@ -63,7 +64,6 @@ func _spawn_enemies_from_queue(queue: Array[PackedScene]):
 
 func _on_enemy_killed():
 	enemies_alive -= 1
-	var player = get_tree().get_first_node_in_group("player")
 	if player:
 		if !Player_globals.tainted: player.heal(20)
 	
@@ -75,13 +75,15 @@ func _on_wave_cleared():
 	print("Fala ", current_wave, " wyczyszczona!")
 	
 	if current_wave >= max_waves:
-		await get_tree().create_timer(3).timeout
-		Player_globals.level_counter += 1
-		get_tree().change_scene_to_file("res://Scenes/Casino.tscn")
-		print("GRATULACJE! Wszystkie fale pokonane.")
-		emit_signal("level_cleared")
-		return
-
+		if is_inside_tree():
+			await get_tree().create_timer(3).timeout
+			Player_globals.level_counter += 1
+			get_tree().change_scene_to_file("res://Scenes/Casino.tscn")
+			print("GRATULACJE! Wszystkie fale pokonane.")
+			emit_signal("level_cleared")
+			return
+		
 	print("Następna fala za ", time_between_waves, "s...")
-	await get_tree().create_timer(time_between_waves).timeout
-	start_next_wave()
+	if is_inside_tree():
+		get_tree().create_timer(time_between_waves).timeout
+		start_next_wave()

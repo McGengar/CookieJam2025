@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bke46jgbai1a3"]
+[gd_scene load_steps=13 format=3 uid="uid://bke46jgbai1a3"]
 
 [ext_resource type="PackedScene" uid="uid://b28v44l23vdu4" path="res://Scenes/Tilesets/casino_tileset.tscn" id="1_27vfd"]
 [ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/Tilesets/props_tileset.tscn" id="2_amyuu"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://cj53wbd8o61ea" path="res://Scenes/Enemies/enemy_rybuszcz.tscn" id="8_wfos3"]
 [ext_resource type="PackedScene" uid="uid://daa38d86v1u5u" path="res://Scenes/Enemies/enemy_hag.tscn" id="9_g3n7a"]
 [ext_resource type="PackedScene" uid="uid://cjqfybdrgow8i" path="res://Scenes/Enemies/enemy_mountain.tscn" id="10_1x8gh"]
+[ext_resource type="AudioStream" uid="uid://5m5ikg6vlhr5" path="res://Sounds/soundtracks/lunar_abyss.mp3" id="12_wcv4c"]
 
 [node name="level_06" type="Node2D"]
 
@@ -26,6 +27,12 @@ layer_0/tile_data = PackedInt32Array(-6291612, 983040, 3, -6226076, 983040, 4, -
 
 [node name="Player" parent="." instance=ExtResource("3_n2msi")]
 position = Vector2(-481, 37)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player"]
+position = Vector2(481, -37)
+stream = ExtResource("12_wcv4c")
+volume_db = -20.0
+autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="Player"]
 layer = -1

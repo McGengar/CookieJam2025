@@ -1,9 +1,9 @@
 extends CharacterBody2D
 
-@export var max_speed = 350.0
+@export var max_speed = 350.0+20*Player_globals.level_counter
 @export var acceleration = 250.0
 @export var hp = 8
-var damage = 35
+var damage = 35+5*Player_globals.level_counter
 
 # --- NOWE ZMIENNE ---
 @export var spin_trigger_distance = 250.0 # Jak blisko musi być, żeby zaczął wirować
