@@ -93,11 +93,14 @@ func update_modifiers() -> void:
 	for modifier in player_modifiers:
 		modify_stat(modifier.stat,modifier.type,modifier.value)
 
-func remove_card(i:int) -> void:
+func remove_card(i:int):
+	if i==67:
+		return false
 	cards.remove_at(i)
 	update_stats()
 	update_augments()
 	resolve_augoments()
+	return true
 
 func update_stats() -> void:
 	update_modifiers()
