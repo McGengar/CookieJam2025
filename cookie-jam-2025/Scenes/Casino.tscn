@@ -44,7 +44,7 @@ text = "test"
 [node name="Traits" type="RichTextLabel" parent="."]
 offset_left = 10.0
 offset_top = 114.0
-offset_right = 238.0
+offset_right = 532.0
 offset_bottom = 348.0
 theme_override_fonts/normal_font = ExtResource("2_eg3rn")
 theme_override_font_sizes/normal_font_size = 18
