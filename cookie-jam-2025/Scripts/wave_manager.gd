@@ -78,6 +78,8 @@ func _on_wave_cleared():
 		if is_inside_tree():
 			await get_tree().create_timer(3).timeout
 			Player_globals.level_counter += 1
+			if Player_globals.level_counter == 11:
+				get_tree().change_scene_to_file("res://Scenes/Victory.tscn")
 			get_tree().change_scene_to_file("res://Scenes/Casino.tscn")
 			print("GRATULACJE! Wszystkie fale pokonane.")
 			emit_signal("level_cleared")
