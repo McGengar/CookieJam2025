@@ -128,6 +128,7 @@ func _on_button_pressed():
 	
 	if Player_globals.blocked==false:
 		print("BBBBB")
+		$next_card_song.play()
 		if counter<5:
 			print("CCCCC")
 			Player_globals.blocked=true

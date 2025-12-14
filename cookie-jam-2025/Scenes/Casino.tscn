@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://rp7khf168wa1" path="res://Scripts/casino.gd" id="1_7pnxo"]
 [ext_resource type="PackedScene" uid="uid://dn0pk1ehvbdjx" path="res://Scenes/Hand.tscn" id="1_yc6b3"]
 [ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="2_eg3rn"]
-[ext_resource type="PackedScene" uid="uid://cjxpp6ej17tuw" path="res://Scenes/pop_up_card.tscn" id="2_v4qov"]
+[ext_resource type="PackedScene" path="res://Scenes/pop_up_card.tscn" id="2_v4qov"]
 [ext_resource type="AudioStream" uid="uid://dhp4lfxj5qefv" path="res://Sounds/soundtracks/segregated.mp3" id="5_bf5eg"]
 [ext_resource type="AudioStream" uid="uid://dv5jsc7xhynjn" path="res://Sounds/cards/next_card.mp3" id="6_54e80"]
 
