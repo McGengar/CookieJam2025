@@ -11,9 +11,12 @@ extends Node2D
 var counter : int =1
 var disappearing = false
 var alpha =1
+var can_remove = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if len(Player_globals.cards)>0:
+		can_remove = true
 	Player_globals.blocked=false
 	counter =1
 	hand.reload()
@@ -36,6 +39,10 @@ func shake(amount: float = 10.0, duration: float = 0.5):
 	_shaking = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if can_remove:
+		$remove.visible=true
+	else:
+		$remove.visible=false
 	var SPEED = Player_globals.speed
 	var JUMP_VELOCITY = Player_globals.jump
 	var attack_speed = Player_globals.attack_speed

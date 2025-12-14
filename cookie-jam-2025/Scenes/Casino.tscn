@@ -42,6 +42,17 @@ theme_override_font_sizes/normal_font_size = 18
 bbcode_enabled = true
 text = "test"
 
+[node name="remove" type="RichTextLabel" parent="."]
+offset_left = 350.0
+offset_top = 20.0
+offset_right = 839.0
+offset_bottom = 116.0
+theme_override_fonts/normal_font = ExtResource("2_eg3rn")
+theme_override_font_sizes/normal_font_size = 29
+bbcode_enabled = true
+text = "You can click on 1 card to remove it!"
+horizontal_alignment = 1
+
 [node name="Traits" type="RichTextLabel" parent="."]
 offset_left = 10.0
 offset_top = 114.0
