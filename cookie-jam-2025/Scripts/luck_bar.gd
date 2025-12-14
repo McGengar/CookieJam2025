@@ -16,7 +16,7 @@ func _process(delta):
 	if Player_globals.addicted == Player_globals.recovery:
 		value -= decay_speed * delta
 	if Player_globals.addicted and !Player_globals.recovery:
-		value -= decay_speed *2* delta		
+		value -= decay_speed *4* delta		
 		
 	if value > 50:
 		modulate = Color.GREEN
