@@ -4,7 +4,7 @@ extends CharacterBody2D
 @export var jump_force = -450.0
 @export var gravity = 980.0
 @export var attack_range = 30.0 
-@export var damage = 30
+@export var damage = 10
 var hp = 15;
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dziadsword: Node2D = $dziadsword
