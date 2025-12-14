@@ -18,6 +18,10 @@ config/icon="res://Other/icon.svg"
 
 Player_globals="*res://Scripts/player_globals.gd"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
 [global_group]
 
 player=""

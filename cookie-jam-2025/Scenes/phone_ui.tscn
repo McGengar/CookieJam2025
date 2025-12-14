@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://r7jl6epbow87"]
+[gd_scene load_steps=43 format=3 uid="uid://r7jl6epbow87"]
 
 [ext_resource type="Script" uid="uid://b4pqqddjsngfn" path="res://Scripts/phone_ui.gd" id="1_m6bxq"]
 [ext_resource type="Texture2D" uid="uid://b22yqd6chexeb" path="res://Sprites/phone/phone1.png" id="2_l5cb7"]
@@ -14,13 +14,40 @@
 [ext_resource type="Texture2D" uid="uid://do5x4ppxxj31d" path="res://Sprites/phone/phone11.png" id="12_3lc3a"]
 [ext_resource type="Texture2D" uid="uid://c22pv72mfjit1" path="res://Sprites/phone/phone12.png" id="13_8ogpk"]
 [ext_resource type="Texture2D" uid="uid://bjswf3ao6erbn" path="res://Sprites/phone/phone13.png" id="14_4i04o"]
+[ext_resource type="Texture2D" uid="uid://c3fd6p7pspby" path="res://Sprites/phone/phone14.png" id="15_njhog"]
+[ext_resource type="Texture2D" uid="uid://c7ddd4648jk5b" path="res://Sprites/phone/phone15.png" id="16_4chkb"]
+[ext_resource type="Texture2D" uid="uid://d2abgs6mo5kml" path="res://Sprites/phone/phone16.png" id="17_e4na5"]
+[ext_resource type="Texture2D" uid="uid://dcndo2yfqhxcp" path="res://Sprites/phone/phone17.png" id="18_stk6j"]
+[ext_resource type="Texture2D" uid="uid://cxpjx2qxyp2o6" path="res://Sprites/phone/phone18.png" id="19_0biyd"]
+[ext_resource type="Texture2D" uid="uid://dmy5kpm2c72" path="res://Sprites/phone/phone19.png" id="20_rvdif"]
+[ext_resource type="Texture2D" uid="uid://cvc30058u0fdu" path="res://Sprites/phone/phone20.png" id="21_3ao2g"]
+[ext_resource type="Texture2D" uid="uid://c0jsqsgrb564t" path="res://Sprites/phone/phone21.png" id="22_mafvf"]
+[ext_resource type="Texture2D" uid="uid://bfovohnqc3ykm" path="res://Sprites/phone/phone22.png" id="23_brn05"]
+[ext_resource type="Texture2D" uid="uid://dgxfnm3g5ahfq" path="res://Sprites/phone/phone23.png" id="24_4y02e"]
+[ext_resource type="Texture2D" uid="uid://1to2ekkq2xi0" path="res://Sprites/phone/phone24.png" id="25_v6if1"]
+[ext_resource type="Texture2D" uid="uid://coylw5rqxphuq" path="res://Sprites/phone/phone25.png" id="26_riqrs"]
+[ext_resource type="Texture2D" uid="uid://cr4viagh72l6a" path="res://Sprites/phone/phone26.png" id="27_d86gf"]
+[ext_resource type="Texture2D" uid="uid://k6df3pea3n0w" path="res://Sprites/phone/phone27.png" id="28_pp032"]
+[ext_resource type="Texture2D" uid="uid://bjgio0giinbn8" path="res://Sprites/phone/phone28.png" id="29_fcj57"]
+[ext_resource type="Texture2D" uid="uid://e5xf13qou25e" path="res://Sprites/phone/phone29.png" id="30_h3a4f"]
+[ext_resource type="Texture2D" uid="uid://uhoy4f27a3e" path="res://Sprites/phone/phone30.png" id="31_saphq"]
+[ext_resource type="Texture2D" uid="uid://ba4to5affqnfe" path="res://Sprites/phone/phone31.png" id="32_x0qqs"]
+[ext_resource type="Texture2D" uid="uid://dxkm8yvt8di5g" path="res://Sprites/phone/phone32.png" id="33_318bj"]
+[ext_resource type="Texture2D" uid="uid://cgk2fjellcquk" path="res://Sprites/phone/phone33.png" id="34_1icdr"]
+[ext_resource type="Texture2D" uid="uid://bm8ojt00i5cee" path="res://Sprites/phone/phone34.png" id="35_erjjf"]
+[ext_resource type="Texture2D" uid="uid://r28b8qky6okq" path="res://Sprites/phone/phone35.png" id="36_2d7c1"]
+[ext_resource type="Texture2D" uid="uid://47m7roo3fs4e" path="res://Sprites/phone/phone36.png" id="37_65h6q"]
+[ext_resource type="Texture2D" uid="uid://cftv4jhb3dpo5" path="res://Sprites/phone/phone37.png" id="38_1lhip"]
+[ext_resource type="Texture2D" uid="uid://cuwsmj1wxo3xu" path="res://Sprites/phone/phone38.png" id="39_3asbn"]
+[ext_resource type="Texture2D" uid="uid://dy8xjjkhsxavl" path="res://Sprites/phone/phone39.png" id="40_t8cqx"]
+[ext_resource type="Texture2D" uid="uid://dttk5jdl4aw5w" path="res://Sprites/phone/phone40.png" id="41_wsflo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nu7mn"]
 size = Vector2(62, 96)
 
 [node name="PhoneUI" type="Area2D"]
 script = ExtResource("1_m6bxq")
-screens = Array[Texture2D]([ExtResource("2_l5cb7"), ExtResource("3_a8qtb"), ExtResource("4_7vva7"), ExtResource("5_3i61a"), ExtResource("6_kmbln"), ExtResource("7_r2eng"), ExtResource("8_7wfxh"), ExtResource("9_l2s3e"), ExtResource("10_mxckt"), ExtResource("11_ehxqx"), ExtResource("12_3lc3a"), ExtResource("13_8ogpk"), ExtResource("14_4i04o")])
+screens = Array[Texture2D]([ExtResource("2_l5cb7"), ExtResource("3_a8qtb"), ExtResource("4_7vva7"), ExtResource("5_3i61a"), ExtResource("6_kmbln"), ExtResource("7_r2eng"), ExtResource("8_7wfxh"), ExtResource("9_l2s3e"), ExtResource("10_mxckt"), ExtResource("11_ehxqx"), ExtResource("12_3lc3a"), ExtResource("13_8ogpk"), ExtResource("14_4i04o"), ExtResource("15_njhog"), ExtResource("16_4chkb"), ExtResource("17_e4na5"), ExtResource("18_stk6j"), ExtResource("19_0biyd"), ExtResource("20_rvdif"), ExtResource("21_3ao2g"), ExtResource("22_mafvf"), ExtResource("23_brn05"), ExtResource("24_4y02e"), ExtResource("25_v6if1"), ExtResource("26_riqrs"), ExtResource("27_d86gf"), ExtResource("28_pp032"), ExtResource("29_fcj57"), ExtResource("30_h3a4f"), ExtResource("31_saphq"), ExtResource("32_x0qqs"), ExtResource("33_318bj"), ExtResource("34_1icdr"), ExtResource("35_erjjf"), ExtResource("36_2d7c1"), ExtResource("37_65h6q"), ExtResource("38_1lhip"), ExtResource("39_3asbn"), ExtResource("40_t8cqx"), ExtResource("41_wsflo")])
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 
