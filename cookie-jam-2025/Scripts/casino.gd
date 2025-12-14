@@ -12,9 +12,10 @@ var counter : int =1
 var disappearing = false
 var alpha =1
 
-var blocked =false
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	Player_globals.blocked=false
+	counter =1
 	hand.reload()
 
 var shake_amount: float = 10.0   # Maximum displacement in pixels
@@ -123,11 +124,14 @@ func _process(delta):
 				button.queue_free()
 
 func _on_button_pressed():
+	print("AAAAAA")
+	
 	if Player_globals.blocked==false:
-		Player_globals.blocked=true
-		$next_card_song.play()
-		shake(counter*2,counter)
+		print("BBBBB")
 		if counter<5:
+			print("CCCCC")
+			Player_globals.blocked=true
+			shake(counter*2,counter)
 			var new_card = Player_globals.debug_gen_card(counter)
 			hand.reload()
 			await get_tree().create_timer(0.2).timeout

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dn5qb0qv7gsrl" path="res://Scripts/Enemies/EnemyDziad.gd" id="1_tsqlu"]
 [ext_resource type="Texture2D" uid="uid://tcpn33chdef2" path="res://Sprites/Enemies/stary dziad1.png" id="2_cuk3y"]
 [ext_resource type="Texture2D" uid="uid://c8cje3bxxrc2c" path="res://Sprites/Enemies/stary dziad2.png" id="3_bxls7"]
-[ext_resource type="Script" path="res://Scripts/Enemies/dziadsword.gd" id="3_kgfwf"]
+[ext_resource type="Script" uid="uid://rifq40t6arah" path="res://Scripts/Enemies/dziadsword.gd" id="3_kgfwf"]
 [ext_resource type="Texture2D" uid="uid://dj64kffk3rtot" path="res://Sprites/Enemies/katana-export.png" id="4_bxls7"]
 [ext_resource type="AudioStream" uid="uid://b448qpgngsw2c" path="res://Sounds/enemies/attack_dziad.mp3" id="6_jmwvm"]
 
@@ -84,5 +84,13 @@ target_position = Vector2(70, 0)
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_jmwvm")
+
+[node name="Timera1" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Timera2" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
 
 [connection signal="body_entered" from="dziadsword/swordsprite/SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
