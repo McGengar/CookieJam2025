@@ -1,11 +1,11 @@
 extends CharacterBody2D
 
-@export var speed = 170.0
-@export var jump_force = -450.0
-@export var gravity = 980.0
-@export var attack_range = 30.0 
-@export var damage = 30
-var hp = 15;
+var speed = 170.0
+var jump_force = -450.0
+var gravity = 980.0
+var attack_range = 30.0 
+var damage = 20+3*Player_globals.level_counter
+var hp = 15+5*Player_globals.level_counter;
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dziadsword: Node2D = $dziadsword
 @onready var sword_hitbox: Area2D = $dziadsword/swordsprite/SwordHitbox

@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const SPEED = 100.0
 const GRAVITY = 980.0
-var hp = 30
+var hp = 30+10*Player_globals.level_counter
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 @export var bullet_scene: PackedScene
