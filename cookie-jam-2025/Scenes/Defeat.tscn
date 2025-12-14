@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 [gd_scene load_steps=6 format=3 uid="uid://bgpqn8kdsf1k8"]
+=======
+[gd_scene load_steps=5 format=3 uid="uid://d06lnd1ggnxd4"]
+>>>>>>> main
 
 [ext_resource type="Script" uid="uid://bqogr1y3oxyuw" path="res://Scripts/defeat.gd" id="1_4r382"]
 [ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="1_ncg46"]
@@ -20,19 +24,20 @@ texture = ExtResource("2_g1tgs")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
 modulate = Color(0.4627451, 0, 0, 1)
-offset_left = 372.0
-offset_right = 940.0
-offset_bottom = 206.0
+offset_left = 308.0
+offset_top = -3.0
+offset_right = 876.0
+offset_bottom = 203.0
 theme_override_fonts/normal_font = ExtResource("1_ncg46")
 theme_override_font_sizes/normal_font_size = 128
 text = "PORAZKA"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="." groups=["player"]]
 modulate = Color(0.4627451, 0, 0, 1)
-offset_left = 455.0
-offset_top = 120.0
-offset_right = 1023.0
-offset_bottom = 326.0
+offset_left = 353.0
+offset_top = 117.0
+offset_right = 921.0
+offset_bottom = 323.0
 theme_override_fonts/normal_font = ExtResource("1_ncg46")
 theme_override_font_sizes/normal_font_size = 64
 text = "DEFEAT"

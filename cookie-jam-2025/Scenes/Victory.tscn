@@ -19,3 +19,5 @@ offset_bottom = 639.0
 theme_override_font_sizes/normal_font_size = 64
 text = "You might be the only person ever to have beaten this game"
 script = ExtResource("1_w158h")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
