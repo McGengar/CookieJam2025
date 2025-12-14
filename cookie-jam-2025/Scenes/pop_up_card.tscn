@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cjxpp6ej17tuw"]
+[gd_scene load_steps=15 format=3 uid="uid://cjxpp6ej17tuw"]
 
 [ext_resource type="Script" uid="uid://blb0s7elkt14w" path="res://Scripts/pop_up_card.gd" id="1_p6mk5"]
 [ext_resource type="Shader" uid="uid://dex8oc3se28ln" path="res://Shaders/outline.gdshader" id="2_72x58"]
@@ -56,6 +56,15 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="Curve" id="Curve_p6mk5"]
+_data = [Vector2(0.09302327, 0.15730345), 0.0, 0.0, 0, 0, Vector2(0.12790698, 0.8988764), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Curve" id="Curve_72x58"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="PopUpCard" type="Node2D"]
 position = Vector2(576.00006, 328.00003)
@@ -117,3 +126,41 @@ fit_content = true
 scroll_active = false
 autowrap_mode = 2
 horizontal_alignment = 1
+
+[node name="Pos" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 500
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(400, 600)
+direction = Vector2(0, -1)
+spread = 180.0
+initial_velocity_min = 876.28
+initial_velocity_max = 876.28
+scale_amount_min = 5.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_p6mk5")
+color = Color(0.40124628, 1, 0.36640552, 1)
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_72x58")
+
+[node name="Neg" type="CPUParticles2D" parent="."]
+emitting = false
+amount = 500
+one_shot = true
+explosiveness = 1.0
+emission_shape = 3
+emission_rect_extents = Vector2(400, 600)
+direction = Vector2(0, -1)
+spread = 180.0
+initial_velocity_min = 876.28
+initial_velocity_max = 876.28
+scale_amount_min = 5.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_p6mk5")
+color = Color(0.43409216, 0.014273047, 0.093888946, 1)
+hue_variation_min = -0.1
+hue_variation_max = 0.13
+hue_variation_curve = SubResource("Curve_72x58")

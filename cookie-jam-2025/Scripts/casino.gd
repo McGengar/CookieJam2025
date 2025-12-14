@@ -49,14 +49,53 @@ func _process(delta):
 			 "max hp = " + str(max_hp) + "[br]" + \
 			 "max jumps = " + str(max_jumps)
 	
-	traits.text = "Active traits: "
+	traits.text = "Active traits: [br]"
 	var unique_traits = []
+	var desc = []
 	
 	for augment in Player_globals.player_augments:
 		if augment not in unique_traits:
 			unique_traits.append(augment)
-	for augment in unique_traits:
-		traits.text =traits.text + str(augment) +"[br]"
+			var description
+			match augment:
+				"thorns":
+					description = "Damage enemies who hit you"
+				"reverse thorns":
+					description = "Damage self on attack"
+				"vamp":
+					description = "Heal when dealing damage"
+				"tainted":
+					description = "Cannot heal in battle"
+				"vulnerable":
+					description = "Take more damage"
+				"swiftness":
+					description = "Damage scales with speed"
+				"scopiest weapons":
+					description = "Greatly increased range"
+				"regen":
+					description = "Constantly heal over time"
+				"poisoned":
+					description = "Constantly lose health"
+				"nearsighted":
+					description = "Greatly decreased range"
+				"glass cannon":
+					description = "Huge damage, low HP"
+				"grounded":
+					description = "Cannot jump at all"
+				"healer":
+					description = "Increased healing"
+				"floor is lava":
+					description = "Staying on floor hurts you"
+				"hot walls":
+					description = "Jumping on walls hurts you"
+				"recovery":
+					description = "No longer needs to scroll"
+				"addicted":
+					description = "Attention span decreased"
+			desc.append(description)
+	
+	for i in range(len(unique_traits)):
+		traits.text =traits.text + str(unique_traits[i]) +" - " + desc[i] +"[br]"
 	
 	if Input.is_action_just_pressed("deubg_2"):
 		Player_globals.remove_card(hand.selected_card)
@@ -94,7 +133,12 @@ func _on_button_pressed():
 			var card = new_card_pop_up.instantiate()
 			card.tier= counter
 			card.card_id = len(Player_globals.cards) -1
-			
+			if len(new_card.modifiers)>0:
+				if new_card.modifiers[0].positive:
+					card.positive=true
+			else:
+				if new_card.augments[0] in ['scopiest weapons', 'recovery','glass cannon','healer','vamp','swiftness','regen','thorns']:
+					card.positive=true 
 			card.top_text = $Hand.get_child($Hand.get_child_count()-1).get_node('PContainer').get_node('Positive').text
 			card.bottom_text = $Hand.get_child($Hand.get_child_count()-1).get_node('NContainer').get_node('Negative').text
 			

@@ -9,9 +9,13 @@ var positive_modifier : Modifier
 var negative_modifier : Modifier
 
 var state = 'growing'
-var positive := true
+var positive := false
 
 func _ready():
+	if positive:
+		$Pos.emitting=true
+	else:
+		$Neg.emitting=true
 	$Figure.frame=tier
 	$PContainer/Positive.text = top_text
 	$NContainer/Negative.text = bottom_text
