@@ -1,35 +1,84 @@
-[gd_scene load_steps=5 format=3 uid="uid://dbmcm3kltjx4f"]
+[gd_scene load_steps=10 format=3 uid="uid://dbmcm3kltjx4f"]
 
 [ext_resource type="Script" uid="uid://dn5qb0qv7gsrl" path="res://Scripts/Enemies/EnemyDziad.gd" id="1_tsqlu"]
-[ext_resource type="Texture2D" uid="uid://nginrdw3cpn6" path="res://Sprites/Enemies/samurai.png" id="2_ey54h"]
+[ext_resource type="Texture2D" uid="uid://tcpn33chdef2" path="res://Sprites/Enemies/stary dziad1.png" id="2_cuk3y"]
+[ext_resource type="Texture2D" uid="uid://c8cje3bxxrc2c" path="res://Sprites/Enemies/stary dziad2.png" id="3_bxls7"]
+[ext_resource type="Script" uid="uid://rifq40t6arah" path="res://Scripts/Enemies/dziadsword.gd" id="3_kgfwf"]
+[ext_resource type="Texture2D" uid="uid://dj64kffk3rtot" path="res://Sprites/Enemies/katana-export.png" id="4_bxls7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ey54h"]
-size = Vector2(32, 60)
+size = Vector2(35, 83)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jmwvm"]
+atlas = ExtResource("3_bxls7")
+region = Rect2(0, 0, 48, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u6lj0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_cuk3y")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jmwvm")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
 
 [sub_resource type="SegmentShape2D" id="SegmentShape2D_he3k7"]
-a = Vector2(25, -17)
-b = Vector2(2, 4)
+a = Vector2(31.435024, 31.506104)
+b = Vector2(-4.6274223, -1.7279177)
 
 [node name="EnemyDziad" type="CharacterBody2D" groups=["enemies"]]
 collision_layer = 4
 script = ExtResource("1_tsqlu")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-1, -1)
+position = Vector2(0.5, -12.5)
 shape = SubResource("RectangleShape2D_ey54h")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ey54h")
-
-[node name="SwordHitbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordHitbox"]
-shape = SubResource("SegmentShape2D_he3k7")
 
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
 
-[connection signal="body_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-4, -19)
+sprite_frames = SubResource("SpriteFrames_u6lj0")
+
+[node name="dziadsword" type="Node2D" parent="."]
+position = Vector2(1, -15)
+script = ExtResource("3_kgfwf")
+
+[node name="swordsprite" type="Sprite2D" parent="dziadsword"]
+visible = false
+visibility_layer = 4
+position = Vector2(85, -5)
+scale = Vector2(1.1441888, 1.26799)
+texture = ExtResource("4_bxls7")
+offset = Vector2(-50, 0)
+
+[node name="SwordHitbox" type="Area2D" parent="dziadsword/swordsprite"]
+position = Vector2(-4.369907, 33.123295)
+rotation = -0.7341197
+scale = Vector2(0.83240986, 0.83240986)
+skew = -0.102556825
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="dziadsword/swordsprite/SwordHitbox"]
+position = Vector2(-27.104086, -77.6188)
+shape = SubResource("SegmentShape2D_he3k7")
+
+[node name="RayCast2D" type="RayCast2D" parent="."]
+position = Vector2(-3.999998, -19)
+scale = Vector2(0.5, 0.556)
+target_position = Vector2(70, 0)
+
+[connection signal="body_entered" from="dziadsword/swordsprite/SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]
