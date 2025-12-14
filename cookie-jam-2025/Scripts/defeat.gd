@@ -25,4 +25,5 @@ func _on_button_pressed() -> void:
 
 
 func _on_button_2_pressed() -> void:
+	Player_globals.cards.clear()
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
