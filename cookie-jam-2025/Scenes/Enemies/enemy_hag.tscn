@@ -9,6 +9,17 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ey54h"]
 size = Vector2(15, 26.5)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_cok1j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_mgbrt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_mgbrt"]
 radius = 23.521267
 
@@ -126,17 +137,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_cok1j"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_mgbrt")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="EnemyDziad" type="CharacterBody2D" groups=["enemies"]]
 scale = Vector2(2, 2)
 collision_layer = 4
@@ -145,6 +145,11 @@ script = ExtResource("1_5uqro")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.25)
 shape = SubResource("RectangleShape2D_ey54h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(4.2632564e-14, -1)
+scale = Vector2(0.35619798, 0.38666666)
+sprite_frames = SubResource("SpriteFrames_cok1j")
 
 [node name="SwordHitbox" type="Area2D" parent="."]
 collision_layer = 0
@@ -155,7 +160,6 @@ position = Vector2(18, 3)
 shape = SubResource("CircleShape2D_mgbrt")
 
 [node name="handslam" type="AnimatedSprite2D" parent="SwordHitbox"]
-z_index = 1
 position = Vector2(8, -5)
 sprite_frames = SubResource("SpriteFrames_cta78")
 animation = &"smash"
@@ -164,11 +168,6 @@ frame_progress = 0.4385813
 [node name="AttackTimer" type="Timer" parent="."]
 wait_time = 1.5
 one_shot = true
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(4.2632564e-14, -1)
-scale = Vector2(0.35619798, 0.38666666)
-sprite_frames = SubResource("SpriteFrames_cok1j")
 
 [node name="RayCast2D" type="RayCast2D" parent="."]
 position = Vector2(1.9073486e-06, 1.1368684e-13)

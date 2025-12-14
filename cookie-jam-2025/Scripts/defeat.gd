@@ -6,7 +6,9 @@ func _ready() -> void:
 	defeat_song.play()
 	pass # Replace with function body.
 
-
+func _process(delta):
+	if Input.is_action_pressed("escape"):
+		get_tree().quit()
 
 func _on_button_pressed() -> void:
 	#Player_globals.level_counter = 1

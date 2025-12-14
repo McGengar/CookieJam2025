@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://rp7khf168wa1" path="res://Scripts/casino.gd" id="1_7pnxo"]
 [ext_resource type="PackedScene" uid="uid://dn0pk1ehvbdjx" path="res://Scenes/Hand.tscn" id="1_yc6b3"]
 [ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="2_eg3rn"]
-[ext_resource type="PackedScene" uid="uid://cjxpp6ej17tuw" path="res://Scenes/pop_up_card.tscn" id="2_v4qov"]
+[ext_resource type="PackedScene" uid="uid://c57pm72pwuxug" path="res://Scenes/pop_up_card.tscn" id="2_v4qov"]
 [ext_resource type="AudioStream" uid="uid://dhp4lfxj5qefv" path="res://Sounds/soundtracks/segregated.mp3" id="5_bf5eg"]
 [ext_resource type="AudioStream" uid="uid://dv5jsc7xhynjn" path="res://Sounds/cards/next_card.mp3" id="6_54e80"]
 [ext_resource type="Texture2D" uid="uid://cyjn7eu7ecq4g" path="res://Sprites/backgrounds/background12.png" id="7_tw0yg"]
@@ -68,14 +68,26 @@ horizontal_alignment = 1
 
 [node name="info" type="RichTextLabel" parent="."]
 offset_left = -22.0
-offset_top = 511.00006
+offset_top = 450.00006
 offset_right = 355.6628
-offset_bottom = 624.5306
+offset_bottom = 563.5305
 rotation = -0.2749741
 theme_override_fonts/normal_font = ExtResource("2_eg3rn")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "Kiedy zginiesz tracisz większość kart!"
+horizontal_alignment = 1
+
+[node name="info2" type="RichTextLabel" parent="."]
+offset_left = 817.0
+offset_top = 314.00006
+offset_right = 1194.6628
+offset_bottom = 427.53058
+rotation = 0.41508025
+theme_override_fonts/normal_font = ExtResource("2_eg3rn")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "Każda następna karta daje więcej ale ma też większą szanse na bycie złą!"
 horizontal_alignment = 1
 
 [node name="Traits" type="RichTextLabel" parent="."]

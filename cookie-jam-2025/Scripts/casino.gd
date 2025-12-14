@@ -39,6 +39,8 @@ func shake(amount: float = 10.0, duration: float = 0.5):
 	_shaking = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Input.is_action_pressed("escape"):
+		get_tree().quit()
 	if can_remove:
 		$remove.visible=true
 	else:
@@ -67,39 +69,39 @@ func _process(delta):
 			var description
 			match augment:
 				"thorns":
-					description = "Damage enemies who hit you"
+					description = "Ranisz przeciwników którzy ciebie ranią"
 				"reverse thorns":
-					description = "Damage self on attack"
+					description = "Ranisz siebie raniąc innych"
 				"vamp":
-					description = "Heal when dealing damage"
+					description = "Leczysz się raniąc innych"
 				"tainted":
-					description = "Cannot heal in battle"
+					description = "Nie możesz się leczyć"
 				"vulnerable":
-					description = "Take more damage"
+					description = "Zwiększony damage"
 				"swiftness":
-					description = "Damage scales with speed"
+					description = "Bijesz więcej im jesteś szybszy"
 				"scopiest weapons":
-					description = "Greatly increased range"
+					description = "Większy zasięg"
 				"regen":
-					description = "Constantly heal over time"
+					description = "Leczysz się z czasem"
 				"poisoned":
-					description = "Constantly lose health"
+					description = "Tracisz życie z czasem"
 				"nearsighted":
-					description = "Greatly decreased range"
+					description = "Zmniejszony zasięg"
 				"glass cannon":
-					description = "Huge damage, low HP"
+					description = "Duży damage, mało hp"
 				"grounded":
 					description = "Cannot jump at all"
 				"healer":
-					description = "Increased healing"
+					description = "Zwiększone leczenie"
 				"floor is lava":
-					description = "Staying on floor hurts you"
+					description = "Stanie na ziemi rani ciebie"
 				"hot walls":
-					description = "Jumping on walls hurts you"
+					description = "Odbijanie się od ścian rani ciebie"
 				"recovery":
-					description = "No longer needs to scroll"
+					description = "Już nie musisz scrollować!"
 				"addicted":
-					description = "Attention span decreased"
+					description = "Attention span maleje"
 			desc.append(description)
 	
 	for i in range(len(unique_traits)):

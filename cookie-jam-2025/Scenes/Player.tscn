@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://dxxl7pfi1ti2u" path="res://Sprites/arrow.png" id="7_52ee3"]
 [ext_resource type="AudioStream" uid="uid://bj2qnr1q22gbv" path="res://Sounds/scrolls/reel (3).mp3" id="7_i2e8t"]
 [ext_resource type="Texture2D" uid="uid://dbe275pr8gqal" path="res://Sprites/new_phone/phone3.png" id="7_ygeqm"]
-[ext_resource type="Script" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
+[ext_resource type="Script" uid="uid://cg6k5yqtfjt3l" path="res://Scripts/health_bar.gd" id="8_bhhdu"]
 [ext_resource type="Texture2D" uid="uid://cebn7bjyg8dcp" path="res://Sprites/sword_animation.png" id="8_ksbbd"]
 [ext_resource type="AudioStream" uid="uid://bew3bobs5vfrc" path="res://Sounds/scrolls/reel (4).mp3" id="8_qidb7"]
 [ext_resource type="Texture2D" uid="uid://c65cvja77l136" path="res://Sprites/new_phone/phone4.png" id="8_r3wjv"]
@@ -105,7 +105,7 @@
 [ext_resource type="AudioStream" uid="uid://btuxphcv3vq2q" path="res://Sounds/slash/sword_slash4.mp3" id="58_uytvf"]
 [ext_resource type="AudioStream" uid="uid://pvwyyxij7s1i" path="res://Sounds/slash/sword_slash5.mp3" id="59_s7lb4"]
 [ext_resource type="AudioStream" uid="uid://c8qft2ai3rb48" path="res://Sounds/slash/sword_slash6.mp3" id="60_ed4yo"]
-[ext_resource type="Script" path="res://Scripts/scrolltext.gd" id="96_yg2vm"]
+[ext_resource type="Script" uid="uid://bwwtdowc7yqum" path="res://Scripts/scrolltext.gd" id="96_yg2vm"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
 resource_name = "player"
@@ -149,7 +149,8 @@ func _ready() -> void:
 	animated_sprite_2d.frame = 0
 	hp = max_hp
 func _physics_process(delta):
-	
+	if Input.is_action_pressed(\"escape\"):
+		get_tree().quit()
 	
 	$attack_cooldown.wait_time = 100.0/attack_speed
 	if animated_sprite_2d.frame== 6:
