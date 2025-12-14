@@ -6,17 +6,22 @@ extends Node2D
 
 var positive_modifier : Modifier
 var negative_modifier : Modifier
-	
 
+@export var last_card_top_text :String
+@export var last_card_bot_text :String
 func _ready():
-	await get_tree().create_timer(0.1).timeout
 	var mod_n =len(Player_globals.cards[card_id].modifiers)
 	var aug_n =len(Player_globals.cards[card_id].augments)
 	print(Player_globals.cards[card_id].modifiers, Player_globals.cards[card_id].augments)
+	var color :String
 	match  mod_n:
 		2:
 			positive_modifier= Player_globals.cards[card_id].modifiers[0]
 			negative_modifier= Player_globals.cards[card_id].modifiers[1]
+			if positive_modifier.positive:
+				color = "[color=#36a832]"
+			else:
+				color = "[color=#FF5733]"
 			$PContainer/Positive.visible = false
 			$NContainer/Negative.visible = false
 			$Figure.frame=tier
@@ -25,24 +30,38 @@ func _ready():
 			var stat : String
 			stat = str(positive_modifier.stat)
 			if positive_modifier.type == 'a': 
-				type = '+' 
-				value = str(positive_modifier.value)
+				value = str(abs(positive_modifier.value))
+				if positive_modifier.positive==true:
+					type = '+' 
+				else:
+					type = "-"
 			else: 
 				type = "x"
 				value = str(1+positive_modifier.value)
 	
-			$PContainer/Positive.text = type + value + " " + stat
-
+			$PContainer/Positive.text = color + type + value + " " + stat + "[/color]"
+			
 			if negative_modifier.type == 'a': 
-				type = '-' 
 				value = str(abs(negative_modifier.value))
+				if positive_modifier.positive==true:
+					type = '+'
+				else:
+					type ='-' 
+				
 			else: 
 				type = "x"
 				value = str(1+negative_modifier.value)
 			stat = str(negative_modifier.stat)
-			$NContainer/Negative.text = type + value + " " + stat
+			$NContainer/Negative.text = color + type + value + " " + stat + "[/color]"
+			last_card_top_text = $PContainer/Positive.text
+			last_card_bot_text = $NContainer/Negative.text
+			
 		1:
 			positive_modifier= Player_globals.cards[card_id].modifiers[0]
+			if positive_modifier.positive:
+				color = "[color=#36a832]"
+			else:
+				color = "[color=#FF5733]"
 			var negative_augment 
 			if aug_n>0: negative_augment = Player_globals.cards[card_id].augments[0]
 			else: negative_augment = ""
@@ -61,8 +80,10 @@ func _ready():
 				type = "x"
 				value = str(1+positive_modifier.value)
 	
-			$PContainer/Positive.text = type + value + " " + stat
-			$NContainer/Negative.text = str(negative_augment)
+			$PContainer/Positive.text = color + type + value + " " + stat + "[/color]"
+			$NContainer/Negative.text = color + str(negative_augment) + "[/color]"
+			last_card_top_text = $PContainer/Positive.text
+			last_card_bot_text = $NContainer/Negative.text
 		0:
 			var positive_augment
 			var negative_augment
@@ -70,11 +91,17 @@ func _ready():
 			else: positive_augment = ""
 			if aug_n>1: negative_augment = Player_globals.cards[card_id].augments[1]
 			else: negative_augment = ""
+			if positive_augment in ['scopiest weapons', 'recovery','glass cannon','healer','vamp','swiftness','regen','thorns']:
+				color = "[color=#36a832]"
+			else:
+				color = "[color=#FF5733]"
 			$PContainer/Positive.visible = false
 			$NContainer/Negative.visible = false
 			$Figure.frame=tier
-			$PContainer/Positive.text = str(positive_augment)
-			$NContainer/Negative.text = str(negative_augment)
+			$PContainer/Positive.text = color + str(positive_augment) + "[/color]"
+			$NContainer/Negative.text = color + str(negative_augment) + "[/color]"
+			last_card_top_text = $PContainer/Positive.text
+			last_card_bot_text = $NContainer/Negative.text
 			
 @warning_ignore("unused_parameter")
 func _on_hitbox_mouse_shape_entered(shape_idx):
