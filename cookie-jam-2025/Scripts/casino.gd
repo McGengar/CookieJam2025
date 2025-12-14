@@ -125,6 +125,7 @@ func _process(delta):
 func _on_button_pressed():
 	if Player_globals.blocked==false:
 		Player_globals.blocked=true
+		$next_card_song.play()
 		shake(counter*2,counter)
 		if counter<5:
 			var new_card = Player_globals.debug_gen_card(counter)
