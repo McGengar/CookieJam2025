@@ -8,6 +8,7 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
+	Player_globals.level_counter = 1
 	if len(Player_globals.cards) > 0:
 		var new_cards = []
 		for i in range(0,min(5,len(Player_globals.cards))):
