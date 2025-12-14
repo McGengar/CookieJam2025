@@ -26,7 +26,7 @@ func _on_next_button_pressed():
 	click_count += 1
 
 	if click_count == 4:
-		get_tree().change_scene_to_file("res://Scenes/Levels/level_01.tscn")
+		get_tree().change_scene_to_file("res://Scenes/Casino.tscn")
 		next_button.disabled = true 
 		return
 
