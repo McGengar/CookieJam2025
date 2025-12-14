@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bwh1x0ots4q7a"
+path="res://.godot/imported/reel (46).mp3-39039ab302281ec605ead2966c0a5b75.mp3str"
+
+[deps]
+
+source_file="res://Sounds/scrolls/reel (46).mp3"
+dest_files=["res://.godot/imported/reel (46).mp3-39039ab302281ec605ead2966c0a5b75.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
