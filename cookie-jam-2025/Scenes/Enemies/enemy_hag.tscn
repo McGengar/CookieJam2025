@@ -1,9 +1,10 @@
-[gd_scene load_steps=22 format=3 uid="uid://daa38d86v1u5u"]
+[gd_scene load_steps=23 format=3 uid="uid://daa38d86v1u5u"]
 
 [ext_resource type="Script" uid="uid://d31n07n80gqh2" path="res://Scripts/Enemies/enemy_hag.gd" id="1_5uqro"]
 [ext_resource type="Texture2D" uid="uid://cn6d42inb7fpb" path="res://Sprites/Enemies/fist_ani.png" id="2_cok1j"]
 [ext_resource type="Texture2D" uid="uid://d0piu1eq4lh5m" path="res://Sprites/Enemies/fist_ani-export.png" id="3_71620"]
 [ext_resource type="Texture2D" uid="uid://desxmestd6nbm" path="res://Sprites/Enemies/baba_jaaga_v2.png" id="4_mgbrt"]
+[ext_resource type="AudioStream" uid="uid://bos78022e1ofp" path="res://Sounds/enemies/attack_baba.mp3" id="5_71620"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ey54h"]
 size = Vector2(15, 26.5)
@@ -173,5 +174,8 @@ sprite_frames = SubResource("SpriteFrames_cok1j")
 position = Vector2(1.9073486e-06, 1.1368684e-13)
 scale = Vector2(0.5, 0.556)
 target_position = Vector2(70, 0)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_71620")
 
 [connection signal="body_entered" from="SwordHitbox" to="." method="_on_sword_hitbox_body_entered"]

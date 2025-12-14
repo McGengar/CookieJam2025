@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://vsowvgmxr1up"]
+[gd_scene load_steps=6 format=3 uid="uid://vsowvgmxr1up"]
 
 [ext_resource type="Script" uid="uid://b3pnrin5wsruh" path="res://Scripts/Enemies/EnemyFortuneWheel.gd" id="1_a3t6k"]
 [ext_resource type="Texture2D" uid="uid://ccrxrwh18egky" path="res://Sprites/Enemies/fortunewheel.png" id="2_hsoj7"]
 [ext_resource type="PackedScene" uid="uid://bp3n6veqm4i5j" path="res://Scenes/Enemies/fortune_bullet.tscn" id="2_io0jg"]
+[ext_resource type="AudioStream" uid="uid://dsf53ad0676w0" path="res://Sounds/enemies/attack_roulette.mp3" id="4_io0jg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a3t6k"]
 radius = 36.687874
@@ -21,3 +22,6 @@ texture = ExtResource("2_hsoj7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_a3t6k")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_io0jg")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=82 format=3 uid="uid://was10nolxbaj"]
+[gd_scene load_steps=91 format=3 uid="uid://was10nolxbaj"]
 
 [ext_resource type="Texture2D" uid="uid://c4yrr3542a13n" path="res://Sprites/ani_1_ver.png" id="1_dewec"]
 [ext_resource type="Script" uid="uid://bdid18rcqjcb7" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
@@ -59,6 +59,15 @@
 [ext_resource type="AudioStream" uid="uid://bwh1x0ots4q7a" path="res://Sounds/scrolls/reel (46).mp3" id="50_jq6en"]
 [ext_resource type="AudioStream" uid="uid://nuaqbxgxigm1" path="res://Sounds/scrolls/reel (47).mp3" id="51_1g8ls"]
 [ext_resource type="AudioStream" uid="uid://d34fi1slcg43y" path="res://Sounds/scrolls/reel (48).mp3" id="52_4wp3f"]
+[ext_resource type="AudioStream" uid="uid://b37e3kmdpqass" path="res://Sounds/scrolls/reel (49).mp3" id="53_uytvf"]
+[ext_resource type="AudioStream" uid="uid://b1kgcqq1xr8if" path="res://Sounds/scrolls/reel (50).mp3" id="54_s7lb4"]
+[ext_resource type="AudioStream" uid="uid://eyab58wdpkw8" path="res://Sounds/scrolls/reel (51).mp3" id="55_ed4yo"]
+[ext_resource type="AudioStream" uid="uid://ctm238koj0xvu" path="res://Sounds/slash/sword_slash1.mp3" id="55_k22kr"]
+[ext_resource type="AudioStream" uid="uid://cgp3422y4g306" path="res://Sounds/slash/sword_slash2.mp3" id="56_h4i3a"]
+[ext_resource type="AudioStream" uid="uid://bhrh541mga7af" path="res://Sounds/slash/sword_slash3.mp3" id="57_rocfp"]
+[ext_resource type="AudioStream" uid="uid://btuxphcv3vq2q" path="res://Sounds/slash/sword_slash4.mp3" id="58_uytvf"]
+[ext_resource type="AudioStream" uid="uid://pvwyyxij7s1i" path="res://Sounds/slash/sword_slash5.mp3" id="59_s7lb4"]
+[ext_resource type="AudioStream" uid="uid://c8qft2ai3rb48" path="res://Sounds/slash/sword_slash6.mp3" id="60_ed4yo"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
 resource_name = "player"
@@ -526,7 +535,8 @@ zoom = Vector2(1.5, 1.5)
 position = Vector2(-343, -25)
 cooldown_time = 1.0
 luck_bar = NodePath("LuckBar")
-scroll_sounds = Array[AudioStream]([ExtResource("5_5v66d"), ExtResource("6_x63xi"), ExtResource("7_i2e8t"), ExtResource("8_qidb7"), ExtResource("9_70hv0"), ExtResource("10_8flut"), ExtResource("11_u7x0b"), ExtResource("12_utwlt"), ExtResource("13_kih0c"), ExtResource("14_lyrkg"), ExtResource("15_75iyv"), ExtResource("16_yrofn"), ExtResource("17_5gg6q"), ExtResource("18_wenux"), ExtResource("19_vy33c"), ExtResource("20_h1ppb"), ExtResource("21_k22kr"), ExtResource("22_h4i3a"), ExtResource("23_rocfp"), ExtResource("24_uytvf"), ExtResource("25_s7lb4"), ExtResource("26_ed4yo"), ExtResource("27_fsa4a"), ExtResource("28_6f3s4"), ExtResource("29_l3y8b"), ExtResource("30_ujsok"), ExtResource("31_txwsf"), ExtResource("32_i10l2"), ExtResource("33_fgqou"), ExtResource("34_01r87"), ExtResource("35_jhxql"), ExtResource("36_ilb4b"), ExtResource("37_tlew5"), ExtResource("38_h55a1"), ExtResource("39_dqj3d"), ExtResource("40_f6yay"), ExtResource("41_ao2s2"), ExtResource("42_opjds"), ExtResource("43_6626w"), ExtResource("44_867uf"), ExtResource("45_6ilcf"), ExtResource("46_6id3a"), ExtResource("47_w1x0d"), ExtResource("48_ovjwc"), ExtResource("49_jawh0"), ExtResource("50_jq6en"), ExtResource("51_1g8ls"), ExtResource("52_4wp3f")])
+sound_volume_db = -30.0
+scroll_sounds = Array[AudioStream]([ExtResource("5_5v66d"), ExtResource("6_x63xi"), ExtResource("7_i2e8t"), ExtResource("8_qidb7"), ExtResource("9_70hv0"), ExtResource("10_8flut"), ExtResource("11_u7x0b"), ExtResource("12_utwlt"), ExtResource("13_kih0c"), ExtResource("14_lyrkg"), ExtResource("15_75iyv"), ExtResource("16_yrofn"), ExtResource("17_5gg6q"), ExtResource("18_wenux"), ExtResource("19_vy33c"), ExtResource("20_h1ppb"), ExtResource("21_k22kr"), ExtResource("22_h4i3a"), ExtResource("23_rocfp"), ExtResource("24_uytvf"), ExtResource("25_s7lb4"), ExtResource("26_ed4yo"), ExtResource("27_fsa4a"), ExtResource("28_6f3s4"), ExtResource("29_l3y8b"), ExtResource("30_ujsok"), ExtResource("31_txwsf"), ExtResource("32_i10l2"), ExtResource("33_fgqou"), ExtResource("34_01r87"), ExtResource("35_jhxql"), ExtResource("36_ilb4b"), ExtResource("37_tlew5"), ExtResource("38_h55a1"), ExtResource("39_dqj3d"), ExtResource("40_f6yay"), ExtResource("41_ao2s2"), ExtResource("42_opjds"), ExtResource("43_6626w"), ExtResource("44_867uf"), ExtResource("45_6ilcf"), ExtResource("46_6id3a"), ExtResource("47_w1x0d"), ExtResource("48_ovjwc"), ExtResource("49_jawh0"), ExtResource("50_jq6en"), ExtResource("51_1g8ls"), ExtResource("52_4wp3f"), ExtResource("53_uytvf"), ExtResource("54_s7lb4"), ExtResource("55_ed4yo")])
 
 [node name="LuckBar" parent="Camera2D/PhoneUI" instance=ExtResource("3_nn08x")]
 offset_left = -23.0
@@ -555,6 +565,7 @@ target_position = Vector2(36, 0)
 [node name="slashpivot" type="RigidBody2D" parent="."]
 freeze = true
 script = ExtResource("1_gntrk")
+sound_effects = Array[AudioStream]([ExtResource("55_k22kr"), ExtResource("56_h4i3a"), ExtResource("57_rocfp"), ExtResource("58_uytvf"), ExtResource("59_s7lb4"), ExtResource("60_ed4yo")])
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="slashpivot"]
 z_index = 1
@@ -595,6 +606,8 @@ texture = ExtResource("9_glx4g")
 
 [node name="atkcd" type="Timer" parent="slashpivot"]
 wait_time = 0.75
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="slashpivot"]
 
 [node name="ArrowPivot" type="Marker2D" parent="."]
 

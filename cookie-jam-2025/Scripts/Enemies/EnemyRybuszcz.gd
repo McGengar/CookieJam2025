@@ -12,6 +12,8 @@ var can_shoot = true
 @onready var muzzle = $Muzzle
 @onready var shoot_timer = $Timer
 
+@onready var rybuszcz_attack: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
 func _ready():
 	add_to_group("enemies")
 	shoot_timer.timeout.connect(_on_timer_timeout)
@@ -38,6 +40,7 @@ func _physics_process(delta):
 
 func shoot_at_player():
 	if can_shoot and projectile_scene:
+		rybuszcz_attack.play()
 		can_shoot = false
 		shoot_timer.start()
 		

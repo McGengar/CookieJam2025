@@ -14,6 +14,8 @@ var rng = RandomNumberGenerator.new()
 @onready var muzzle = $Muzzle
 @onready var shoot_timer = $Timer
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
+@onready var mountain_attack: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
 
 func _ready():
 	add_to_group("enemies")
@@ -79,6 +81,7 @@ func shoot_radial():
 		if not bullet_scene: return
 		
 		var angle_step = 360.0 / projectiles_count
+		mountain_attack.play()
 		
 		for i in range(projectiles_count):
 			var bullet = bullet_scene.instantiate()
