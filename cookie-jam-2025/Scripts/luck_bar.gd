@@ -14,7 +14,7 @@ func _process(delta):
 	if player_dead: return
 
 	if Player_globals.addicted == Player_globals.recovery:
-		value -= decay_speed * delta
+		value -= decay_speed *1.5* delta
 	if Player_globals.addicted and !Player_globals.recovery:
 		value -= decay_speed *4* delta		
 		
