@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dajqt6sy4we0l"]
+[gd_scene load_steps=5 format=3 uid="uid://d37bquf20litu"]
 
 [ext_resource type="Script" uid="uid://cmlkl66tqlews" path="res://Scripts/Enemies/SlotsMachine.gd" id="1_fhdr1"]
 [ext_resource type="Texture2D" uid="uid://dxp0vtf12pwtu" path="res://Sprites/Enemies/slots_machine.png" id="2_fkqg3"]
+[ext_resource type="AudioStream" uid="uid://u7j7yawaw5ch" path="res://Sounds/enemies/interaction_slots.mp3" id="3_fkqg3"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6n8h3"]
 size = Vector2(16, 34)
@@ -23,3 +24,6 @@ offset_right = 20.0
 offset_bottom = -18.0
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_fkqg3")

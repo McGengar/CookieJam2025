@@ -4,12 +4,14 @@ extends CharacterBody2D
 @export var jump_force = -450.0
 @export var gravity = 980.0
 @export var attack_range = 30.0 
-@export var damage = 30
+@export var damage = 10
 var hp = 15;
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 @onready var dziadsword: Node2D = $dziadsword
 @onready var sword_hitbox: Area2D = $dziadsword/swordsprite/SwordHitbox
 @onready var swordsprite: Sprite2D = $dziadsword/swordsprite
+
+@onready var sword_attack: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var player = null
 
@@ -66,6 +68,7 @@ func jump_towards_player():
 func perform_attack():
 	if attack_timer.is_stopped():
 		#print("Dziad: Cios mieczem!")
+		sword_attack.play()
 		is_attacking = true
 		swordsprite.visible = true
 		sprite.play("new_animation")
@@ -84,10 +87,10 @@ func perform_attack():
 		is_attacking = false
 func take_dmg(amount):
 	hp -= amount
-	
 	modulate = Color.RED
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
+	
 	
 	if hp <= 0:
 		die()

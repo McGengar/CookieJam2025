@@ -2,11 +2,13 @@ extends StaticBody2D
 
 @onready var label = $Label
 @onready var sprite = $Sprite2D
+@onready var interaction_attack: AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 var is_used: bool = false
 var buff_duration: float = 10.0
 var use_count = 3
 func take_dmg(amount):
+	interaction_attack.play()
 	use_count -=1
 	if use_count < 0:
 		show_text("WYCZERPANA", Color.RED)
