@@ -75,8 +75,8 @@ func _on_enemy_killed():
 func _on_wave_cleared():
 	emit_signal("wave_finished")
 	print("Fala ", current_wave, " wyczyszczona!")
-	
 	if current_wave >= max_waves:
+		Player_globals.wave_cleared = true
 		if is_inside_tree():
 			audio_stream_player_2d.play()
 			await get_tree().create_timer(3).timeout

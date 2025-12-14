@@ -29,7 +29,7 @@ var damage = (BASE_DAMAGE + damage_add) * damage_mult
 var max_hp = (BASE_HP + max_hp_add) * max_hp_mult
 var max_jumps = BASE_MAX_JUMPS + max_jumps_add
 
-
+var wave_cleared = false
 var last_card_top_text : String
 var last_card_bot_text : String
 var blocked := false

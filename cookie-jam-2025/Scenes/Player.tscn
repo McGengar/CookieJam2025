@@ -1,4 +1,4 @@
-[gd_scene load_steps=129 format=3 uid="uid://was10nolxbaj"]
+[gd_scene load_steps=130 format=3 uid="uid://was10nolxbaj"]
 
 [ext_resource type="Texture2D" uid="uid://c4yrr3542a13n" path="res://Sprites/ani_1_ver.png" id="1_dewec"]
 [ext_resource type="Script" uid="uid://bdid18rcqjcb7" path="res://Scripts/slashpivot.gd" id="1_gntrk"]
@@ -105,6 +105,7 @@
 [ext_resource type="AudioStream" uid="uid://btuxphcv3vq2q" path="res://Sounds/slash/sword_slash4.mp3" id="58_uytvf"]
 [ext_resource type="AudioStream" uid="uid://pvwyyxij7s1i" path="res://Sounds/slash/sword_slash5.mp3" id="59_s7lb4"]
 [ext_resource type="AudioStream" uid="uid://c8qft2ai3rb48" path="res://Sounds/slash/sword_slash6.mp3" id="60_ed4yo"]
+[ext_resource type="Script" uid="uid://citid7xriibpd" path="res://Scripts/wave_clear.gd" id="95_r3wjv"]
 [ext_resource type="Script" uid="uid://bwwtdowc7yqum" path="res://Scripts/scrolltext.gd" id="96_yg2vm"]
 
 [sub_resource type="GDScript" id="GDScript_qbkls"]
@@ -140,6 +141,7 @@ var hit_enemies: Array = []
 var dead = false
 
 func _ready() -> void:
+	Player_globals.wave_cleared = false
 	SPEED = Player_globals.speed
 	JUMP_VELOCITY = Player_globals.jump
 	attack_speed = Player_globals.attack_speed
@@ -592,6 +594,16 @@ theme_override_font_sizes/normal_font_size = 64
 text = "MUSZE SCROLLOWAC"
 script = ExtResource("96_yg2vm")
 appear_time = 40
+
+[node name="RichTextLabel10" type="RichTextLabel" parent="Camera2D/PhoneUI"]
+modulate = Color(0.083333254, 1, 0, 1)
+offset_left = 94.0
+offset_top = -26.0
+offset_right = 869.0
+offset_bottom = 131.0
+theme_override_font_sizes/normal_font_size = 64
+text = "WAVE CLEARED"
+script = ExtResource("95_r3wjv")
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Camera2D/PhoneUI"]
 modulate = Color(0.56, 0, 0, 1)
