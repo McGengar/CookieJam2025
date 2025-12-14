@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://bg07k31vgurdg"]
+
+[ext_resource type="Script" uid="uid://cw07dho46gwx" path="res://Scripts/intro.gd" id="1_hwjxs"]
+[ext_resource type="Texture2D" uid="uid://dgca7hdyea75a" path="res://Sprites/intro/intro1.png" id="2_rsiac"]
+[ext_resource type="Texture2D" uid="uid://d2sw1wg0i7trp" path="res://Sprites/intro/intro2.png" id="3_3bmuq"]
+[ext_resource type="Texture2D" uid="uid://c4l81jbfhdrea" path="res://Sprites/intro/intro3.png" id="4_nn7w8"]
+[ext_resource type="Texture2D" uid="uid://c5n70wogfqbs5" path="res://Sprites/intro/intro4.png" id="5_b26wi"]
+[ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="6_rsiac"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hwjxs"]
+font = ExtResource("6_rsiac")
+font_size = 36
+outline_size = 30
+outline_color = Color(0, 0, 0, 1)
+
+[node name="Intro" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_hwjxs")
+background_images = Array[Texture2D]([ExtResource("2_rsiac"), ExtResource("3_3bmuq"), ExtResource("4_nn7w8"), ExtResource("5_b26wi")])
+texts = Array[String](["Kiedys twoje zycie bylo opanowane przez hazard...", "Przegrales w nim dom, samochod, nawet 
+swojego psa...", "Aby wypelnic pustke 
+zaczales scrollowac:
+\"Tylko jeszcze jeden, 
+tylko jeszcze jeden\".
+Nie mogles wstac z lozka 
+przez ciagla chec scrollowania...", "W koncu sie opanowales i 
+otrzezwiles swoj umysl.
+Postanowiles wybic wszystkim 
+innym hazard z glowy..."])
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+
+[node name="InfoText" type="Label" parent="."]
+layout_mode = 0
+offset_top = 41.0
+offset_right = 1148.0
+offset_bottom = 142.0
+label_settings = SubResource("LabelSettings_hwjxs")
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 1
+
+[node name="NextButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 902.0
+offset_top = 597.0
+offset_right = 1139.0
+offset_bottom = 649.0
+text = "Dalej"

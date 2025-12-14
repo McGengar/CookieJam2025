@@ -1,6 +1,6 @@
 extends Control
 
-const GAME_SCENE_PATH = "res://Scenes/Levels/level_01.tscn"
+const GAME_SCENE_PATH = "res://Scenes/intro.tscn"
 const TUTORIAL_SCENE_PATH = "res://Scenes/Levels/level_tutorial.tscn"
 
 func _ready():
