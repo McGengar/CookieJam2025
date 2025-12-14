@@ -10,7 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://vsowvgmxr1up" path="res://Scenes/Enemies/enemy_fortune_wheel.tscn" id="7_j3mju"]
 [ext_resource type="PackedScene" uid="uid://cj53wbd8o61ea" path="res://Scenes/Enemies/enemy_rybuszcz.tscn" id="8_xet15"]
 [ext_resource type="PackedScene" uid="uid://daa38d86v1u5u" path="res://Scenes/Enemies/enemy_hag.tscn" id="9_oqmo8"]
-[ext_resource type="PackedScene" uid="uid://dsqrdkjjs2biu" path="res://Scenes/Enemies/enemy_mountain.tscn" id="10_twrgf"]
+[ext_resource type="PackedScene" uid="uid://cjqfybdrgow8i" path="res://Scenes/Enemies/enemy_mountain.tscn" id="10_twrgf"]
 
 [node name="level_08" type="Node2D"]
 
@@ -70,5 +70,6 @@ position = Vector2(-1889, 520)
 [node name="WaveManager" parent="." node_paths=PackedStringArray("spawn_points_container") instance=ExtResource("4_1cgju")]
 possible_enemies = Array[PackedScene]([ExtResource("5_xdcaw"), ExtResource("6_oq2gc"), ExtResource("7_j3mju"), ExtResource("8_xet15"), ExtResource("9_oqmo8"), ExtResource("10_twrgf")])
 spawn_points_container = NodePath("../SpawnPoints")
+time_between_waves = 0.5
 enemies_in_first_wave = 7
 max_waves = 3
