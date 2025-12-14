@@ -10,7 +10,7 @@ extends CharacterBody2D
 @export var projectiles_count: int = 8 
 
 @onready var explosion_attack: AudioStreamPlayer2D = $AudioStreamPlayer2D
-var hp=2;
+var hp=2+1*Player_globals.level_counter;
 
 var player: Node2D = null
 

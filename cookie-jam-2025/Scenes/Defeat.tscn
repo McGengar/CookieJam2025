@@ -1,0 +1,51 @@
+[gd_scene load_steps=4 format=3 uid="uid://d06lnd1ggnxd4"]
+
+[ext_resource type="Script" uid="uid://bqogr1y3oxyuw" path="res://Scripts/defeat.gd" id="1_4r382"]
+[ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="1_ncg46"]
+[ext_resource type="Script" uid="uid://bpaxf4mwx5lbu" path="res://Scripts/DefeatText.gd" id="2_4r382"]
+
+[node name="Defeat" type="Node2D"]
+script = ExtResource("1_4r382")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+modulate = Color(0.4627451, 0, 0, 1)
+offset_left = 372.0
+offset_right = 940.0
+offset_bottom = 206.0
+theme_override_fonts/normal_font = ExtResource("1_ncg46")
+theme_override_font_sizes/normal_font_size = 128
+text = "PORAZKA"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="." groups=["player"]]
+modulate = Color(0.4627451, 0, 0, 1)
+offset_left = 455.0
+offset_top = 120.0
+offset_right = 1023.0
+offset_bottom = 326.0
+theme_override_fonts/normal_font = ExtResource("1_ncg46")
+theme_override_font_sizes/normal_font_size = 64
+text = "DEFEAT"
+script = ExtResource("2_4r382")
+
+[node name="Button" type="Button" parent="."]
+offset_left = 131.0
+offset_top = 499.0
+offset_right = 314.0
+offset_bottom = 577.0
+pivot_offset = Vector2(95, 46)
+theme_override_fonts/font = ExtResource("1_ncg46")
+theme_override_font_sizes/font_size = 23
+text = "Jeszcze Jeden"
+
+[node name="Button2" type="Button" parent="."]
+offset_left = 798.0
+offset_top = 499.0
+offset_right = 981.0
+offset_bottom = 577.0
+pivot_offset = Vector2(95, 46)
+theme_override_fonts/font = ExtResource("1_ncg46")
+theme_override_font_sizes/font_size = 23
+text = "Poddaje sie"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

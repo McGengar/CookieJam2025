@@ -2,7 +2,7 @@ extends Area2D
 
 var speed = 400
 var direction = Vector2.ZERO
-var damage = 25
+var damage = 25+5*Player_globals.level_counter
 
 func _ready():
 	$VisibleOnScreenNotifier2D.screen_exited.connect(queue_free)
