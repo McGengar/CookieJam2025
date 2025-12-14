@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://cjxpp6ej17tuw"]
+[gd_scene load_steps=17 format=3 uid="uid://c57pm72pwuxug"]
 
 [ext_resource type="Script" uid="uid://blb0s7elkt14w" path="res://Scripts/pop_up_card.gd" id="1_p6mk5"]
 [ext_resource type="Shader" uid="uid://dex8oc3se28ln" path="res://Shaders/outline.gdshader" id="2_72x58"]
 [ext_resource type="Texture2D" uid="uid://cjcnd6jes6hys" path="res://Sprites/bg.png" id="3_swfxf"]
 [ext_resource type="Texture2D" uid="uid://bo5qy3mftuwye" path="res://Sprites/values.png" id="4_wc4os"]
 [ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="5_gpegq"]
+[ext_resource type="AudioStream" uid="uid://cfyk6i1ypqa70" path="res://Sounds/cards/good_card.mp3" id="6_swfxf"]
+[ext_resource type="AudioStream" uid="uid://cpidk3g4ni3pu" path="res://Sounds/cards/bad_card.mp3" id="7_wc4os"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ayq8b"]
 shader = ExtResource("2_72x58")
@@ -164,3 +166,9 @@ color = Color(0.43409216, 0.014273047, 0.093888946, 1)
 hue_variation_min = -0.1
 hue_variation_max = 0.13
 hue_variation_curve = SubResource("Curve_72x58")
+
+[node name="good_card" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_swfxf")
+
+[node name="bad_card" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_wc4os")

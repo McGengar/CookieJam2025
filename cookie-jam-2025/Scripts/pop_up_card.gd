@@ -4,6 +4,9 @@ extends Node2D
 @export var tier := 0
 var top_text :=""
 var bottom_text:=""
+@onready var good_card: AudioStreamPlayer2D = $good_card
+@onready var bad_card: AudioStreamPlayer2D = $bad_card
+
 
 var positive_modifier : Modifier
 var negative_modifier : Modifier
@@ -13,8 +16,10 @@ var positive := false
 
 func _ready():
 	if positive:
+		good_card.play()
 		$Pos.emitting=true
 	else:
+		bad_card.play()
 		$Neg.emitting=true
 	$Figure.frame=tier
 	$PContainer/Positive.text = top_text

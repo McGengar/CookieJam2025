@@ -1,8 +1,9 @@
 extends Node2D
 
-
+@onready var defeat_song: AudioStreamPlayer2D = $defeat_song
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	defeat_song.play()
 	pass # Replace with function body.
 
 

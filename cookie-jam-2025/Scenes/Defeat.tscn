@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://bgpqn8kdsf1k8"]
+[gd_scene load_steps=6 format=3 uid="uid://bgpqn8kdsf1k8"]
 
 [ext_resource type="Script" uid="uid://bqogr1y3oxyuw" path="res://Scripts/defeat.gd" id="1_4r382"]
 [ext_resource type="FontFile" uid="uid://djnp2gqfshokt" path="res://Other/VCR_OSD_MONO_1.001.ttf" id="1_ncg46"]
 [ext_resource type="Script" uid="uid://bpaxf4mwx5lbu" path="res://Scripts/DefeatText.gd" id="2_4r382"]
 [ext_resource type="Texture2D" uid="uid://cckljmmd2e12t" path="res://Sprites/stol.png" id="2_g1tgs"]
+[ext_resource type="AudioStream" uid="uid://beyb2ao8p28ng" path="res://Sounds/death_sound.mp3" id="5_3ixhk"]
 
 [node name="Defeat" type="Node2D"]
 script = ExtResource("1_4r382")
@@ -56,6 +57,9 @@ pivot_offset = Vector2(95, 46)
 theme_override_fonts/font = ExtResource("1_ncg46")
 theme_override_font_sizes/font_size = 23
 text = "Poddaje sie"
+
+[node name="defeat_song" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_3ixhk")
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

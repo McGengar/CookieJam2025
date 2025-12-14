@@ -6,6 +6,8 @@ signal level_cleared
 
 @export_group("Konfiguracja")
 @export var possible_enemies: Array[PackedScene] 
+@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
 
 @export var spawn_points_container: Node2D
 @export var initial_wait_time: float = 2.0
@@ -65,7 +67,7 @@ func _spawn_enemies_from_queue(queue: Array[PackedScene]):
 func _on_enemy_killed():
 	enemies_alive -= 1
 	if player:
-		if !Player_globals.tainted: player.heal(20)
+		if !Player_globals.tainted: player.heal(50)
 	
 	if enemies_alive == 0:
 		_on_wave_cleared()
@@ -76,6 +78,7 @@ func _on_wave_cleared():
 	
 	if current_wave >= max_waves:
 		if is_inside_tree():
+			audio_stream_player_2d.play()
 			await get_tree().create_timer(3).timeout
 			Player_globals.level_counter += 1
 			if Player_globals.level_counter == 11:
