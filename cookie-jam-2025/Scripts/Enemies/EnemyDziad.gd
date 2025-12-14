@@ -84,6 +84,7 @@ func perform_attack():
 		is_attacking = false
 func take_dmg(amount):
 	hp -= amount
+	
 	modulate = Color.RED
 	var tween = create_tween()
 	tween.tween_property(self, "modulate", Color.WHITE, 0.1)
@@ -98,4 +99,6 @@ func _on_sword_hitbox_body_entered(body):
 	if body.is_in_group("player"):
 		#print("Gracz dostał z miecza!")
 		body.take_dmg(damage)
+		if Player_globals.thorns:
+			take_dmg(5)
 		print(body.hp)

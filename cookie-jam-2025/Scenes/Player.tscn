@@ -21,6 +21,7 @@ script/source = "extends CharacterBody2D
 @onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 @onready var slashpivot: Node2D = $slashpivot
 @onready var animated_sprite_2d: AnimatedSprite2D = $slashpivot/AnimatedSprite2D
+@onready var floor_lava = $floor_lava
 
 
 
@@ -54,6 +55,8 @@ func _ready() -> void:
 	animated_sprite_2d.frame = 0
 	hp = max_hp
 func _physics_process(delta):
+	
+	
 	$attack_cooldown.wait_time = 100.0/attack_speed
 	if animated_sprite_2d.frame== 6:
 		$slashpivot/AnimatedSprite2D/Area2D.monitoring = false
@@ -84,8 +87,10 @@ func _physics_process(delta):
 				velocity.y *= 0.9
 			velocity += get_gravity() * delta /4
 		if is_on_wall() and is_climbing == false:
-			jump_refresh()
+			jump_refresh()	
 			if Input.is_action_just_pressed(\"jump\"):
+				if Player_globals.hot_walls:
+					take_dmg(5)
 				if Input.is_action_pressed(\"move_right\"):
 					last_wall = 1
 					if jumps_avail > 0:
@@ -195,7 +200,7 @@ func _on_timer_timeout() -> void:
 func take_dmg(amount):
 	hp -= amount
 	if Player_globals.vulnerable:
-		hp -= amount
+		hp -= amount*0.5
 	if hp <= 0:
 		die()
 func die():
@@ -255,6 +260,8 @@ func find_nearest_enemy() -> Node2D:
 
 func heal(amount: int):
 	hp += amount
+	if Player_globals.healer:
+		hp+=amount*0.5
 	if hp > max_hp:
 		hp = max_hp
 
@@ -268,6 +275,11 @@ func _on_hp_timer_timeout():
 		heal(1)
 	if Player_globals.poisoned:
 		take_dmg(1)
+
+
+func _on_floor_lava_timeout():
+	if Player_globals.floor_lava and is_on_floor():
+		take_dmg(5)
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_miouo"]
@@ -549,9 +561,13 @@ script = ExtResource("8_bhhdu")
 [node name="hp_timer" type="Timer" parent="."]
 autostart = true
 
+[node name="floor_lava" type="Timer" parent="."]
+autostart = true
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="area_entered" from="slashpivot/AnimatedSprite2D/Area2D" to="." method="_on_area_2d_area_entered"]
 [connection signal="body_entered" from="slashpivot/AnimatedSprite2D/Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="slashpivot/atkcd" to="slashpivot" method="_on_atkcd_timeout"]
 [connection signal="timeout" from="attack_cooldown" to="." method="_on_attack_cooldown_timeout"]
 [connection signal="timeout" from="hp_timer" to="." method="_on_hp_timer_timeout"]
+[connection signal="timeout" from="floor_lava" to="." method="_on_floor_lava_timeout"]
