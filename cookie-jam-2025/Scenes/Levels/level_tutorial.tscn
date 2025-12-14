@@ -88,4 +88,5 @@ enemy_to_spawn = ExtResource("12_gmg42")
 [node name="T_cards" parent="." instance=ExtResource("5_e8622")]
 position = Vector2(5930, -164)
 scale = Vector2(0.5758698, 38.331554)
-text_to_show = "[Po zabiciu wszystkich wrogów masz opcję wybrania modyfikatorów na kolejne etapy. Zawsze możesz skończyć, chyba że chcesz jeszcze jednego...?]"
+text_to_show = "[Po zabiciu wszystkich wrogów masz opcję wybrania modyfikatorów na kolejne etapy. 
+Zawsze możesz skończyć, chyba że chcesz jeszcze jednego...?]"
