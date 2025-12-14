@@ -3,6 +3,8 @@ extends Node2D
 @export var New_card : PackedScene
 @export var selected_card : int = 0
 var array
+
+var card_selected =false
 func _ready():
 	reload()
 
@@ -30,10 +32,12 @@ func _physics_process(delta):
 		mid = (count+1)/2.0
 	else:
 		mid = floor(count/2.0)+1
+	card_selected =false
 	for i in range(count):
 		array[i].scale.x = lerpf(array[i].scale.x, 1, delta*5)
 		array[i].scale.y = lerpf(array[i].scale.y, 1, delta*5)
 		if array[i].selected:
+			card_selected = true
 			selected_card = i
 			array[i].position.y = lerp(array[i].position.y,-cos((i+1-mid)/(2+(count/10.0)))*64,delta*10)
 		else:
@@ -41,3 +45,5 @@ func _physics_process(delta):
 		array[i].position.x = lerp(array[i].position.x,(i+1-mid)*(64+32*log(count)/log(2.5))/(1+count/15.0),delta*10)
 		array[i].rotation = lerp(array[i].rotation, deg_to_rad(sin((i+1-mid)/(2+(count/10.0)))*24),delta*10)
 	position.y = lerp(position.y,600-count*2.0,delta*10)
+	if card_selected ==false:
+		selected_card = 67

@@ -11,9 +11,12 @@ extends Node2D
 var counter : int =1
 var disappearing = false
 var alpha =1
+var can_remove = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if len(Player_globals.cards)>0:
+		can_remove = true
 	Player_globals.blocked=false
 	counter =1
 	hand.reload()
@@ -36,6 +39,10 @@ func shake(amount: float = 10.0, duration: float = 0.5):
 	_shaking = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if can_remove:
+		$remove.visible=true
+	else:
+		$remove.visible=false
 	var SPEED = Player_globals.speed
 	var JUMP_VELOCITY = Player_globals.jump
 	var attack_speed = Player_globals.attack_speed
@@ -98,9 +105,10 @@ func _process(delta):
 	for i in range(len(unique_traits)):
 		traits.text =traits.text + str(unique_traits[i]) +" - " + desc[i] +"[br]"
 	
-	if Input.is_action_just_pressed("deubg_2"):
-		Player_globals.remove_card(hand.selected_card)
-		hand.reload()
+	if Input.is_action_just_pressed("interact") and can_remove:
+		if Player_globals.remove_card(hand.selected_card):
+			can_remove = false
+			hand.reload()
 	if _shaking and button:
 		_shake_timer -= delta
 		if _shake_timer <= 0:
@@ -124,13 +132,10 @@ func _process(delta):
 				button.queue_free()
 
 func _on_button_pressed():
-	print("AAAAAA")
-	
+	can_remove = false
 	if Player_globals.blocked==false:
-		print("BBBBB")
 		$next_card_song.play()
 		if counter<5:
-			print("CCCCC")
 			Player_globals.blocked=true
 			shake(counter*2,counter)
 			var new_card = Player_globals.debug_gen_card(counter)
