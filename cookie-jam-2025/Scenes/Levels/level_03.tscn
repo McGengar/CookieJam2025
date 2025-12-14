@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bg3ixyumi5ot2"]
+[gd_scene load_steps=14 format=3 uid="uid://bg3ixyumi5ot2"]
 
 [ext_resource type="PackedScene" uid="uid://b28v44l23vdu4" path="res://Scenes/Tilesets/casino_tileset.tscn" id="1_t12bt"]
 [ext_resource type="PackedScene" uid="uid://7fc5h6yk2tyr" path="res://Scenes/Tilesets/props_tileset.tscn" id="2_cpqw5"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://daa38d86v1u5u" path="res://Scenes/Enemies/enemy_hag.tscn" id="9_lshqn"]
 [ext_resource type="PackedScene" uid="uid://cjqfybdrgow8i" path="res://Scenes/Enemies/enemy_mountain.tscn" id="10_0yyqy"]
 [ext_resource type="AudioStream" uid="uid://5m5ikg6vlhr5" path="res://Sounds/soundtracks/lunar_abyss.mp3" id="12_uak2l"]
+[ext_resource type="PackedScene" uid="uid://d37bquf20litu" path="res://Scenes/Enemies/slots_machine.tscn" id="13_34g67"]
 
 [node name="level_03" type="Node2D"]
 
@@ -73,3 +74,7 @@ spawn_points_container = NodePath("../SpawnPoints")
 time_between_waves = 0.5
 enemies_in_first_wave = 6
 max_waves = 3
+
+[node name="SlotsMachine" parent="." instance=ExtResource("13_34g67")]
+position = Vector2(-707, -528)
+scale = Vector2(2.46846, 2.46846)

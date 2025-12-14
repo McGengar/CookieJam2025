@@ -596,6 +596,7 @@ script = ExtResource("96_yg2vm")
 appear_time = 40
 
 [node name="RichTextLabel10" type="RichTextLabel" parent="Camera2D/PhoneUI"]
+visible = false
 modulate = Color(0.083333254, 1, 0, 1)
 offset_left = 94.0
 offset_top = -26.0
