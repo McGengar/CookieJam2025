@@ -74,11 +74,13 @@ func perform_attack():
 		sprite.play("new_animation")
 		sword_hitbox.monitoring = true
 		var original_speed = 170
-		await get_tree().create_timer(0.5).timeout
+		$Timera1.start()
+		await $Timera1.timeout
 		sprite.modulate = Color.YELLOW
 		speed *= 1.2
 		speed = clamp(speed,170,600)
-		await get_tree().create_timer(0.5).timeout
+		$Timera2.start()
+		await $Timera2.timeout
 		speed = original_speed
 		swordsprite.visible = false
 		sprite.play("default")
