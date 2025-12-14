@@ -8,10 +8,10 @@ func _ready() -> void:
 
 
 func _on_button_pressed() -> void:
-	Player_globals.level_counter = 1
+	#Player_globals.level_counter = 1
 	if len(Player_globals.cards) > 0:
 		var new_cards = []
-		for i in range(0,min(3,len(Player_globals.cards))):
+		for i in range(0,min(int(Player_globals.level_counter),len(Player_globals.cards))):
 			var card_random = Player_globals.cards.pick_random()
 			Player_globals.remove_card(Player_globals.cards.find(card_random))
 			new_cards.append(card_random)
