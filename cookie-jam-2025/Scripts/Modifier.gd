@@ -1,6 +1,7 @@
 extends Node
 class_name Modifier
 
+var positive : bool
 var mod_name : String
 var stat : String
 

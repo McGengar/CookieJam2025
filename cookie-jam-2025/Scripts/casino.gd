@@ -3,10 +3,16 @@ extends Node2D
 @onready var hand = $Hand
 @onready var button = $Button
 @onready var next_level = $NextLevel
+@onready var stats = $Stats
+@onready var traits = $Traits
+
+@export var new_card_pop_up : PackedScene
 
 var counter : int =1
 var disappearing = false
 var alpha =1
+
+var blocked =false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	hand.reload()
@@ -29,6 +35,29 @@ func shake(amount: float = 10.0, duration: float = 0.5):
 	_shaking = true
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	var SPEED = Player_globals.speed
+	var JUMP_VELOCITY = Player_globals.jump
+	var attack_speed = Player_globals.attack_speed
+	var damage = Player_globals.damage
+	var max_hp = Player_globals.max_hp
+	var max_jumps = Player_globals.max_jumps
+	
+	stats.text = "speed = " + str(SPEED) + "[br]" + \
+			 "jump = " + str(-1*JUMP_VELOCITY) + "[br]" + \
+			 "attack speed = " + str(attack_speed) + "[br]" + \
+			 "damage = " + str(damage) + "[br]" + \
+			 "max hp = " + str(max_hp) + "[br]" + \
+			 "max jumps = " + str(max_jumps)
+	
+	traits.text = "Active traits: "
+	var unique_traits = []
+	
+	for augment in Player_globals.player_augments:
+		if augment not in unique_traits:
+			unique_traits.append(augment)
+	for augment in unique_traits:
+		traits.text =traits.text + str(augment) +"[br]"
+	
 	if Input.is_action_just_pressed("deubg_2"):
 		Player_globals.remove_card(hand.selected_card)
 		hand.reload()
@@ -55,16 +84,28 @@ func _process(delta):
 				button.queue_free()
 
 func _on_button_pressed():
-	shake(counter*2,counter)
-	if counter<5:
-		Player_globals.debug_gen_card(counter)
-		button.scale.x = counter*2
-		button.scale.y = counter*2
-		hand.reload()
-		counter +=1
-		if counter==5:
-			disappearing = true
-	
+	if Player_globals.blocked==false:
+		Player_globals.blocked=true
+		shake(counter*2,counter)
+		if counter<5:
+			var new_card = Player_globals.debug_gen_card(counter)
+			hand.reload()
+			await get_tree().create_timer(0.2).timeout
+			var card = new_card_pop_up.instantiate()
+			card.tier= counter
+			card.card_id = len(Player_globals.cards) -1
+			
+			card.top_text = $Hand.get_child($Hand.get_child_count()-1).get_node('PContainer').get_node('Positive').text
+			card.bottom_text = $Hand.get_child($Hand.get_child_count()-1).get_node('NContainer').get_node('Negative').text
+			
+			
+			add_child(card)
+			
+			button.scale.x = counter*2
+			button.scale.y = counter*2
+			counter +=1
+			if counter==5:
+				disappearing = true
 
 func _on_next_level_pressed():
 	if Player_globals.level_counter<10:

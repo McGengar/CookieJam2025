@@ -2,7 +2,7 @@ extends Node2D
 
 @export var New_card : PackedScene
 @export var selected_card : int = 0
-
+var array
 func _ready():
 	reload()
 
@@ -15,16 +15,15 @@ func reload():
 		card.card_id=i	
 		card.scale = Vector2(3,3)
 		add_child(card)
-
 func _physics_process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
-		var new_card_tier = randi_range(1,3)
+		var new_card_tier = randi_range(1,4)
 		var card = New_card.instantiate()
 		card.tier= new_card_tier
 		card.card_id = len(Player_globals.cards) -1
 		add_child(card)
 		reload()
-	var array = get_children()
+	array = get_children()
 	var count = get_child_count()
 	var mid
 	if count%2==0:
